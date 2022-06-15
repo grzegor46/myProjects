@@ -59,8 +59,8 @@ public class Hangman2 {
                 isWon = checkIfWon(storedGeneratedWord);
 
                 if(isWon) {
-                    System.out.println("congratulation " + playerName + ", you won!");
                     System.out.println("the hidden word is: " + hidedStoredGeneratedWord);
+                    System.out.println("congratulation " + playerName + ", you won!" + "\n");
                     break;
                 }
                 System.out.println(hidedStoredGeneratedWord);
@@ -77,7 +77,7 @@ public class Hangman2 {
         }
     }
     private ArrayList<String> generateWord(){
-
+        // TODO  add function to seek word from file.txt
         String[] listOfWords = {"samochod", "szkola", "alkohol", "muzyka", "ciasteczka"};
         int numberOfword = (int)(Math.random() * listOfWords.length);
         String choosedWord = listOfWords[numberOfword];
