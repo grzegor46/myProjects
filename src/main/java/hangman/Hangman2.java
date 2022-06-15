@@ -26,16 +26,16 @@ public class Hangman2 {
 
                 ArrayList<String> storedGeneratedWord = generateWord();
 //                System.out.println("generated word is: " + storedGeneratedWord);
-                ArrayList<String> listNew = new ArrayList<>(storedGeneratedWord);
+                ArrayList<String> wordAsArray = new ArrayList<>(storedGeneratedWord);
                 ArrayList<String> hidedList = hideWord(storedGeneratedWord);
-                System.out.println("hideword is: " + hidedList);
-                Game(hidedList, listNew);
+                System.out.println("hidedword is: " + hidedList);
+                Game(hidedList, wordAsArray);
 
             }else if (choice.equals("n")){
                 System.out.println("See you soon... I hope.. :) ");
                 break;
             }
-            System.out.println("Would you like to play? - y/n");
+            System.out.println("Would you like to play again? - y/n");
 
             choice = scanner.nextLine();
         }
@@ -46,6 +46,7 @@ public class Hangman2 {
         int countWrongChoices = 0;
         boolean isWon;
         Scanner scanner = new Scanner(System.in);
+
         while (countWrongChoices < 12) {
             System.out.println("Please type one character: ");
             String typedCharacter = scanner.nextLine();
@@ -81,9 +82,8 @@ public class Hangman2 {
         int numberOfword = (int)(Math.random() * listOfWords.length);
         String choosedWord = listOfWords[numberOfword];
         String[] array = choosedWord.split("");
-        ArrayList<String> listOfSavedWord = new ArrayList<>(Arrays.asList(array));
 
-        return listOfSavedWord;
+        return new ArrayList<>(Arrays.asList(array));
     }
 
     private ArrayList<String> hideWord(ArrayList<String> generatedWord){
@@ -94,8 +94,8 @@ public class Hangman2 {
     private boolean checkIfWon(ArrayList<String> storedGeneratedWord) {
         int count = 0;        // it counts '$' in array
 
-        for(int i = 0; i < storedGeneratedWord.size(); i++) {
-            if(storedGeneratedWord.get(i).equals("$")) {
+        for (String s : storedGeneratedWord) {
+            if (s.equals("$")) {
                 count++;
             }
         }
