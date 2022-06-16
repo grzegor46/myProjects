@@ -7,16 +7,11 @@ import java.util.Scanner;
 public class Hangman {
 
     String playerName;
+    Scanner scanner = new Scanner(System.in);
 
     public void startGame() {
+        greetingsPlayer();
 
-        System.out.println("Welcome in hangman!");
-        System.out.println("What's your name?");
-
-        Scanner scanner = new Scanner(System.in);
-        this.playerName = scanner.nextLine();
-
-        System.out.println("Welcome " + playerName + " !");
         System.out.println("Would you like to play? - y/n");
 
         String choice = scanner.nextLine();
@@ -25,7 +20,6 @@ public class Hangman {
             if (choice.equals("y")) {
 
                 ArrayList<String> storedGeneratedWord = generateWord();
-//                System.out.println("generated word is: " + storedGeneratedWord);
                 ArrayList<String> wordAsArray = new ArrayList<>(storedGeneratedWord);
                 ArrayList<String> hidedList = hideWord(storedGeneratedWord);
                 System.out.println("hidedword is: " + hidedList);
@@ -42,7 +36,7 @@ public class Hangman {
         scanner.close();
     }
 
-    public void Game(ArrayList<String> hidedStoredGeneratedWord, ArrayList<String> storedGeneratedWord) {
+    private void Game(ArrayList<String> hidedStoredGeneratedWord, ArrayList<String> storedGeneratedWord) {
         int countWrongChoices = 0;
         boolean isWon;
         Scanner scanner = new Scanner(System.in);
@@ -59,15 +53,15 @@ public class Hangman {
                 isWon = checkIfWon(storedGeneratedWord);
 
                 if(isWon) {
-                    System.out.println("congratulation " + playerName + ", you won!");
                     System.out.println("the hidden word is: " + hidedStoredGeneratedWord);
+                    System.out.println("congratulation " + playerName + ", you won!" + "\n");
                     break;
                 }
                 System.out.println(hidedStoredGeneratedWord);
 
             } else{
                 countWrongChoices++;
-                System.out.println("amount of wrong char: " + countWrongChoices);
+                System.out.println("amount of wrong char: " + countWrongChoices + " of 12");
                 drawHangman(countWrongChoices);
                 if(countWrongChoices == 12){
                     System.out.println("sorry, you lose...");
@@ -76,9 +70,17 @@ public class Hangman {
 
         }
     }
-    private ArrayList<String> generateWord(){
 
-        String[] listOfWords = {"samochod", "szkola", "alkohol", "muzyka", "ciasteczka"};
+    private void greetingsPlayer() {
+        System.out.println("Welcome in hangman!");
+        System.out.println("What's your name?");
+        this.playerName = scanner.nextLine();
+        System.out.println("Welcome " + playerName + " !");
+    }
+
+    private ArrayList<String> generateWord(){
+        // TODO  add function to seek word from file.txt
+        String[] listOfWords = {"car", "school", "alcohol", "music", "cookies"};
         int numberOfword = (int)(Math.random() * listOfWords.length);
         String choosedWord = listOfWords[numberOfword];
         String[] array = choosedWord.split("");
@@ -94,8 +96,8 @@ public class Hangman {
     private boolean checkIfWon(ArrayList<String> storedGeneratedWord) {
         int count = 0;        // it counts '$' in array
 
-        for(int i = 0; i < storedGeneratedWord.size(); i++) {
-            if(storedGeneratedWord.get(i).equals("$")) {
+        for (String s : storedGeneratedWord) {
+            if (s.equals("$")) {
                 count++;
             }
         }
