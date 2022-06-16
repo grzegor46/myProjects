@@ -53,7 +53,7 @@ public class Hangman {
                 isWon = checkIfWon(storedGeneratedWord);
 
                 if(isWon) {
-                    System.out.println("the v: " + hidedStoredGeneratedWord);
+                    System.out.println("the hidden word: " + hidedStoredGeneratedWord);
                     System.out.println("congratulation " + playerName + ", you won!" + "\n");
                     break;
                 }
