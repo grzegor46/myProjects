@@ -22,7 +22,7 @@ public class Hangman {
                 ArrayList<String> storedGeneratedWord = generateWord();
                 ArrayList<String> wordAsArray = new ArrayList<>(storedGeneratedWord);
                 ArrayList<String> hidedList = hideWord(storedGeneratedWord);
-                System.out.println("hidedword is: " + hidedList);
+                System.out.println("hidden word is: " + hidedList);
                 Game(hidedList, wordAsArray);
 
             }else if (choice.equals("n")){
@@ -53,7 +53,7 @@ public class Hangman {
                 isWon = checkIfWon(storedGeneratedWord);
 
                 if(isWon) {
-                    System.out.println("the hidden word is: " + hidedStoredGeneratedWord);
+                    System.out.println("the v: " + hidedStoredGeneratedWord);
                     System.out.println("congratulation " + playerName + ", you won!" + "\n");
                     break;
                 }
