@@ -14,13 +14,11 @@ public class BubbleSort {
                         int temp = listToSort.get(i);
                         listToSort.set(i,listToSort.get(i+1));
                         listToSort.set(i+1,temp);
-                        System.out.println(listToSort);
                         j++;
                     }
                 }
                 if(j>0) {
                     j = 0;
-                    System.out.println(1);
                 } else {
                     isSorted = true;
                 }
@@ -33,7 +31,8 @@ public class BubbleSort {
         BubbleSort bubbleSort = new BubbleSort();
 
         ArrayList<Integer> listToSort = new ArrayList<>(Arrays.asList(9, 8, 7, 6, 5, 4, 3,2,1));
-        System.out.println(bubbleSort.sortList(listToSort));
+        System.out.println("Array before: " + listToSort);
+        System.out.println("Array after sort: " + bubbleSort.sortList(listToSort));
 
     }
 }
