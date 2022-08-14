@@ -1,17 +1,21 @@
 package game;
 
-public class Item {
+public class ItemTemplate {
 
     String name;
     String description;
 
-    public Item (String name, String description) {
+    public ItemTemplate(String name, String description) {
         this.name = name;
         this.description = description;
     }
 
     public String getDescription() {
         return description;
+    }
+
+    public String getName() {
+        return name;
     }
 
     @Override
