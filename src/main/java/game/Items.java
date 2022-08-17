@@ -2,9 +2,11 @@ package game;
 
 public class Items {
 
-    public static ItemTemplate DragonArmor =  new ItemTemplate("armor", "Dragon armor - armor which was made from dragon scales");
-    public static ItemTemplate ThorHammer = new ItemTemplate("hammer","Thor hammer - hammer which was holding by Thor");
-    public static ItemTemplate fireSword = new ItemTemplate("fire sword","fire sword - The blade is a magic flame.");
+    public static ItemTemplate hammer = new ItemTemplate("hammer","Just a normal red hammer");
+    public static ItemTemplate pieceOfMap = new ItemTemplate("piece of map","Looks like a piece of map, but on the other side is written: check out what's inside the red bricks");
+    public static ItemTemplate pieceOfPaper = new ItemTemplate("piece of paper", "You see a code: 558833");
+
+
 
 
 }
