@@ -12,6 +12,9 @@ public class TextGame {
     public void startGame () {
 
     boolean isPalmCaseCompleted = false;
+    boolean coconutsDroped = false;
+    boolean coconutsInBackPack = false;
+    int checkPalm = 0;
     int touched = 0;
 
     System.out.println(" \nIf you need help, you can just type 'help'");
@@ -41,9 +44,30 @@ public class TextGame {
         }
 
         if (choice.equals("check palm")) {
-            System.out.println("You see a palm, it has some coconuts");
-            System.out.println("what do you want to do?");
-            choice = scanner.nextLine();
+            checkPalm++;
+            if(touched >= 2 && !coconutsInBackPack && checkPalm >= 3) {
+                if (isPalmCaseCompleted) {
+                    System.out.println("You see only crashed coconuts, because you have already taken content");
+                } else {
+                    System.out.println("You came back to palm and see piece of map");
+                    System.out.println("what do you want to do?");
+                    choice = scanner.nextLine();
+                    if (choice.equals("take " + Items.pieceOfMap.getName())) {
+                        action.takeItem(Items.pieceOfMap);
+                        coconutsInBackPack = true;
+                        isPalmCaseCompleted = true;
+                        System.out.println("You added " + Items.pieceOfMap.getName() + " to your backpack");
+                    } else {
+                        System.out.println("you left that a piece of map ");
+                        coconutsInBackPack = false;
+                    }
+                }
+            } else {
+                System.out.println("You see a palm, it has some coconuts");
+                System.out.println("what do you want to do?");
+                choice = scanner.nextLine();
+            }
+
             if(choice.equals("touch")) {
                 touched++;
                 if(isPalmCaseCompleted) {
@@ -54,47 +78,24 @@ public class TextGame {
             if(touched == 1) {
                 System.out.println("You touched a palm, but nothing happened");
             }
-//            TODO: check palm, 2x touch, 1x nothing, check palm, take piece of map --> refactor
-            if(touched >= 2 && choice.equals("take " + Items.pieceOfMap.getName())) {
-                if (isPalmCaseCompleted) {
-                    System.out.println("You see only crashed coconuts, because you have already taken content");
-                } else {
-                    action.takeItem(Items.pieceOfMap);
-                    isPalmCaseCompleted = true;
-                    System.out.println("You added " + Items.pieceOfMap.getName() + " to your backpack");
-                }
-                System.out.println("you left that a piece of map ");
-            }
-            if (touched == 2) {
+
+            if (touched == 2 && !coconutsDroped) {
                 System.out.println("You touched a palm. One of the coconuts fell and crashed in half and inside was some a 'piece of map'");
+                coconutsDroped = true;
                 System.out.println("what do you want to do?");
                 choice = scanner.nextLine();
                 if (choice.equals("take " + Items.pieceOfMap.getName())) {
                     action.takeItem(Items.pieceOfMap);
+                    coconutsInBackPack = true;
                     isPalmCaseCompleted = true;
                     System.out.println("You added " + Items.pieceOfMap.getName() + " to your backpack");
 
                 } else {
                     System.out.println("you left that a piece of map ");
-                }
-            }
-            if(touched > 2) {
-                if (isPalmCaseCompleted) {
-                    System.out.println("You see only crashed coconuts, because you have already taken content");
-                } else {
-                    System.out.println("You came back to palm and see piece of map?");
-                    System.out.println("what do you want to do?");
-                    choice = scanner.nextLine();
-                    if (choice.equals("take " + Items.pieceOfMap.getName())) {
-                        action.takeItem(Items.pieceOfMap);
-                        isPalmCaseCompleted = true;
-                        System.out.println("You added " + Items.pieceOfMap.getName() + " to your backpack");
-                    } else {
-                        System.out.println("you left that a piece of map ");
-                    }
-                }
-            }
+                    coconutsInBackPack = false;
 
+                }
+            }
 
             }
 
