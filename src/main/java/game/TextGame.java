@@ -11,9 +11,9 @@ public class TextGame {
 
     public void startGame () {
 
-    boolean isPalmCaseCompleted = false;
+    boolean isPalmSectionCompleted = false;
     boolean hammerInBackPack = false;
-    boolean isPlantCaseCompleted = false;
+    boolean isPlantsSectionCompleted = false;
     boolean coconutsDroped = false;
     boolean coconutsInBackPack = false;
     int checkPalm = 0;
@@ -46,10 +46,12 @@ public class TextGame {
             action.describeItem(choice);
         }
 
+//      ## PALM SECTION
+
         if (choice.equals("check palm")) {
             checkPalm++;
             if(touched >= 2 && !coconutsInBackPack && checkPalm >= 3) {
-                if (isPalmCaseCompleted) {
+                if (isPalmSectionCompleted) {
                     System.out.println("You see only crashed coconuts, because you have already taken content");
                 } else {
                     System.out.println("You came back to palm and see piece of map");
@@ -58,7 +60,7 @@ public class TextGame {
                     if (choice.equals("take " + ItemsList.pieceOfMap.getName())) {
                         action.takeItem(ItemsList.pieceOfMap);
                         coconutsInBackPack = true;
-                        isPalmCaseCompleted = true;
+                        isPalmSectionCompleted = true;
                         System.out.println("You added " + ItemsList.pieceOfMap.getName() + " to your backpack");
                     } else {
                         System.out.println("you left that a piece of map ");
@@ -73,7 +75,7 @@ public class TextGame {
 
             if(choice.equals("touch")) {
                 touched++;
-                if(isPalmCaseCompleted) {
+                if(isPalmSectionCompleted) {
                     System.out.println("You touched a palm, but nothing happened");
                 }
 
@@ -91,7 +93,7 @@ public class TextGame {
                 if (choice.equals("take " + ItemsList.pieceOfMap.getName())) {
                     action.takeItem(ItemsList.pieceOfMap);
                     coconutsInBackPack = true;
-                    isPalmCaseCompleted = true;
+                    isPalmSectionCompleted = true;
                     System.out.println("You added " + ItemsList.pieceOfMap.getName() + " to your backpack");
 
                 } else {
@@ -103,13 +105,15 @@ public class TextGame {
 
             }
 
+//      ## BRICKS SECTION
+
         if (choice.equals("check bricks")) {
             System.out.println("You see a few red bricks, nothing special");
 
-//            TODO without hammer we have nullpointerexception
+//            TODO without palmSectionCompleted you see only some bricks
 //          TODO check if this works --> works!
             try {
-                if (isPalmCaseCompleted && action.findItemInBackpack("hammer").equals(ItemsList.hammer)) {
+                if (isPalmSectionCompleted && action.findItemInBackpack("hammer").equals(ItemsList.hammer)) {
                     System.out.println("would you like smash bricks?");
                     choice = scanner.nextLine();
                     if (choice.equals("yes")) {
@@ -122,7 +126,7 @@ public class TextGame {
             }
         }
 
-//        TODO take hammer, plants, touch, take hammer
+//      PLANTS SECTION
 
         if(choice.equals("check plants")) {
             checkPlants++;
@@ -133,10 +137,10 @@ public class TextGame {
                 if (choice.equals("take " + ItemsList.hammer.getName())) {
                     action.takeItem(ItemsList.hammer);
                     hammerInBackPack = true;
-                    isPlantCaseCompleted = true;
+                    isPlantsSectionCompleted = true;
                     System.out.println("You added " + ItemsList.hammer.getName() + " to your backpack");
 
-                }else {
+                } else {
                     System.out.println("you left that hammer ");
                     hammerInBackPack = false;
 
@@ -148,7 +152,7 @@ public class TextGame {
             }
             if(choice.equals("touch")) {
                 touched++;
-                if(isPlantCaseCompleted) {
+                if(isPlantsSectionCompleted) {
                     System.out.println("You have taken already hammer and see only some plants");
                 } else {
                     System.out.println("You touched plants and you see something between leaves");
@@ -165,7 +169,7 @@ public class TextGame {
                     if (choice.equals("take " + ItemsList.hammer.getName())) {
                         action.takeItem(ItemsList.hammer);
                         hammerInBackPack = true;
-                        isPlantCaseCompleted = true;
+                        isPlantsSectionCompleted = true;
                         System.out.println("You added " + ItemsList.hammer.getName() + " to your backpack");
                     } else {
                         System.out.println("you left that hammer ");
