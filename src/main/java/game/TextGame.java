@@ -12,9 +12,12 @@ public class TextGame {
     public void startGame () {
 
     boolean isPalmCaseCompleted = false;
+    boolean hammerInBackPack = false;
+    boolean isPlantCaseCompleted = false;
     boolean coconutsDroped = false;
     boolean coconutsInBackPack = false;
     int checkPalm = 0;
+    int checkPlants = 0;
     int touched = 0;
 
     System.out.println(" \nIf you need help, you can just type 'help'");
@@ -52,11 +55,11 @@ public class TextGame {
                     System.out.println("You came back to palm and see piece of map");
                     System.out.println("what do you want to do?");
                     choice = scanner.nextLine();
-                    if (choice.equals("take " + Items.pieceOfMap.getName())) {
-                        action.takeItem(Items.pieceOfMap);
+                    if (choice.equals("take " + ItemsList.pieceOfMap.getName())) {
+                        action.takeItem(ItemsList.pieceOfMap);
                         coconutsInBackPack = true;
                         isPalmCaseCompleted = true;
-                        System.out.println("You added " + Items.pieceOfMap.getName() + " to your backpack");
+                        System.out.println("You added " + ItemsList.pieceOfMap.getName() + " to your backpack");
                     } else {
                         System.out.println("you left that a piece of map ");
                         coconutsInBackPack = false;
@@ -73,6 +76,7 @@ public class TextGame {
                 if(isPalmCaseCompleted) {
                     System.out.println("You touched a palm, but nothing happened");
                 }
+
             }
 
             if(touched == 1) {
@@ -84,11 +88,11 @@ public class TextGame {
                 coconutsDroped = true;
                 System.out.println("what do you want to do?");
                 choice = scanner.nextLine();
-                if (choice.equals("take " + Items.pieceOfMap.getName())) {
-                    action.takeItem(Items.pieceOfMap);
+                if (choice.equals("take " + ItemsList.pieceOfMap.getName())) {
+                    action.takeItem(ItemsList.pieceOfMap);
                     coconutsInBackPack = true;
                     isPalmCaseCompleted = true;
-                    System.out.println("You added " + Items.pieceOfMap.getName() + " to your backpack");
+                    System.out.println("You added " + ItemsList.pieceOfMap.getName() + " to your backpack");
 
                 } else {
                     System.out.println("you left that a piece of map ");
@@ -99,15 +103,82 @@ public class TextGame {
 
             }
 
+        if (choice.equals("check bricks")) {
+            System.out.println("You see a few red bricks, nothing special");
+
+//            TODO without hammer we have nullpointerexception
+//          TODO check if this works --> works!
+            try {
+                if (isPalmCaseCompleted && action.findItemInBackpack("hammer").equals(ItemsList.hammer)) {
+                    System.out.println("would you like smash bricks?");
+                    choice = scanner.nextLine();
+                    if (choice.equals("yes")) {
+                        action.useItem(ItemsList.hammer);
+                        System.out.println("You smashed bricks and see some paper with code!");
+                    }
+                }
+            } catch (NullPointerException ex) {
+                System.out.println("You dont have anything to smash bricks");
+            }
         }
 
-//        if (choice.equals("bricks")) {
-//            System.out.println("You see a few red bricks, nothing special");
-//
-//            if(isPalmCaseCompleted) {
-//
-//            }
-//        }
+//        TODO take hammer, plants, touch, take hammer
+
+        if(choice.equals("check plants")) {
+            checkPlants++;
+            if(touched > 1 && checkPlants > 1 && !hammerInBackPack) {
+                System.out.println("You see plants and hammer between leaves");
+                System.out.println("what do you want to do ?");
+                choice = scanner.nextLine();
+                if (choice.equals("take " + ItemsList.hammer.getName())) {
+                    action.takeItem(ItemsList.hammer);
+                    hammerInBackPack = true;
+                    isPlantCaseCompleted = true;
+                    System.out.println("You added " + ItemsList.hammer.getName() + " to your backpack");
+
+                }else {
+                    System.out.println("you left that hammer ");
+                    hammerInBackPack = false;
+
+                }
+            } else {
+                System.out.println("You see some plants");
+                System.out.println("what do you want to do?");
+                choice = scanner.nextLine();
+            }
+            if(choice.equals("touch")) {
+                touched++;
+                if(isPlantCaseCompleted) {
+                    System.out.println("You have taken already hammer and see only some plants");
+                } else {
+                    System.out.println("You touched plants and you see something between leaves");
+                    try {
+                        Thread.sleep(2000);
+                        System.out.println("Its a hammer!");
+                        Thread.sleep(2000);
+                    } catch (InterruptedException ex) {
+                        ex.printStackTrace();
+                    }
+
+                    System.out.println("what do you want to do because of that?");
+                    choice = scanner.nextLine();
+                    if (choice.equals("take " + ItemsList.hammer.getName())) {
+                        action.takeItem(ItemsList.hammer);
+                        hammerInBackPack = true;
+                        isPlantCaseCompleted = true;
+                        System.out.println("You added " + ItemsList.hammer.getName() + " to your backpack");
+                    } else {
+                        System.out.println("you left that hammer ");
+                        hammerInBackPack = false;
+
+                    }
+                }
+            }
+
+        }
+        }
+
+
 
 
     }
@@ -120,7 +191,7 @@ public class TextGame {
         TextGame textGame = new TextGame();
         textGame.startGame();
 
-//        textGame.action.takeItem(Items.ThorHammer);
+//        textGame.action.takeItem(ItemsList.ThorHammer);
 //        textGame.action.describeItem("hammer");
 //        textGame.action.describeItem("fire sword");
 //        textGame.action.showBackpack();

@@ -1,20 +1,19 @@
 package game;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Action {
 
-    ArrayList<ItemTemplate> backpack = new ArrayList<>();
+    ArrayList<Item> backpack = new ArrayList<>();
 
 
-    public void useItem(ItemTemplate item) {
+    public void useItem(Item item) {
         backpack.remove(item);
         System.out.println("You used " + item);
     }
 
 
-    public void takeItem(ItemTemplate item) {
+    public void takeItem(Item item) {
 
         backpack.add(item);
         System.out.println("added to backpack: " + item.getName());
@@ -24,8 +23,8 @@ public class Action {
         System.out.println("In your backpack are: " + backpack);
     }
 
-    private ItemTemplate findItemInBackpack(String nameItem) {
-        for (ItemTemplate item : backpack) {
+    public Item findItemInBackpack(String nameItem) {
+        for (Item item : backpack) {
             if (nameItem.equals(item.getName())) {
                 return item;
             }
@@ -37,8 +36,8 @@ public class Action {
     public void describeItem(String nameItem) {
 
         try {
-            ItemTemplate foundedItemTemplate = findItemInBackpack(nameItem);
-            System.out.println(foundedItemTemplate.getDescription());
+            Item foundedItem = findItemInBackpack(nameItem);
+            System.out.println(foundedItem.getDescription());
         } catch (Exception e) {
             System.out.println("You wanted check '" + nameItem + "' but item doesn't exist");
         }

@@ -1,0 +1,14 @@
+- 1x touch na rosliny i pojawia sie informacja ze zauwazasz mlotek pomiedzy roslinami
+- take hammer i dodac do plecaka
+- uzyc mlotka na ceglach do rozbicia
+- po rozbiciu cegly znajdujesz karteczke z kodem do skrzyni
+- uzywasz kodu na skrzyni i otwiera sie skrzynia
+- w skrzyni znajdujesz klucz (?)
+
+
+
+
+
+
+
+// gra wraca z powrotem do punktu 'zainteresowania' się jednym z miejsc.
