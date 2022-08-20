@@ -12,3 +12,5 @@
 
 
 // gra wraca z powrotem do punktu 'zainteresowania' się jednym z miejsc.
+
+--> Posprzatac niepotrzebne 'boolean false' w decyzjach

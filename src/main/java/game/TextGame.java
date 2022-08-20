@@ -14,11 +14,21 @@ public class TextGame {
     boolean isPalmSectionCompleted = false;
     boolean hammerInBackPack = false;
     boolean isPlantsSectionCompleted = false;
+    boolean isBricksSectionCompleted = false;
     boolean coconutsDroped = false;
+//        TODO: coconuts in backpack?
     boolean coconutsInBackPack = false;
     int checkPalm = 0;
     int checkPlants = 0;
     int touched = 0;
+//        boolean isPalmSectionCompleted = true;
+//        boolean hammerInBackPack = true;
+//        boolean isPlantsSectionCompleted = true;
+//        boolean coconutsDroped = true;
+//        boolean coconutsInBackPack = false;
+//        int checkPalm = 0;
+//        int checkPlants = 0;
+//        int touched = 0;
 
     System.out.println(" \nIf you need help, you can just type 'help'");
 
@@ -109,22 +119,28 @@ public class TextGame {
 
         if (choice.equals("check bricks")) {
             System.out.println("You see a few red bricks, nothing special");
+            System.out.println("what do you want to do?");
+            choice = scanner.nextLine();
 
-//            TODO without palmSectionCompleted you see only some bricks
-//          TODO check if this works --> works!
-            try {
-                if (isPalmSectionCompleted && action.findItemInBackpack("hammer").equals(ItemsList.hammer)) {
-                    System.out.println("would you like smash bricks?");
+            if(choice.equals("touch")) {
+                System.out.println("You touched bricks but nothing happened");
+            }
+            if(choice.equals("use "+ ItemsList.hammer.getName())) {
+                if(isBricksSectionCompleted) {
+                    System.out.println("you have nothing to do here anymore ");
+                } else {
+                    System.out.println("You smashed bricks and see some 'piece of paper' with some code!");
+                    System.out.println("what do you want to do?");
                     choice = scanner.nextLine();
-                    if (choice.equals("yes")) {
-                        action.useItem(ItemsList.hammer);
-                        System.out.println("You smashed bricks and see some paper with code!");
+                    if (choice.equals("take " + ItemsList.pieceOfPaper.getName())) {
+                        action.takeItem(ItemsList.pieceOfPaper);
+                        isBricksSectionCompleted = true;
+                        System.out.println("You added " + ItemsList.pieceOfPaper.getName() + " to your backpack");
+                    } else {
+                        System.out.println("you left that piece of paper ");
                     }
                 }
-            } catch (NullPointerException ex) {
-                System.out.println("You dont have anything to smash bricks");
             }
-        }
 
 //      PLANTS SECTION
 
@@ -143,8 +159,8 @@ public class TextGame {
                 } else {
                     System.out.println("you left that hammer ");
                     hammerInBackPack = false;
-
                 }
+
             } else {
                 System.out.println("You see some plants");
                 System.out.println("what do you want to do?");
@@ -180,16 +196,20 @@ public class TextGame {
             }
 
         }
+        if(choice.equals("check chest")) {
+            System.out.println("you see a chest, this chest has a lock with a code");
+            System.out.println("what do you want to do?");
+            choice = scanner.nextLine();
+            if(choice.equals("touch")) {
+                System.out.println("You touched a chest but it wont open");
+            }
+            if(choice.equals("use "+ItemsList.pieceOfPaper.getName())) {
+                System.out.println("You opened a chest and found key to door! Now hurry, escape from room!");
+            }
         }
-
-
-
-
+        }
     }
-
-
-
-
+}
     public static void main(String[] args) {
         System.out.println("Welcome in escape room");
         TextGame textGame = new TextGame();
@@ -200,7 +220,6 @@ public class TextGame {
 //        textGame.action.describeItem("fire sword");
 //        textGame.action.showBackpack();
 //        textGame.action.describeRoom();
-
 
     }
 }
