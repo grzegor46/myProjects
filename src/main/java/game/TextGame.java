@@ -16,7 +16,7 @@ public class TextGame {
     boolean isPlantsSectionCompleted = false;
     boolean isBricksSectionCompleted = false;
     boolean coconutsDroped = false;
-//        TODO: coconuts in backpack?
+//        TODO: coconuts in backpack?  pieceOfMapInBackpack
     boolean coconutsInBackPack = false;
     int checkPalm = 0;
     int checkPlants = 0;
@@ -50,7 +50,7 @@ public class TextGame {
 
 
         if (choice.equals("check item")) {
-            System.out.println("Which item do you wanna check?");
+            System.out.println("Which item do you want to check?");
             action.showBackpack();
             choice = scanner.nextLine();
             action.describeItem(choice);
@@ -197,14 +197,17 @@ public class TextGame {
 
         }
         if(choice.equals("check chest")) {
-            System.out.println("you see a chest, this chest has a lock with a code");
+            System.out.println("you see a chest, this chest has a lock");
             System.out.println("what do you want to do?");
             choice = scanner.nextLine();
             if(choice.equals("touch")) {
                 System.out.println("You touched a chest but it wont open");
+                System.out.println("you left a chest");
             }
             if(choice.equals("use "+ItemsList.pieceOfPaper.getName())) {
                 System.out.println("You opened a chest and found key to door! Now hurry, escape from room!");
+            } else {
+                System.out.println("you left a chest");
             }
         }
         }

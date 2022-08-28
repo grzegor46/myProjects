@@ -1,9 +1,13 @@
-- 1x touch na rosliny i pojawia sie informacja ze zauwazasz mlotek pomiedzy roslinami
-- take hammer i dodac do plecaka
-- uzyc mlotka na ceglach do rozbicia
-- po rozbiciu cegly znajdujesz karteczke z kodem do skrzyni
-- uzywasz kodu na skrzyni i otwiera sie skrzynia
-- w skrzyni znajdujesz klucz (?)
+
+
+
+
+if you want explore some place you should type 'check [nameOfPlace]'
+if you write 'touch' you will have some interaction with some subject
+if you write 'take [nameOfItems]' you will take that item
+if you write 'use [nameOfItems]' you will use this item on specific thing
+if you write 'describe room' you will find what is in room
+if you write 'check item' and next type name of item, you will check description of it
 
 
 
