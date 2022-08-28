@@ -40,13 +40,13 @@ public class Action {
             Item foundedItem = findItemInBackpack(nameItem);
             System.out.println(foundedItem.getDescription());
         } catch (Exception e) {
-            System.out.println("You wanted check '" + nameItem + "' but item doesn't exist");
+            System.out.println("You wanted to check '" + nameItem + "' but item doesn't exist");
         }
 
     }
 
     public void describeRoom () {
-        System.out.println("You see a palm,  a chest, some bricks on the floor and a table");
+        System.out.println("You see a palm, a chest, bricks and plants ");
 
 //        trzeba obejrzec stol, żeby znalezc latarke, które potem mozna wykorzystać podświetlając mapę i znależć skarb.
 

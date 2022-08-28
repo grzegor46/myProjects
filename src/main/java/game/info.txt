@@ -20,4 +20,5 @@ if you write 'check item' and next type name of item, you will check description
 --> Posprzatac niepotrzebne 'boolean false' w decyzjach
 --> stworzyć zakończenie gry
 --> dodać opcję zakończenia gry w każdym momencie
+--> dodać warunki aby cegły nei były zrobione wcześniej niż palmy i inne pokrewne warunki
 --> dostać się do warunku z zniszczonymi kokosami - You see only crashed coconuts, because you have already taken content - ok

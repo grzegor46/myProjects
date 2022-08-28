@@ -1,7 +1,5 @@
 package game;
 
-
-import java.lang.reflect.Executable;
 import java.util.Scanner;
 
 public class TextGame {
@@ -12,21 +10,10 @@ public class TextGame {
 
     public void startGame () {
 
-    boolean isPalmSectionCompleted = false;
-    boolean isHammerInBackPack = false;
-    boolean isPieceOfPaperInBackpack = false;
-    boolean isPlantsSectionCompleted = false;
-    boolean isBricksSectionCompleted = false;
-    boolean isCoconutsDroped = false;
-    int checkPalm = 0;
-    int checkPlants = 0;
-    int touched = 0;
-    boolean isGameOver = false;
-
 
     System.out.println(" \nIf you need help, you can just type 'help'");
 
-    while(!isGameOver) {
+    while(!Properties.isGameOver) {
         System.out.println("What do you wanna check?");
         String choice = scanner.nextLine();
 
@@ -53,9 +40,9 @@ public class TextGame {
 //      ## PALM SECTION
 
         if (choice.equals("check palm")) {
-            checkPalm++;
-            if(touched >= 2 && isCoconutsDroped && checkPalm >= 3) {
-                if (isPalmSectionCompleted) {
+            Properties.checkPalm++;
+            if(Properties.touched >= 2 && Properties.isCoconutsDroped && Properties.checkPalm >= 3) {
+                if (Properties.isPalmSectionCompleted) {
                     System.out.println("You see only crashed coconuts, because you have already taken content");
                 } else {
                     System.out.println("You came back to palm and see piece of map");
@@ -63,7 +50,7 @@ public class TextGame {
                     choice = scanner.nextLine();
                     if (choice.equals("take " + ItemsList.pieceOfMap.getName())) {
                         action.takeItem(ItemsList.pieceOfMap);
-                        isPalmSectionCompleted = true;
+                        Properties.isPalmSectionCompleted = true;
                         System.out.println("You added " + ItemsList.pieceOfMap.getName() + " to your backpack");
                     } else {
                         System.out.println("you left that a piece of map ");
@@ -76,25 +63,25 @@ public class TextGame {
             }
 
             if(choice.equals("touch")) {
-                touched++;
-                if(isPalmSectionCompleted) {
+                Properties.touched++;
+                if(Properties.isPalmSectionCompleted) {
                     System.out.println("You touched a palm, but nothing happened");
                 }
 
             }
 
-            if(touched == 1) {
+            if(Properties.touched == 1) {
                 System.out.println("You touched a palm, but nothing happened");
             }
 
-            if (touched == 2 && !isCoconutsDroped) {
+            if (Properties.touched == 2 && !Properties.isCoconutsDroped) {
                 System.out.println("You touched a palm. One of the coconuts fell and crashed in half and inside was some a 'piece of map'");
-                isCoconutsDroped = true;
+                Properties.isCoconutsDroped = true;
                 System.out.println("what do you want to do?");
                 choice = scanner.nextLine();
                 if (choice.equals("take " + ItemsList.pieceOfMap.getName())) {
                     action.takeItem(ItemsList.pieceOfMap);
-                    isPalmSectionCompleted = true;
+                    Properties.isPalmSectionCompleted = true;
                     System.out.println("You added " + ItemsList.pieceOfMap.getName() + " to your backpack");
 
                 } else {
@@ -114,18 +101,19 @@ public class TextGame {
             if (choice.equals("touch")) {
                 System.out.println("You touched bricks but nothing happened");
             }
-            if (choice.equals("use " + ItemsList.hammer.getName()) && isHammerInBackPack) {
-
-                    if (isBricksSectionCompleted) {
+            if (choice.equals("use " + ItemsList.hammer.getName()) && Properties.isHammerInBackPack && Properties.isPalmSectionCompleted) {
+                action.useItem(ItemsList.hammer);
+                    if (Properties.isBricksSectionCompleted) {
                         System.out.println("you have nothing to do here anymore ");
                     } else {
                         System.out.println("You smashed bricks and see some 'piece of paper' with some code!");
+
                         System.out.println("what do you want to do?");
                         choice = scanner.nextLine();
                         if (choice.equals("take " + ItemsList.pieceOfPaper.getName())) {
                             action.takeItem(ItemsList.pieceOfPaper);
-                            isPieceOfPaperInBackpack = true;
-                            isBricksSectionCompleted = true;
+                            Properties.isPieceOfPaperInBackpack = true;
+                            Properties.isBricksSectionCompleted = true;
                             System.out.println("You added " + ItemsList.pieceOfPaper.getName() + " to your backpack");
                         } else {
                             System.out.println("you left that piece of paper ");
@@ -137,15 +125,15 @@ public class TextGame {
 //      PLANTS SECTION
 
         if(choice.equals("check plants")) {
-            checkPlants++;
-            if(touched > 1 && checkPlants > 1 && !isHammerInBackPack) {
+            Properties.checkPlants++;
+            if(Properties.touched > 1 && Properties.checkPlants > 1 && !Properties.isHammerInBackPack) {
                 System.out.println("You see plants and hammer between leaves");
                 System.out.println("what do you want to do ?");
                 choice = scanner.nextLine();
                 if (choice.equals("take " + ItemsList.hammer.getName())) {
                     action.takeItem(ItemsList.hammer);
-                    isHammerInBackPack = true;
-                    isPlantsSectionCompleted = true;
+                    Properties.isHammerInBackPack = true;
+                    Properties.isPlantsSectionCompleted = true;
                     System.out.println("You added " + ItemsList.hammer.getName() + " to your backpack");
 
                 } else {
@@ -158,8 +146,8 @@ public class TextGame {
                 choice = scanner.nextLine();
             }
             if(choice.equals("touch")) {
-                touched++;
-                if(isPlantsSectionCompleted) {
+                Properties.touched++;
+                if(Properties.isPlantsSectionCompleted) {
                     System.out.println("You have taken already hammer and see only some plants");
                 } else {
                     System.out.println("You touched plants and you see something between leaves");
@@ -175,12 +163,12 @@ public class TextGame {
                     choice = scanner.nextLine();
                     if (choice.equals("take " + ItemsList.hammer.getName())) {
                         action.takeItem(ItemsList.hammer);
-                        isHammerInBackPack = true;
-                        isPlantsSectionCompleted = true;
+                        Properties.isHammerInBackPack = true;
+                        Properties.isPlantsSectionCompleted = true;
                         System.out.println("You added " + ItemsList.hammer.getName() + " to your backpack");
                     } else {
                         System.out.println("you left that hammer ");
-                        isHammerInBackPack = false;
+                        Properties.isHammerInBackPack = false;
 
                     }
                 }
@@ -195,9 +183,10 @@ public class TextGame {
                 System.out.println("You touched a chest but it wont open");
                 System.out.println("you left a chest");
             }
-            if(choice.equals("use "+ItemsList.pieceOfPaper.getName()) && isPieceOfPaperInBackpack) {
+            if(choice.equals("use "+ItemsList.pieceOfPaper.getName()) && Properties.isPieceOfPaperInBackpack) {
+                action.useItem(ItemsList.pieceOfPaper);
                 System.out.println("You opened a chest and found key to door! Now hurry, escape from room!");
-                isGameOver = true;
+                Properties.isGameOver = true;
             }
             }
 
@@ -208,12 +197,5 @@ public class TextGame {
         System.out.println("Welcome in escape room");
         TextGame textGame = new TextGame();
         textGame.startGame();
-
-//        textGame.action.takeItem(ItemsList.ThorHammer);
-//        textGame.action.describeItem("hammer");
-//        textGame.action.describeItem("fire sword");
-//        textGame.action.showBackpack();
-//        textGame.action.describeRoom();
-
     }
 }
