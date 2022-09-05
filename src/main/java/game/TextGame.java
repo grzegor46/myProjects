@@ -171,7 +171,6 @@ public class TextGame {
                         System.out.println("You added " + ItemsList.hammer.getName() + " to your backpack");
                     } else {
                         System.out.println("you left that hammer ");
-                        Properties.isHammerInBackPack = false;
                     }
                 }
             }
