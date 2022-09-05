@@ -10,12 +10,17 @@ public class TextGame {
 
     public void startGame () {
 
-
     System.out.println(" \nIf you need help, you can just type 'help'");
+        System.out.println("If you want quit, type 'quit' \n");
 
     while(!Properties.isGameOver) {
         System.out.println("What do you wanna check?");
         String choice = scanner.nextLine();
+
+        if(choice.equals("quit")) {
+            Properties.isGameOver = true;
+            System.out.println("Goodbye...");
+        }
 
         if(choice.equals("check help")) {
             action.callHelp();
@@ -28,7 +33,6 @@ public class TextGame {
         if(choice.equals("check backpack")) {
             action.showBackpack();
         }
-
 
         if (choice.equals("check item")) {
             System.out.println("Which item do you want to check?");
@@ -119,7 +123,7 @@ public class TextGame {
                             System.out.println("you left that piece of paper ");
                         }
                     }
-                }
+            }
         }
 
 //      PLANTS SECTION
@@ -158,7 +162,6 @@ public class TextGame {
                     } catch (InterruptedException ex) {
                         ex.printStackTrace();
                     }
-
                     System.out.println("what do you want to do because of that?");
                     choice = scanner.nextLine();
                     if (choice.equals("take " + ItemsList.hammer.getName())) {
@@ -169,11 +172,9 @@ public class TextGame {
                     } else {
                         System.out.println("you left that hammer ");
                         Properties.isHammerInBackPack = false;
-
                     }
                 }
             }
-
         }
         if(choice.equals("check chest")) {
             System.out.println("you see a chest, this chest has a lock");
@@ -185,17 +186,12 @@ public class TextGame {
             }
             if(choice.equals("use "+ItemsList.pieceOfPaper.getName()) && Properties.isPieceOfPaperInBackpack) {
                 action.useItem(ItemsList.pieceOfPaper);
-                System.out.println("You opened a chest and found key to door! Now hurry, escape from room!");
+                System.out.println("You opened a chest and found key to door! Now hurry, escape from the room!");
+                System.out.println("You did it! Congratulations!");
                 Properties.isGameOver = true;
             }
-            }
+        }
 
         }
-    }
-
-    public static void main(String[] args) {
-        System.out.println("Welcome in escape room");
-        TextGame textGame = new TextGame();
-        textGame.startGame();
     }
 }
