@@ -49,15 +49,15 @@ public class TextGame {
                 if (Properties.isPalmSectionCompleted) {
                     System.out.println("You see only crashed coconuts, because you have already taken content");
                 } else {
-                    System.out.println("You came back to palm and see piece of map");
+                    System.out.println("You came back to palm and see drawing");
                     System.out.println("what do you want to do?");
                     choice = scanner.nextLine();
-                    if (choice.equals("take " + ItemsList.pieceOfMap.getName())) {
-                        action.takeItem(ItemsList.pieceOfMap);
+                    if (choice.equals("take " + ItemsList.drawing.getName())) {
+                        action.takeItem(ItemsList.drawing);
                         Properties.isPalmSectionCompleted = true;
-                        System.out.println("You added " + ItemsList.pieceOfMap.getName() + " to your backpack");
+                        System.out.println("You added " + ItemsList.drawing.getName() + " to your backpack");
                     } else {
-                        System.out.println("you left that a piece of map ");
+                        System.out.println("you left that a drawing ");
                     }
                 }
             } else {
@@ -79,17 +79,17 @@ public class TextGame {
             }
 
             if (Properties.touched == 2 && !Properties.isCoconutsDroped) {
-                System.out.println("You touched a palm. One of the coconuts fell and crashed in half and inside was some a 'piece of map'");
+                System.out.println("You touched a palm. One of the coconuts fell and crashed in half and inside was a 'drawing'");
                 Properties.isCoconutsDroped = true;
                 System.out.println("what do you want to do?");
                 choice = scanner.nextLine();
-                if (choice.equals("take " + ItemsList.pieceOfMap.getName())) {
-                    action.takeItem(ItemsList.pieceOfMap);
+                if (choice.equals("take " + ItemsList.drawing.getName())) {
+                    action.takeItem(ItemsList.drawing);
                     Properties.isPalmSectionCompleted = true;
-                    System.out.println("You added " + ItemsList.pieceOfMap.getName() + " to your backpack");
+                    System.out.println("You added " + ItemsList.drawing.getName() + " to your backpack");
 
                 } else {
-                    System.out.println("you left that a piece of map ");
+                    System.out.println("you left that drawing ");
                 }
             }
 

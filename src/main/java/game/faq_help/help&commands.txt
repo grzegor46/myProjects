@@ -1,0 +1,9 @@
+
+if you want explore some place you should type 'check [nameOfPlace]'
+if you write 'touch' you will have interaction with some subject
+if you write 'take [nameOfItems]' you will take that item
+if you write 'use [nameOfItems]' you will use this item on specific thing
+if you write 'describe room' you will find what is in room
+if you write 'check item' and next type name of item, you will check description of it
+
+

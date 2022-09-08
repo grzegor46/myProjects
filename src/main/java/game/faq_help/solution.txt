@@ -4,7 +4,7 @@ type 'check palm'
 1x touch
 check palm
 1x touch
-take piece of map
+take drawing
 
 
 ## plants section
@@ -12,7 +12,7 @@ take piece of map
 1x touch
 take hammer
 
-now after palm section and plants section completed you can do bricks section.
+now after palm section and plants section is completed you can do bricks section.
 
 ## brick section
 'check bricks'
