@@ -9,8 +9,8 @@ public class TextGame {
 
 
     public void startGame () {
-
-    System.out.println(" \nIf you need help, you can just type 'help'");
+        System.out.println("Welcome in escape room");
+        System.out.println(" \nIf you need help, you can just type 'help'");
         System.out.println("If you want quit, type 'quit' \n");
 
     while(!Properties.isGameOver) {
@@ -22,7 +22,7 @@ public class TextGame {
             System.out.println("Goodbye...");
         }
 
-        if(choice.equals("check help")) {
+        if(choice.equals("help")) {
             action.callHelp();
         }
 
@@ -192,5 +192,6 @@ public class TextGame {
         }
 
         }
+    scanner.close();
     }
 }
