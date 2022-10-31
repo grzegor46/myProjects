@@ -1,0 +1,23 @@
+## palm section
+
+type 'check palm'
+1x touch
+check palm
+1x touch
+take drawing
+
+
+## plants section
+'check plants'
+1x touch
+take hammer
+
+now after palm section and plants section is completed you can do bricks section.
+
+## brick section
+'check bricks'
+use hammer
+
+## chest section
+'check chest'
+use piece of paper
