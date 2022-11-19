@@ -4,4 +4,5 @@ import checkers.board.Board;
 
 public class Game {
 
+
 }

@@ -9,7 +9,7 @@ public class Main {
         Board board = new Board();
         Referee referee = new Referee();
 
-        Referee.printboard(board.tablicaPionkow);
+        referee.printboard(board.tablicaPionkow);
 
 
     }
