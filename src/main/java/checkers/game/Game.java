@@ -1,33 +1,33 @@
 package checkers.game;
 
+import javax.sound.midi.Soundbank;
+import java.util.Scanner;
+
 public class Game {
 
-    public void printboard(String[][] tablicaPionkow) {
+    enum WhoesTurn {
+        RED,
+        BLACK
+    }
 
-        System.out.println("______________________________");
-        System.out.println("");
-
-        int count = 0;
-        int countBoardrow = 0;
-        for (String[] strings : tablicaPionkow) {
-            System.out.print(countBoardrow+" ");
-            for (int j = 0; j < strings.length; j++) {
-                count++;
-                System.out.print((strings[j]));
+    WhoesTurn whoesTurn;
 
 
-                if (count == 8) {
-                    System.out.println("");
+    public void getNextMove(){
+        Scanner scanner = new Scanner(System.in);
 
-                    count = 0;
-                }
-                if(countBoardrow == 7 &&j == strings.length-1) {
-                    for(int i = 0; i < 8 ; i++) {
-                        System.out.print("  "+i+"");
-                    }
-                }
-            }
-            countBoardrow++;
+        if(whoesTurn == WhoesTurn.RED) {
+            System.out.println("It is your turn, red.");
         }
+	    else
+            System.out.println("It is your turn, black.");
+
+        boolean moved = false;
+
+        System.out.println("Please type position from which square would you like move");
+        System.out.println("enter 2 digits, example first is '1'  on 'x' axis and next enter '2' is on 'y' axis");
+        int[] arrayOfPositionMoveFrom = {scanner.nextInt(), scanner.nextInt()};
+        int[] arrayOfPositionMoveTo = {scanner.nextInt(), scanner.nextInt()};
+
     }
 }
