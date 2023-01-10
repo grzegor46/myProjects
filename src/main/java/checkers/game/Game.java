@@ -7,69 +7,19 @@ import java.util.Scanner;
 
 public class Game {
 
-    //    Board board = new Board();
-    WhoesTurn whoesTurn;
-    public String[][] field = new String[8][8];
+    public Board board = new Board();
     int checker_b = 12;
     int checker_w = 12;
 
-    enum WhoesTurn {
-        WHITE,
-        BLACK
-    }
-
-    public void initialBoardWithRedAndBlackChecker() {
-
-        for (int i = 0; i < 8; i += 1) {
-            for (int j = 0; j < 8; j += 1) {
-                field[i][j] = "[ ]";
-            }
-            System.out.println();
-        }
-
-        for (int i = 0; i < 8; i += 1) {
-            for (int j = 1; j < 8; j += 2) {
-                if (i == 0 || i == 2) {
-                    field[i][j] = "[w]";
-                }
-                if (i == 6) {
-                    field[i][j] = "[b]";
-                }
-            }
-            for (int j = 0; j < 8; j += 2) {
-                if (i == 1) {
-                    field[i][j] = "[w]";
-                }
-                if (i == 7 || i == 5) {
-                    field[i][j] = "[b]";
-                }
-            }
-            System.out.println();
-        }
-    }
-
-    public void printBoard() {
-        System.out.println("   1   2   3   4   5   6   7   8  X");
-        for (int i = 0; i < 8; i += 1) {
-            System.out.print((i + 1) + " ");
-            for (int j = 0; j < 8; j += 1) {
-                System.out.print(field[i][j] + " ");
-            }
-            System.out.println();
-        }
-        System.out.print("Y");
-    }
-
 
     public void getNextMove() {
-        WhoesTurn whoesTurn = WhoesTurn.WHITE;
 
         Scanner scanner = new Scanner(System.in);
 
-        if (whoesTurn == WhoesTurn.WHITE) {
-            System.out.println("It is your turn, white.");
-        } else
-            System.out.println("It is your turn, black.");
+//        if (whoesTurn == WhoesTurn.WHITE) {
+//            System.out.println("It is your turn, white.");
+//        } else
+//            System.out.println("It is your turn, black.");
 
         boolean moved = false;
 
@@ -86,6 +36,7 @@ public class Game {
 
         if (validMove(arrayOfPositionMoveFrom, arrayOfPositionMoveTo)) {
             executeMove(arrayOfPositionMoveFrom, arrayOfPositionMoveTo);
+
         }
 
     }
@@ -99,11 +50,11 @@ public class Game {
 
         if ((fromX < 0 && fromY < 0) || (fromX > 7 && fromY > 7) || (toX < 0 && toY < 0) || (toX > 7 && toY > 7)) {
             return false;
-        } else if ((Math.abs(fromX - toX) == 1) && Objects.equals(field[toY][toX], "[ ]")) {
+        } else if ((Math.abs(fromX - toX) == 1) && Objects.equals(board.field[toY][toX], "[ ]")) {
             return true;
-        } else if (((Math.abs(fromX - toX) == 2)  && field[toY][toX].equals("[ ]")) && field[(fromY+toY)/2][(fromX+toX)/2].equals("[w]")) {
+        } else if (((Math.abs(fromX - toX) == 2)  && board.field[toY][toX].equals("[ ]")) && board.field[(fromY+toY)/2][(fromX+toX)/2].equals("[w]")) {
             return true;
-        }else if (((Math.abs(fromX - toX) == 2)  && field[toY][toX].equals("[ ]")) && field[(fromY+toY)/2][(fromX+toX)/2].equals("[b]")) {
+        }else if (((Math.abs(fromX - toX) == 2)  && board.field[toY][toX].equals("[ ]")) && board.field[(fromY+toY)/2][(fromX+toX)/2].equals("[b]")) {
             return true;
         }else {
                 System.out.println("invalid move");
@@ -119,14 +70,14 @@ public class Game {
             int toX = (arrayOfPositionMoveTo[0]) - 1;
             int toY = (arrayOfPositionMoveTo[1]) - 1;
 
-            if ((Math.abs(fromX - toX) == 1) && Objects.equals(field[toY][toX], "[ ]")) {
-                field[toY][toX] = field[fromY][fromX];
-                field[fromY][fromX] = "[ ]";
+            if ((Math.abs(fromX - toX) == 1) && Objects.equals(board.field[toY][toX], "[ ]")) {
+                board.field[toY][toX] = board.field[fromY][fromX];
+                board.field[fromY][fromX] = "[ ]";
             }
             if((Math.abs(fromX - toX) == 2) && Math.abs(fromY - toY) ==2 ) {
-                field[(fromY+toY)/2][(fromX+toX)/2] = "[ ]";
-                field[toY][toX] = field[fromY][fromX];
-                field[fromY][fromX] = "[ ]";
+                board.field[(fromY+toY)/2][(fromX+toX)/2] = "[ ]";
+                board.field[toY][toX] = board.field[fromY][fromX];
+                board.field[fromY][fromX] = "[ ]";
                 checker_w--;
             }
 
