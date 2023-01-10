@@ -8,20 +8,20 @@ import java.util.Scanner;
 public class Game {
 
     public Board board = new Board();
-    int checker_b = 12;
-    int checker_w = 12;
+    private int checker_b = 12;
+    private int checker_w = 12;
+    private String whoesIsTurn = "b";
 
 
     public void getNextMove() {
 
         Scanner scanner = new Scanner(System.in);
 
-//        if (whoesTurn == WhoesTurn.WHITE) {
-//            System.out.println("It is your turn, white.");
-//        } else
-//            System.out.println("It is your turn, black.");
+        if (whoesIsTurn.equals("w")) {
+            System.out.println("It is your turn, white.");
+        } else
+            System.out.println("It is your turn, black.");
 
-        boolean moved = false;
 
         System.out.println("Please type position FROM which square would you like to move");
         System.out.println("enter 2 digits, example first is '1'  on 'x' axis and next enter '2' is on 'y' axis");
@@ -36,7 +36,15 @@ public class Game {
 
         if (validMove(arrayOfPositionMoveFrom, arrayOfPositionMoveTo)) {
             executeMove(arrayOfPositionMoveFrom, arrayOfPositionMoveTo);
+            //add here second move if is chance to hit another checker during same turn
+            if(whoesIsTurn.equals("w")) {
+                checker_b--;
+                whoesIsTurn = "b";
+            } else {
+                checker_w--;
+                whoesIsTurn = "w";
 
+            }
         }
 
     }
@@ -52,9 +60,9 @@ public class Game {
             return false;
         } else if ((Math.abs(fromX - toX) == 1) && Objects.equals(board.field[toY][toX], "[ ]")) {
             return true;
-        } else if (((Math.abs(fromX - toX) == 2)  && board.field[toY][toX].equals("[ ]")) && board.field[(fromY+toY)/2][(fromX+toX)/2].equals("[w]")) {
+        } else if (((Math.abs(fromX - toX) == 2)  && board.field[toY][toX].equals("[ ]")) && board.field[(fromY+toY)/2][(fromX+toX)/2].equals("[w]") && whoesIsTurn.equals("b")) {
             return true;
-        }else if (((Math.abs(fromX - toX) == 2)  && board.field[toY][toX].equals("[ ]")) && board.field[(fromY+toY)/2][(fromX+toX)/2].equals("[b]")) {
+        }else if (((Math.abs(fromX - toX) == 2)  && board.field[toY][toX].equals("[ ]")) && board.field[(fromY+toY)/2][(fromX+toX)/2].equals("[b]") && whoesIsTurn.equals("w")) {
             return true;
         }else {
                 System.out.println("invalid move");
@@ -63,7 +71,7 @@ public class Game {
         }
 
 
-        public void executeMove ( int[] arrayOfPositionMoveFrom, int[] arrayOfPositionMoveTo){
+        public void executeMove( int[] arrayOfPositionMoveFrom, int[] arrayOfPositionMoveTo){
 
             int fromX = (arrayOfPositionMoveFrom[0]) - 1;
             int fromY = (arrayOfPositionMoveFrom[1]) - 1;
@@ -78,7 +86,6 @@ public class Game {
                 board.field[(fromY+toY)/2][(fromX+toX)/2] = "[ ]";
                 board.field[toY][toX] = board.field[fromY][fromX];
                 board.field[fromY][fromX] = "[ ]";
-                checker_w--;
             }
 
 

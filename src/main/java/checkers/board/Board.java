@@ -46,6 +46,7 @@ public class Board {
             System.out.println();
         }
         System.out.print("Y");
+        System.out.println("");
     }
 
     }
