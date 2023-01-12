@@ -11,17 +11,25 @@ public class Game {
     private int checker_b = 12;
     private int checker_w = 12;
     private String whoesIsTurn = "b";
+    private boolean moved;
 
+    public int getChecker_b() {
+        return checker_b;
+    }
+
+    public int getChecker_w() {
+        return checker_w;
+    }
 
     public void getNextMove() {
 
         Scanner scanner = new Scanner(System.in);
 
-        if (whoesIsTurn.equals("w")) {
+        boolean moved = false;
+        if (whoesIsTurn.equals("w") && !moved) {
             System.out.println("It is your turn, white.");
         } else
             System.out.println("It is your turn, black.");
-
 
         System.out.println("Please type position FROM which square would you like to move");
         System.out.println("enter 2 digits, example first is '1'  on 'x' axis and next enter '2' is on 'y' axis");
@@ -37,14 +45,7 @@ public class Game {
         if (validMove(arrayOfPositionMoveFrom, arrayOfPositionMoveTo)) {
             executeMove(arrayOfPositionMoveFrom, arrayOfPositionMoveTo);
             //add here second move if is chance to hit another checker during same turn
-            if(whoesIsTurn.equals("w")) {
-                checker_b--;
-                whoesIsTurn = "b";
-            } else {
-                checker_w--;
-                whoesIsTurn = "w";
-
-            }
+            moved = true;
         }
 
     }
@@ -82,11 +83,23 @@ public class Game {
                 board.field[toY][toX] = board.field[fromY][fromX];
                 board.field[fromY][fromX] = "[ ]";
             }
+            // jump over opponent
             if((Math.abs(fromX - toX) == 2) && Math.abs(fromY - toY) ==2 ) {
+                if(whoesIsTurn.equals("w") && board.field[(fromY+toY)/2][(fromX+toX)/2].equals("[b]"))
                 board.field[(fromY+toY)/2][(fromX+toX)/2] = "[ ]";
                 board.field[toY][toX] = board.field[fromY][fromX];
                 board.field[fromY][fromX] = "[ ]";
+
+                if(whoesIsTurn.equals("w")) {
+                    checker_b--;
+                    whoesIsTurn = "b";
+                } else {
+                    checker_w--;
+                    whoesIsTurn = "w";
+
+                }
             }
+
 
 
         }

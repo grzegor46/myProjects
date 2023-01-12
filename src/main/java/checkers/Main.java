@@ -18,6 +18,8 @@ public class Main {
 	    //Execute a move and print the board out afterwards.
 	    game.getNextMove();
 		game.board.printBoard();
+		System.out.println( "black checkers: "+ game.getChecker_b());
+		System.out.println("white checkers: "+ game.getChecker_w());
 	}
 		System.out.println("The winner is: " + game.winnerIs());
     }
