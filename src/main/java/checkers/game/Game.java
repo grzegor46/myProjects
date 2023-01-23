@@ -25,8 +25,7 @@ public class Game {
 
         Scanner scanner = new Scanner(System.in);
 
-        boolean moved = false;
-        if (whoesIsTurn.equals("w") && !moved) {
+        if (whoesIsTurn.equals("w")) {
             System.out.println("It is your turn, white.");
         } else
             System.out.println("It is your turn, black.");
@@ -39,13 +38,10 @@ public class Game {
         System.out.println("Please type position TO which square would you like to move");
         int[] arrayOfPositionMoveTo = {scanner.nextInt(), scanner.nextInt()};
 
-        //code with relevant move
-        // if valid move then execute move
 
         if (validMove(arrayOfPositionMoveFrom, arrayOfPositionMoveTo)) {
             executeMove(arrayOfPositionMoveFrom, arrayOfPositionMoveTo);
             //add here second move if is chance to hit another checker during same turn
-            moved = true;
         }
 
     }
@@ -59,15 +55,15 @@ public class Game {
 
         if ((fromX < 0 && fromY < 0) || (fromX > 7 && fromY > 7) || (toX < 0 && toY < 0) || (toX > 7 && toY > 7)) {
             return false;
-        } else if ((Math.abs(fromX - toX) == 1) && Objects.equals(board.field[toY][toX], "[ ]")) {
+        } else if ((Math.abs(fromX - toX) == 1) && board.field[toY][toX].equals("[ ]") && ((whoesIsTurn.equals("b") && board.field[fromY][fromX].equals("[b]")) && fromY-toY == 1 || (whoesIsTurn.equals("w") && board.field[fromY][fromX].equals("[w]")) && fromY-toY == -1)) {
             return true;
         } else if (((Math.abs(fromX - toX) == 2)  && board.field[toY][toX].equals("[ ]")) && board.field[(fromY+toY)/2][(fromX+toX)/2].equals("[w]") && whoesIsTurn.equals("b")) {
             return true;
         }else if (((Math.abs(fromX - toX) == 2)  && board.field[toY][toX].equals("[ ]")) && board.field[(fromY+toY)/2][(fromX+toX)/2].equals("[b]") && whoesIsTurn.equals("w")) {
             return true;
         }else {
-                System.out.println("invalid move");
-            }
+            System.out.println("invalid move");
+        }
             return false;
         }
 
@@ -82,6 +78,11 @@ public class Game {
             if ((Math.abs(fromX - toX) == 1) && Objects.equals(board.field[toY][toX], "[ ]")) {
                 board.field[toY][toX] = board.field[fromY][fromX];
                 board.field[fromY][fromX] = "[ ]";
+                if(whoesIsTurn.equals("w")) {
+                    whoesIsTurn = "b";
+                } else {
+                    whoesIsTurn = "w";
+                }
             }
             // jump over opponent
             if((Math.abs(fromX - toX) == 2) && Math.abs(fromY - toY) ==2 ) {

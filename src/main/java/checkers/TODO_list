@@ -1,0 +1,5 @@
+zaimplementować:
+ - zakaz cofania się pionkiem do tyłu - DONE
+ - wielokrotne bicie
+ - stworzenie damki po dotarciu do "bazy" przeciwnika
+ - poruszanie się damką przez wiele pól przy jednym ruchu
