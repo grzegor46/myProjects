@@ -33,25 +33,34 @@ public class Game {
         System.out.println("Please type position FROM which square would you like to move");
         System.out.println("enter 2 digits, example first is '1'  on 'x' axis and next enter '2' is on 'y' axis");
 
-        int[] arrayOfPositionMoveFrom = {scanner.nextInt(), scanner.nextInt()};
-
+//        int[] selectedField = {scanner.nextInt(), scanner.nextInt()};
+        int[] selectedField = selectField(scanner.nextInt(), scanner.nextInt());
+        
         System.out.println("Please type position TO which square would you like to move");
-        int[] arrayOfPositionMoveTo = {scanner.nextInt(), scanner.nextInt()};
+        int[] fieldToMove = selectField(scanner.nextInt(), scanner.nextInt());
+        
 
-
-        if (validMove(arrayOfPositionMoveFrom, arrayOfPositionMoveTo)) {
-            executeMove(arrayOfPositionMoveFrom, arrayOfPositionMoveTo);
+        if (validMove(selectedField, fieldToMove)) {
+            executeMove(selectedField, fieldToMove);
             //add here second move if is chance to hit another checker during same turn
         }
-
+        
+        }
+        
+        
+    private int[] selectField(int val1, int val2) {
+        return new int[]{val1-1, val2-1};
     }
+    
 
-    public boolean validMove(int[] arrayOfPositionMoveFrom, int[] arrayOfPositionMoveTo) {
+    
+    
+    public boolean validMove(int[] selectedField, int[] fieldToMove) {
 
-        int fromX = (arrayOfPositionMoveFrom[0]) - 1;
-        int fromY = (arrayOfPositionMoveFrom[1]) - 1;
-        int toX = (arrayOfPositionMoveTo[0]) - 1;
-        int toY = (arrayOfPositionMoveTo[1]) - 1;
+        int fromX = (selectedField[0]);
+        int fromY = (selectedField[1]);
+        int toX = (fieldToMove[0]);
+        int toY = (fieldToMove[1]);
 
         if ((fromX < 0 && fromY < 0) || (fromX > 7 && fromY > 7) || (toX < 0 && toY < 0) || (toX > 7 && toY > 7)) {
             return false;
@@ -68,12 +77,12 @@ public class Game {
         }
 
 
-        public void executeMove( int[] arrayOfPositionMoveFrom, int[] arrayOfPositionMoveTo){
+        public void executeMove( int[] selectedField, int[] fieldToMove){
 
-            int fromX = (arrayOfPositionMoveFrom[0]) - 1;
-            int fromY = (arrayOfPositionMoveFrom[1]) - 1;
-            int toX = (arrayOfPositionMoveTo[0]) - 1;
-            int toY = (arrayOfPositionMoveTo[1]) - 1;
+            int fromX = (selectedField[0]);
+            int fromY = (selectedField[1]);
+            int toX = (fieldToMove[0]);
+            int toY = (fieldToMove[1]);
 
             if ((Math.abs(fromX - toX) == 1) && Objects.equals(board.field[toY][toX], "[ ]")) {
                 board.field[toY][toX] = board.field[fromY][fromX];
@@ -101,9 +110,11 @@ public class Game {
                 }
             }
 
-
-
         }
+
+    public int evaluate() {
+        return checker_w - checker_b;
+    }
     // Checks to see if game is over based on number of checkers left.
     public boolean gameOver() {
         return (checker_w == 0 || checker_b == 0);
@@ -116,5 +127,5 @@ public class Game {
         else
             return "black";
     }
-    }
+}
 
