@@ -52,7 +52,7 @@ public class Game {
         return new int[]{val1-1, val2-1};
     }
     
-
+// TODO: try to figure out how implement all valid moves for AI from selected Piece
     
     
     public boolean validMove(int[] selectedField, int[] fieldToMove) {
