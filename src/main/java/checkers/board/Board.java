@@ -1,5 +1,8 @@
 package checkers.board;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Board {
     public String[][] field;
 
@@ -52,6 +55,8 @@ public class Board {
         System.out.print("Y");
         System.out.println("");
     }
+
+
 
 
 

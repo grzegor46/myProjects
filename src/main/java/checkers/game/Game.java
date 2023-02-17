@@ -2,15 +2,14 @@ package checkers.game;
 
 import checkers.board.Board;
 
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
 public class Game {
 
     public Board board = new Board();
     private int checker_b = 12;
     private int checker_w = 12;
-    private String whoesIsTurn = "b";
+    private String whoesIsTurn = "[w]";
     private boolean moved;
 
     public int getChecker_b() {
@@ -25,11 +24,14 @@ public class Game {
 
         Scanner scanner = new Scanner(System.in);
 
-        if (whoesIsTurn.equals("w")) {
+        if (whoesIsTurn.equals("[w]")) {
             System.out.println("It is your turn, white.");
-        } else
+            System.out.println(getAllPiecesMap(whoesIsTurn));
+        } else {
             System.out.println("It is your turn, black.");
-
+//            TODO: add enum for black and white players?
+            System.out.println(getAllPieces(whoesIsTurn));
+        }
         System.out.println("Please type position FROM which square would you like to move");
         System.out.println("enter 2 digits, example first is '1'  on 'x' axis and next enter '2' is on 'y' axis");
 
@@ -46,8 +48,41 @@ public class Game {
         }
         
         }
-        
-        
+
+    public ArrayList<String> getAllPieces(String whoesIsTurn) {
+        ArrayList<String> pieces = new ArrayList<>();
+        int row;
+        int piece;
+        for(row=0; row < board.field.length; row++) {
+            for(piece=0; piece < board.field[row][board.field.length-1].length(); piece++) {
+                if(!board.field[piece][row].equals("[ ]") && board.field[piece][row].equals(whoesIsTurn)) {
+                    pieces.add(board.field[piece][row]);
+                }
+            }
+        }
+        return pieces;
+    }
+
+    public HashMap<String, String> getAllPiecesMap(String whoesIsTurn) {
+        HashMap<String, String> pieces = new HashMap<>();
+        int row;
+        int piece;
+        for(row=0; row < board.field.length; row++) {
+            for(piece=0; piece < board.field[row][board.field.length-1].length(); piece++) {
+                if(!board.field[piece][row].equals("[ ]") && board.field[piece][row].equals(whoesIsTurn)) {
+                    String rowStr = Integer.toString(row);
+                    String pieceStr = Integer.toString(piece);
+                    ArrayList<String> cordinate = new ArrayList<>();
+                    cordinate.add(pieceStr);
+                    cordinate.add(rowStr);
+                    pieces.put(board.field[piece][row], String.valueOf(cordinate));
+                }
+            }
+        }
+        return pieces;
+    }
+
+
     private int[] selectField(int val1, int val2) {
         return new int[]{val1-1, val2-1};
     }
@@ -64,11 +99,11 @@ public class Game {
 
         if ((fromX < 0 && fromY < 0) || (fromX > 7 && fromY > 7) || (toX < 0 && toY < 0) || (toX > 7 && toY > 7)) {
             return false;
-        } else if ((Math.abs(fromX - toX) == 1) && board.field[toY][toX].equals("[ ]") && ((whoesIsTurn.equals("b") && board.field[fromY][fromX].equals("[b]")) && fromY-toY == 1 || (whoesIsTurn.equals("w") && board.field[fromY][fromX].equals("[w]")) && fromY-toY == -1)) {
+        } else if ((Math.abs(fromX - toX) == 1) && board.field[toY][toX].equals("[ ]") && ((whoesIsTurn.equals("[b]") && board.field[fromY][fromX].equals("[b]")) && fromY-toY == 1 || (whoesIsTurn.equals("[w]") && board.field[fromY][fromX].equals("[w]")) && fromY-toY == -1)) {
             return true;
-        } else if (((Math.abs(fromX - toX) == 2)  && board.field[toY][toX].equals("[ ]")) && board.field[(fromY+toY)/2][(fromX+toX)/2].equals("[w]") && whoesIsTurn.equals("b")) {
+        } else if (((Math.abs(fromX - toX) == 2)  && board.field[toY][toX].equals("[ ]")) && board.field[(fromY+toY)/2][(fromX+toX)/2].equals("[w]") && whoesIsTurn.equals("[b]")) {
             return true;
-        }else if (((Math.abs(fromX - toX) == 2)  && board.field[toY][toX].equals("[ ]")) && board.field[(fromY+toY)/2][(fromX+toX)/2].equals("[b]") && whoesIsTurn.equals("w")) {
+        }else if (((Math.abs(fromX - toX) == 2)  && board.field[toY][toX].equals("[ ]")) && board.field[(fromY+toY)/2][(fromX+toX)/2].equals("[b]") && whoesIsTurn.equals("[w]")) {
             return true;
         }else {
             System.out.println("invalid move");
@@ -87,25 +122,25 @@ public class Game {
             if ((Math.abs(fromX - toX) == 1) && Objects.equals(board.field[toY][toX], "[ ]")) {
                 board.field[toY][toX] = board.field[fromY][fromX];
                 board.field[fromY][fromX] = "[ ]";
-                if(whoesIsTurn.equals("w")) {
-                    whoesIsTurn = "b";
+                if(whoesIsTurn.equals("[w]")) {
+                    whoesIsTurn = "[b]";
                 } else {
-                    whoesIsTurn = "w";
+                    whoesIsTurn = "[w]";
                 }
             }
             // jump over opponent
             if((Math.abs(fromX - toX) == 2) && Math.abs(fromY - toY) ==2 ) {
-                if(whoesIsTurn.equals("w") && board.field[(fromY+toY)/2][(fromX+toX)/2].equals("[b]"))
+                if(whoesIsTurn.equals("[w]") && board.field[(fromY+toY)/2][(fromX+toX)/2].equals("[b]"))
                 board.field[(fromY+toY)/2][(fromX+toX)/2] = "[ ]";
                 board.field[toY][toX] = board.field[fromY][fromX];
                 board.field[fromY][fromX] = "[ ]";
 
-                if(whoesIsTurn.equals("w")) {
+                if(whoesIsTurn.equals("[w]")) {
                     checker_b--;
-                    whoesIsTurn = "b";
+                    whoesIsTurn = "[b]";
                 } else {
                     checker_w--;
-                    whoesIsTurn = "w";
+                    whoesIsTurn = "[w]";
 
                 }
             }

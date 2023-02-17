@@ -3,6 +3,8 @@ package checkers;
 import checkers.board.Board;
 import checkers.game.Game;
 
+import java.util.Arrays;
+
 
 public class Main {
 
@@ -20,6 +22,9 @@ public class Main {
 		game.board.printBoard();
 		System.out.println( "black checkers: "+ game.getChecker_b());
 		System.out.println("white checkers: "+ game.getChecker_w());
+
+//		System.out.println(Arrays.toString(Arrays.stream(game.board.getFields()).toArray()));
+
 	}
 		System.out.println("The winner is: " + game.winnerIs());
     }
