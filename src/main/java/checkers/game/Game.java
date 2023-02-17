@@ -42,7 +42,7 @@ public class Game {
 
         if (validMove(selectedField, fieldToMove)) {
             executeMove(selectedField, fieldToMove);
-            //add here second move if is chance to hit another checker during same turn
+            //add here second move if is a chance to hit another checker during same turn
         }
         
         }

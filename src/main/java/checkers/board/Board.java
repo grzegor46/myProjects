@@ -7,6 +7,10 @@ public class Board {
         this.field = new String[8][8];
     }
 
+    public String[][] getField() {
+        return field;
+    }
+
     public void initialBoardWithRedAndBlackChecker() {
 
         for( int i = 0; i < 8; i += 1) {
