@@ -63,7 +63,8 @@ public class Game {
         return pieces;
     }
 
-    public HashMap<String, String> getAllPiecesMap(String whoesIsTurn) {
+    public ArrayList<String> getAllPiecesMap(String whoesIsTurn) {
+        ArrayList<String> coordinationForAllPieces = new ArrayList<>();
         HashMap<String, String> pieces = new HashMap<>();
         int row;
         int piece;
@@ -76,10 +77,13 @@ public class Game {
                     cordinate.add(pieceStr);
                     cordinate.add(rowStr);
                     pieces.put(board.field[piece][row], String.valueOf(cordinate));
+                    coordinationForAllPieces.add(String.valueOf(pieces));
                 }
+
+
             }
         }
-        return pieces;
+        return coordinationForAllPieces;
     }
 
 
