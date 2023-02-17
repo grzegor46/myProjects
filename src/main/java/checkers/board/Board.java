@@ -7,7 +7,7 @@ public class Board {
         this.field = new String[8][8];
     }
 
-    public String[][] getField() {
+    public String[][] getFields() {
         return field;
     }
 
@@ -52,6 +52,8 @@ public class Board {
         System.out.print("Y");
         System.out.println("");
     }
+
+
 
 
 
