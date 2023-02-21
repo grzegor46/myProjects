@@ -26,8 +26,8 @@ public class Game {
 
         if (whoesIsTurn.equals("[w]")) {
             System.out.println("It is your turn, white.");
-            System.out.println(getAllPiecesMap(whoesIsTurn));
-        } else {
+            System.out.println(getAllPieces(whoesIsTurn));
+        } else if(whoesIsTurn.equals("[b]")) {
             System.out.println("It is your turn, black.");
 //            TODO: add enum for black and white players?
             System.out.println(getAllPieces(whoesIsTurn));
@@ -50,37 +50,19 @@ public class Game {
         }
 
     public ArrayList<String> getAllPieces(String whoesIsTurn) {
-        ArrayList<String> pieces = new ArrayList<>();
-        int row;
-        int piece;
-        for(row=0; row < board.field.length; row++) {
-            for(piece=0; piece < board.field[row][board.field.length-1].length(); piece++) {
-                if(!board.field[piece][row].equals("[ ]") && board.field[piece][row].equals(whoesIsTurn)) {
-                    pieces.add(board.field[piece][row]);
-                }
-            }
-        }
-        return pieces;
-    }
-
-    public ArrayList<String> getAllPiecesMap(String whoesIsTurn) {
         ArrayList<String> coordinationForAllPieces = new ArrayList<>();
-        HashMap<String, String> pieces = new HashMap<>();
         int row;
         int piece;
         for(row=0; row < board.field.length; row++) {
-            for(piece=0; piece < board.field[row][board.field.length-1].length(); piece++) {
+            for(piece=0; piece < board.field.length; piece++) {
                 if(!board.field[piece][row].equals("[ ]") && board.field[piece][row].equals(whoesIsTurn)) {
                     String rowStr = Integer.toString(row);
                     String pieceStr = Integer.toString(piece);
                     ArrayList<String> cordinate = new ArrayList<>();
                     cordinate.add(pieceStr);
                     cordinate.add(rowStr);
-                    pieces.put(board.field[piece][row], String.valueOf(cordinate));
-                    coordinationForAllPieces.add(String.valueOf(pieces));
+                    coordinationForAllPieces.add(String.valueOf(cordinate));
                 }
-
-
             }
         }
         return coordinationForAllPieces;

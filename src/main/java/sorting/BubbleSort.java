@@ -31,7 +31,7 @@ public class BubbleSort {
         BubbleSort bubbleSort = new BubbleSort();
 
 //        ArrayList<Integer> listToSort = new ArrayList<>(Arrays.asList(9, 8, 7, 6, 5, 4, 3,2,1));
-        ArrayList<Integer> listToSort = new ArrayList<>(Arrays.asList(9, 7, 7, 6, 5, 1, 2,2,1));
+        ArrayList<Integer> listToSort = new ArrayList<>(Arrays.asList(9, 7, 7, 6, 5, 1, 2,2,1,11,100,0));
         System.out.println("Array before: " + listToSort);
         System.out.println("Array after sort: " + bubbleSort.sortList(listToSort));
 

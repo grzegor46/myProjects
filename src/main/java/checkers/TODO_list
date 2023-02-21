@@ -3,3 +3,9 @@ zaimplementować:
  - wielokrotne bicie
  - stworzenie damki po dotarciu do "bazy" przeciwnika
  - poruszanie się damką przez wiele pól przy jednym ruchu
+
+
+      y-1, x-1
+ {[w]=[3, 6]}
+
+ AI ma generować random number w przedziale od 1 do 2 i od danej pozycji pionka może dodawać +1 lub +2
