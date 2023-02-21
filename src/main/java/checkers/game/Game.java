@@ -1,6 +1,7 @@
 package checkers.game;
 
 import checkers.board.Board;
+import com.sun.java.accessibility.util.AccessibilityListenerList;
 
 import java.util.*;
 
@@ -27,6 +28,7 @@ public class Game {
         if (whoesIsTurn.equals("[w]")) {
             System.out.println("It is your turn, white.");
             System.out.println(getAllPieces(whoesIsTurn));
+            getAllValidMoves(whoesIsTurn);
         } else if(whoesIsTurn.equals("[b]")) {
             System.out.println("It is your turn, black.");
 //            TODO: add enum for black and white players?
@@ -66,6 +68,31 @@ public class Game {
             }
         }
         return coordinationForAllPieces;
+    }
+
+    public ArrayList<String> getAllValidMoves(String whoesIsTurn) {
+
+        ArrayList<String> allPieces = getAllPieces(whoesIsTurn);
+        if(whoesIsTurn.equals("[w]")) {
+            for(int i=0; i < allPieces.size(); i++) {
+                String temp = allPieces.get(i);
+                temp = temp.replaceAll("[/[\\[\\]']+/g]", "");
+                String subStr1 = temp.substring(0,1);
+                String subStr2 = temp.substring(3,4);
+                int tempInt1 = Integer.parseInt(subStr1);
+                int tempInt2 = Integer.parseInt(subStr2);
+
+                for(int j=0; j < allPieces.get(i).length(); j++) {
+
+                }
+
+                System.out.println(allPieces.get(i));
+            }
+        } else {
+
+        }
+
+        return null;
     }
 
 
