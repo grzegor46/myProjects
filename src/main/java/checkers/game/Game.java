@@ -71,20 +71,44 @@ public class Game {
     }
 
     public ArrayList<String> getAllValidMoves(String whoesIsTurn) {
-
+        boolean validMoveP = false;
         ArrayList<String> allPieces = getAllPieces(whoesIsTurn);
         if(whoesIsTurn.equals("[w]")) {
-            for(int i=0; i < allPieces.size(); i++) {
+            for(int i=0; i < allPieces.size(); i++) {                                // coordinate for every piece
                 String temp = allPieces.get(i);
                 temp = temp.replaceAll("[/[\\[\\]']+/g]", "");
                 String subStr1 = temp.substring(0,1);
                 String subStr2 = temp.substring(3,4);
                 int tempInt1 = Integer.parseInt(subStr1);
                 int tempInt2 = Integer.parseInt(subStr2);
+//                int [] tempInt = {tempInt1, tempInt2};
+//                int [] tempInt = {1,2};
+                int [] tempInt = {2,7};
+//                3,6
+                while(!validMoveP) {
+                    int [] tempIntRandom = {(int)(Math.random() *(8)),(int)(Math.random() *(8))};
+                    validMoveP = validMove(tempInt, tempIntRandom);
+                    System.out.println("tempInrRandom" + Arrays.toString(tempIntRandom));
 
-                for(int j=0; j < allPieces.get(i).length(); j++) {
-
+                    if(validMoveP) {
+                        executeMove(tempInt, tempIntRandom);
+                        System.out.println("tempInrRandom" + Arrays.toString(tempIntRandom));
+                        System.out.println("tempInt" + Arrays.toString(tempInt));
+                        board.printBoard();
+                    }
                 }
+
+
+//[2, 1]
+//3,2
+
+
+
+
+//                for(int j=0; j < allPieces.get(i).length(); j++) {
+//
+//                }
+
 
                 System.out.println(allPieces.get(i));
             }
