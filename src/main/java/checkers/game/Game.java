@@ -83,17 +83,17 @@ public class Game {
                 int tempInt2 = Integer.parseInt(subStr2);
 //                int [] tempInt = {tempInt1, tempInt2};
 //                int [] tempInt = {1,2};
-                int [] tempInt = {2,7};
+                int [] tempInt = {5,2}; //TODO: change position : 5 is x, 2 is y in validMove method
 //                3,6
                 while(!validMoveP) {
                     int [] tempIntRandom = {(int)(Math.random() *(8)),(int)(Math.random() *(8))};
                     validMoveP = validMove(tempInt, tempIntRandom);
-                    System.out.println("tempInrRandom" + Arrays.toString(tempIntRandom));
+                    System.out.println("tempIntRandom" + Arrays.toString(tempIntRandom));
 
                     if(validMoveP) {
                         executeMove(tempInt, tempIntRandom);
-                        System.out.println("tempInrRandom" + Arrays.toString(tempIntRandom));
-                        System.out.println("tempInt" + Arrays.toString(tempInt));
+                        System.out.println("tempIntTable with valid move" + Arrays.toString(tempIntRandom));
+                        System.out.println("defined table {2,7}" + Arrays.toString(tempInt));
                         board.printBoard();
                     }
                 }
