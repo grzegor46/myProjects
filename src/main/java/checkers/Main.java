@@ -19,7 +19,7 @@ public class Main {
 	while (!game.gameOver()) {
 	    //Execute a move and print the board out afterwards.
 	    game.getNextMove();
-		game.board.printBoard();
+//		game.board.printBoard();    printig board is in game.getvalidmoves, for now commentout
 		System.out.println( "black checkers: "+ game.getChecker_b());
 		System.out.println("white checkers: "+ game.getChecker_w());
 

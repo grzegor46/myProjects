@@ -33,22 +33,33 @@ public class Game {
         } else if(whoesIsTurn.equals("[b]")) {
             System.out.println("It is your turn, black.");
 //            TODO: add enum for black and white players?
+            System.out.println("Please type position FROM which square would you like to move");
+            System.out.println("enter 2 digits, example first is '1'  on 'x' axis and next enter '2' is on 'y' axis");
+            int[] selectedField = selectField(scanner.nextInt(), scanner.nextInt());
+            System.out.println("Please type position TO which square would you like to move");
+            int[] fieldToMove = selectField(scanner.nextInt(), scanner.nextInt());
+
+
+            if (validMove(selectedField, fieldToMove)) {
+                executeMove(selectedField, fieldToMove);
+                //add here second move if is a chance to hit another checker during same turn
+            }
             System.out.println(getAllPieces(whoesIsTurn));
         }
-        System.out.println("Please type position FROM which square would you like to move");
-        System.out.println("enter 2 digits, example first is '1'  on 'x' axis and next enter '2' is on 'y' axis");
+//        System.out.println("Please type position FROM which square would you like to move");
+//        System.out.println("enter 2 digits, example first is '1'  on 'x' axis and next enter '2' is on 'y' axis");
 
 //        int[] selectedField = {scanner.nextInt(), scanner.nextInt()};
-        int[] selectedField = selectField(scanner.nextInt(), scanner.nextInt());
-        
-        System.out.println("Please type position TO which square would you like to move");
-        int[] fieldToMove = selectField(scanner.nextInt(), scanner.nextInt());
-        
-
-        if (validMove(selectedField, fieldToMove)) {
-            executeMove(selectedField, fieldToMove);
-            //add here second move if is a chance to hit another checker during same turn
-        }
+//        int[] selectedField = selectField(scanner.nextInt(), scanner.nextInt());
+//
+//        System.out.println("Please type position TO which square would you like to move");
+//        int[] fieldToMove = selectField(scanner.nextInt(), scanner.nextInt());
+//
+//
+//        if (validMove(selectedField, fieldToMove)) {
+//            executeMove(selectedField, fieldToMove);
+//            //add here second move if is a chance to hit another checker during same turn
+//        }
         
         }
 
@@ -142,7 +153,7 @@ public class Game {
         }else if (((Math.abs(fromX - toX) == 2)  && board.field[toY][toX].equals("[ ]")) && board.field[(fromY+toY)/2][(fromX+toX)/2].equals("[b]") && whoesIsTurn.equals("[w]")) {
             return true;
         }else {
-            System.out.println("invalid move");
+//            System.out.println("invalid move");
         }
             return false;
         }
