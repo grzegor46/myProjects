@@ -2,6 +2,7 @@ package checkers.game;
 
 import checkers.board.Board;
 import com.sun.java.accessibility.util.AccessibilityListenerList;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -74,7 +75,8 @@ public class Game {
 //    jeżeli przejdzie wszystkie pionki to probuje jeszcze raz przejsc cała tablice z pionkami.
 //    jeżeli po drugim razie nie znajdzie żadnego ruchu (zbicie pionka, pójscie do przodu) gra się kończy i przegrywa
 
-    public ArrayList<Integer> getAllValidMoves(String whoesIsTurn) {
+//    public ArrayList<Integer> getAllValidMoves(String whoesIsTurn) {
+    public void getAllValidMoves(String whoesIsTurn) {
         boolean validMoveP = false;
         ArrayList<String> allPieces = getAllPieces(whoesIsTurn);
         ArrayList<Integer> allPiecesWithValidMoves;
@@ -106,15 +108,14 @@ public class Game {
 //                        System.out.println("tempIntTable with valid move" + Arrays.toString(tempIntRandom));
 //                        System.out.println("defined table {2,7}" + Arrays.toString(tempInt));
                         board.printBoard();
+//                        break;
                     }
                 }
 //                System.out.println(allPieces.get(i));
             }
-        } else {
-
         }
 
-        return null;
+//        should return array with possible moves
     }
 
 
@@ -147,7 +148,7 @@ public class Game {
         }
 
 
-        public void executeMove( int[] selectedField, int[] fieldToMove){
+        public void executeMove(int [] selectedField, int [] fieldToMove){
 
             int fromX = (selectedField[0]);
             int fromY = (selectedField[1]);
@@ -165,10 +166,17 @@ public class Game {
             }
             // jump over opponent
             if((Math.abs(fromX - toX) == 2) && Math.abs(fromY - toY) ==2 ) {
-                if(whoesIsTurn.equals("[w]") && board.field[(fromY+toY)/2][(fromX+toX)/2].equals("[b]"))
-                board.field[(fromY+toY)/2][(fromX+toX)/2] = "[ ]";
-                board.field[toY][toX] = board.field[fromY][fromX];
-                board.field[fromY][fromX] = "[ ]";
+                if(whoesIsTurn.equals("[w]") && board.field[(fromY+toY)/2][(fromX+toX)/2].equals("[b]")) {
+                    board.field[(fromY + toY) / 2][(fromX + toX) / 2] = "[ ]";
+                    board.field[toY][toX] = board.field[fromY][fromX];
+                    board.field[fromY][fromX] = "[ ]";
+              }
+
+                if(whoesIsTurn.equals("[b]") && board.field[(fromY+toY)/2][(fromX+toX)/2].equals("[w]")) {
+                    board.field[(fromY + toY) / 2][(fromX + toX) / 2] = "[ ]";
+                    board.field[toY][toX] = board.field[fromY][fromX];
+                    board.field[fromY][fromX] = "[ ]";
+                }
 
                 if(whoesIsTurn.equals("[w]")) {
                     checker_b--;
