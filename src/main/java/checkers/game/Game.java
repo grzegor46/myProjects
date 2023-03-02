@@ -35,6 +35,7 @@ public class Game {
 //            TODO: add enum for black and white players?
             System.out.println("Please type position FROM which square would you like to move");
             System.out.println("enter 2 digits, example first is '1'  on 'x' axis and next enter '2' is on 'y' axis");
+
             int[] selectedField = selectField(scanner.nextInt(), scanner.nextInt());
             System.out.println("Please type position TO which square would you like to move");
             int[] fieldToMove = selectField(scanner.nextInt(), scanner.nextInt());
@@ -46,22 +47,7 @@ public class Game {
             }
             System.out.println(getAllPieces(whoesIsTurn));
         }
-//        System.out.println("Please type position FROM which square would you like to move");
-//        System.out.println("enter 2 digits, example first is '1'  on 'x' axis and next enter '2' is on 'y' axis");
-
-//        int[] selectedField = {scanner.nextInt(), scanner.nextInt()};
-//        int[] selectedField = selectField(scanner.nextInt(), scanner.nextInt());
-//
-//        System.out.println("Please type position TO which square would you like to move");
-//        int[] fieldToMove = selectField(scanner.nextInt(), scanner.nextInt());
-//
-//
-//        if (validMove(selectedField, fieldToMove)) {
-//            executeMove(selectedField, fieldToMove);
-//            //add here second move if is a chance to hit another checker during same turn
-//        }
-        
-        }
+    }
 
     public ArrayList<String> getAllPieces(String whoesIsTurn) {
         ArrayList<String> coordinationForAllPieces = new ArrayList<>();
@@ -82,19 +68,15 @@ public class Game {
         return coordinationForAllPieces;
     }
 
-//    pobiera wartość danego pionka i szuka valid move 50x razy, jeżeli nie znajdzie idzie do kolejnego pionka
-//    jeżeli przejdzie wszystkie pionki to probuje jeszcze raz przejsc cała tablice z pionkami.
-//    jeżeli po drugim razie nie znajdzie żadnego ruchu (zbicie pionka, pójscie do przodu) gra się kończy i przegrywa
-
-//    public ArrayList<Integer> getAllValidMoves(String whoesIsTurn) {
     public void getAllValidMoves(String whoesIsTurn) {
         boolean validMoveP = false;
         ArrayList<String> allPieces = getAllPieces(whoesIsTurn);
         ArrayList<Integer> allPiecesWithValidMoves;
         if(whoesIsTurn.equals("[w]")) {
-//            for(int i=0; i < allPieces.size(); i++) {                                // coordinate for every piece
-            for(int i=allPieces.size()-1; i > 0;i--) {
-                String temp = allPieces.get(i);
+//            int counterWholeLoop = 0;
+            for(int i=allPieces.size()-1; i >= 0;i--) {
+                int selectRandomPieceonBoard = (int)(Math.random() *(allPieces.size()));
+                String temp = allPieces.get(selectRandomPieceonBoard);
                 temp = temp.replaceAll("[/[\\[\\]']+/g]", "");
                 String subStr1 = temp.substring(0,1);
                 String subStr2 = temp.substring(3,4);
@@ -104,7 +86,7 @@ public class Game {
 //                int [] tempInt = {1,2};
 //TODO: change position : 5 is x, 2 is y in validMove method
 
-                int counterValidMove = 0;
+                int counterValidMove = 0; // zmienna powodująca że po 50 nieudanych wylosowanych validMoves, przeskoczy do nastepnego pionka
                 while(!validMoveP) {
                     int [] tempIntRandom = {(int)(Math.random() *(8)),(int)(Math.random() *(8))};
                     validMoveP = validMove(tempInt, tempIntRandom);
@@ -126,7 +108,7 @@ public class Game {
             }
         }
 
-//        should return array with possible moves
+        //        should return array with possible moves
     }
 
 

@@ -8,4 +8,6 @@ zaimplementować:
       y-1, x-1
  {[w]=[3, 6]}
 
- AI ma generować random number w przedziale od 1 do 2 i od danej pozycji pionka może dodawać +1 lub +2
+
+ISSUE:
+po dotarciu przez pionek przeciwnika do końca planszy, nie zmienia się w damkę, gra wpada w niekończącą się pętle
