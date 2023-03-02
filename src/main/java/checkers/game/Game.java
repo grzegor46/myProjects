@@ -68,25 +68,65 @@ public class Game {
         return coordinationForAllPieces;
     }
 
+//    public void getAllValidMoves(String whoesIsTurn) {
+//        boolean validMoveP = false;
+//        ArrayList<String> allPieces = getAllPieces(whoesIsTurn);
+//        ArrayList<Integer> allPiecesWithValidMoves;
+//        if(whoesIsTurn.equals("[w]")) {
+////            int counterWholeLoop = 0;
+//            for(int i=allPieces.size()-1; i >= 0;i--) {
+//                int selectRandomPieceonBoard = (int)(Math.random() *(allPieces.size()));
+//                String temp = allPieces.get(selectRandomPieceonBoard);
+//                temp = temp.replaceAll("[/[\\[\\]']+/g]", "");
+//                String subStr1 = temp.substring(0,1);
+//                String subStr2 = temp.substring(3,4);
+//                int tempInt1 = Integer.parseInt(subStr1);
+//                int tempInt2 = Integer.parseInt(subStr2);
+//                int [] tempInt = {tempInt2, tempInt1};
+////                int [] tempInt = {1,2};
+////TODO: change position : 5 is x, 2 is y in validMove method
+//
+//                int counterValidMove = 0; // zmienna powodująca że po 50 nieudanych wylosowanych validMoves, przeskoczy do nastepnego pionka
+//                while(!validMoveP) {
+//                    int [] tempIntRandom = {(int)(Math.random() *(8)),(int)(Math.random() *(8))};
+//                    validMoveP = validMove(tempInt, tempIntRandom);
+//                    counterValidMove++;
+//                    if(counterValidMove==50) {
+//                        break;
+//                    }
+////                    System.out.println("tempIntRandom" + Arrays.toString(tempIntRandom));
+//
+//                    if(validMoveP) {
+//                        executeMove(tempInt, tempIntRandom);
+////                        System.out.println("tempIntTable with valid move" + Arrays.toString(tempIntRandom));
+////                        System.out.println("defined table {2,7}" + Arrays.toString(tempInt));
+//                        board.printBoard();
+////                        break;
+//                    }
+//                }
+////                System.out.println(allPieces.get(i));
+//            }
+//        }
+//
+//        //        should return array with possible moves
+//    }
+
     public void getAllValidMoves(String whoesIsTurn) {
         boolean validMoveP = false;
         ArrayList<String> allPieces = getAllPieces(whoesIsTurn);
-        ArrayList<Integer> allPiecesWithValidMoves;
         if(whoesIsTurn.equals("[w]")) {
-//            int counterWholeLoop = 0;
             for(int i=allPieces.size()-1; i >= 0;i--) {
-                int selectRandomPieceonBoard = (int)(Math.random() *(allPieces.size()));
-                String temp = allPieces.get(selectRandomPieceonBoard);
+                int selectRandomPieceOnBoard = (int)(Math.random() *(allPieces.size()));
+                String temp = allPieces.get(selectRandomPieceOnBoard);
                 temp = temp.replaceAll("[/[\\[\\]']+/g]", "");
                 String subStr1 = temp.substring(0,1);
                 String subStr2 = temp.substring(3,4);
                 int tempInt1 = Integer.parseInt(subStr1);
                 int tempInt2 = Integer.parseInt(subStr2);
                 int [] tempInt = {tempInt2, tempInt1};
-//                int [] tempInt = {1,2};
-//TODO: change position : 5 is x, 2 is y in validMove method
-
+//                int [] tempInt = {1,2}; //TODO: change position : 5 is x, 2 is y in validMove method
                 int counterValidMove = 0; // zmienna powodująca że po 50 nieudanych wylosowanych validMoves, przeskoczy do nastepnego pionka
+
                 while(!validMoveP) {
                     int [] tempIntRandom = {(int)(Math.random() *(8)),(int)(Math.random() *(8))};
                     validMoveP = validMove(tempInt, tempIntRandom);
@@ -98,8 +138,7 @@ public class Game {
 
                     if(validMoveP) {
                         executeMove(tempInt, tempIntRandom);
-//                        System.out.println("tempIntTable with valid move" + Arrays.toString(tempIntRandom));
-//                        System.out.println("defined table {2,7}" + Arrays.toString(tempInt));
+
                         board.printBoard();
 //                        break;
                     }
@@ -111,14 +150,10 @@ public class Game {
         //        should return array with possible moves
     }
 
-
     private int[] selectField(int val1, int val2) {
         return new int[]{val1-1, val2-1};
     }
-    
-// TODO: try to figure out how implement all valid moves for AI from selected Piece
-    
-    
+
     public boolean validMove(int[] selectedField, int[] fieldToMove) {
 
         int fromX = (selectedField[0]);
