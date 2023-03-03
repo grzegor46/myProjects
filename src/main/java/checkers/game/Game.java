@@ -1,8 +1,6 @@
 package checkers.game;
 
 import checkers.board.Board;
-import com.sun.java.accessibility.util.AccessibilityListenerList;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -29,7 +27,7 @@ public class Game {
         if (whoesIsTurn.equals("[w]")) {
             System.out.println("It is your turn, white.");
             System.out.println(getAllPieces(whoesIsTurn));
-            getAllValidMoves(whoesIsTurn);
+            makeComputerMove(whoesIsTurn);
         } else if(whoesIsTurn.equals("[b]")) {
             System.out.println("It is your turn, black.");
 //            TODO: add enum for black and white players?
@@ -111,7 +109,7 @@ public class Game {
 //        //        should return array with possible moves
 //    }
 
-    public void getAllValidMoves(String whoesIsTurn) {
+    public void makeComputerMove(String whoesIsTurn) {
         boolean validMoveP = false;
         ArrayList<String> allPieces = getAllPieces(whoesIsTurn);
         if(whoesIsTurn.equals("[w]")) {
@@ -168,6 +166,8 @@ public class Game {
         } else if (((Math.abs(fromX - toX) == 2)  && board.field[toY][toX].equals("[ ]")) && board.field[(fromY+toY)/2][(fromX+toX)/2].equals("[w]") && whoesIsTurn.equals("[b]")) {
             return true;
         }else if (((Math.abs(fromX - toX) == 2)  && board.field[toY][toX].equals("[ ]")) && board.field[(fromY+toY)/2][(fromX+toX)/2].equals("[b]") && whoesIsTurn.equals("[w]")) {
+            return true;
+        }else if (((Math.abs(fromX - toX) <= 8) && board.field[fromY][fromX].equals("[B]") && board.field[toY][toX].equals("[ ]")) && board.field[(fromY+toY)/2][(fromX+toX)/2].equals("[w]") && whoesIsTurn.equals("[b]")) {   // move for crown?
             return true;
         }else {
 //            System.out.println("invalid move");
