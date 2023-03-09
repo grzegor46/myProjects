@@ -20,7 +20,7 @@ public class Game {
         return checker_w;
     }
 
-    public void getNextMove() {
+    public void getNextMove() throws InterruptedException {
 
         Scanner scanner = new Scanner(System.in);
 
@@ -30,7 +30,9 @@ public class Game {
             makeComputerMove(whoesIsTurn);
         } else if(whoesIsTurn.equals("[b]")) {
             System.out.println("It is your turn, black.");
+            makeComputerMove(whoesIsTurn);
 //            TODO: add enum for black and white players?
+
             System.out.println("Please type position FROM which square would you like to move");
             System.out.println("enter 2 digits, example first is '1'  on 'x' axis and next enter '2' is on 'y' axis");
 
@@ -46,6 +48,17 @@ public class Game {
             System.out.println(getAllPieces(whoesIsTurn));
         }
     }
+                                                  // 0,5
+    private void isQeen (String whoesIsTurn, int [] coordinate) {
+//        coordinate[y][x]
+        if (whoesIsTurn.equals("[w]") && coordinate[0]==7) {
+            board.field[coordinate[0]][coordinate[1]] = "[W]";
+        }
+        if (whoesIsTurn.equals("[b]") && coordinate[0]==0) {
+//                   [ ] [ ] [ ] [ ] [ ] [ ] [ ] [B]
+            board.field[coordinate[0]][coordinate[1]] = "[B]";
+        }
+    }
 
     public ArrayList<String> getAllPieces(String whoesIsTurn) {
         ArrayList<String> coordinationForAllPieces = new ArrayList<>();
@@ -56,10 +69,10 @@ public class Game {
                 if(!board.field[piece][row].equals("[ ]") && board.field[piece][row].equals(whoesIsTurn)) {
                     String rowStr = Integer.toString(row);
                     String pieceStr = Integer.toString(piece);
-                    ArrayList<String> cordinate = new ArrayList<>();
-                    cordinate.add(pieceStr);
-                    cordinate.add(rowStr);
-                    coordinationForAllPieces.add(String.valueOf(cordinate));
+                    ArrayList<String> coordinate = new ArrayList<>();
+                    coordinate.add(pieceStr);
+                    coordinate.add(rowStr);
+                    coordinationForAllPieces.add(String.valueOf(coordinate));
                 }
             }
         }
@@ -136,7 +149,7 @@ public class Game {
 
                     if(validMoveP) {
                         executeMove(tempInt, tempIntRandom);
-
+                        isQeen(whoesIsTurn,tempIntRandom);
                         board.printBoard();
 //                        break;
                     }
@@ -144,6 +157,7 @@ public class Game {
 //                System.out.println(allPieces.get(i));
             }
         }
+
 
         //        should return array with possible moves
     }
@@ -180,12 +194,24 @@ public class Game {
 
             int fromX = (selectedField[0]);
             int fromY = (selectedField[1]);
-            int toX = (fieldToMove[0]);
-            int toY = (fieldToMove[1]);
+            int toX = (fieldToMove[0]); // 6 --> 5
+            int toY = (fieldToMove[1]); // 1 --> 0
 
             if ((Math.abs(fromX - toX) == 1) && Objects.equals(board.field[toY][toX], "[ ]")) {
                 board.field[toY][toX] = board.field[fromY][fromX];
                 board.field[fromY][fromX] = "[ ]";
+                isQeen(whoesIsTurn,new int[]{toY, toX});
+                if(whoesIsTurn.equals("[w]")) {
+                    whoesIsTurn = "[b]";
+                } else {
+                    whoesIsTurn = "[w]";
+                }
+            }
+// TODO: think about movement with crown piece
+            if ((Math.abs(fromX - toX) < 8) && Objects.equals(board.field[toY][toX], "[ ]")) {
+                board.field[toY][toX] = board.field[fromY][fromX];
+                board.field[fromY][fromX] = "[ ]";
+                isQeen(whoesIsTurn,new int[]{toY, toX});
                 if(whoesIsTurn.equals("[w]")) {
                     whoesIsTurn = "[b]";
                 } else {
