@@ -30,7 +30,7 @@ public class Game {
             makeComputerMove(whoesIsTurn);
         } else if(whoesIsTurn.equals("[b]")) {
             System.out.println("It is your turn, black.");
-            makeComputerMove(whoesIsTurn);
+
 //            TODO: add enum for black and white players?
 
             System.out.println("Please type position FROM which square would you like to move");
@@ -181,7 +181,9 @@ public class Game {
             return true;
         }else if (((Math.abs(fromX - toX) == 2)  && board.field[toY][toX].equals("[ ]")) && board.field[(fromY+toY)/2][(fromX+toX)/2].equals("[b]") && whoesIsTurn.equals("[w]")) {
             return true;
-        }else if (((Math.abs(fromX - toX) <= 8) && board.field[fromY][fromX].equals("[B]") && board.field[toY][toX].equals("[ ]")) && board.field[(fromY+toY)/2][(fromX+toX)/2].equals("[w]") && whoesIsTurn.equals("[b]")) {   // move for crown?
+        }else if (((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[B]") && board.field[toY][toX].equals("[ ]")) && board.field[(fromY+toY)/2][(fromX+toX)/2].equals("[w]") && whoesIsTurn.equals("[b]")) {   // move for crown --> attack?
+            return true;
+        }else if (((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[B]") && board.field[toY][toX].equals("[ ]")) && whoesIsTurn.equals("[b]")) {   // move for crown?
             return true;
         }else {
 //            System.out.println("invalid move");
@@ -208,7 +210,7 @@ public class Game {
                 }
             }
 // TODO: think about movement with crown piece
-            if ((Math.abs(fromX - toX) < 8) && Objects.equals(board.field[toY][toX], "[ ]")) {
+            if ((Math.abs(fromX - toX) < 8) && Objects.equals(board.field[toY][toX], "[ ]") && (board.field[fromY][fromX].equals("[B]") || board.field[fromY][fromX].equals("[W]")) ) {
                 board.field[toY][toX] = board.field[fromY][fromX];
                 board.field[fromY][fromX] = "[ ]";
                 isQeen(whoesIsTurn,new int[]{toY, toX});
@@ -224,12 +226,14 @@ public class Game {
                     board.field[(fromY + toY) / 2][(fromX + toX) / 2] = "[ ]";
                     board.field[toY][toX] = board.field[fromY][fromX];
                     board.field[fromY][fromX] = "[ ]";
+                    isQeen(whoesIsTurn,new int[]{toY, toX});
               }
 
                 if(whoesIsTurn.equals("[b]") && board.field[(fromY+toY)/2][(fromX+toX)/2].equals("[w]")) {
                     board.field[(fromY + toY) / 2][(fromX + toX) / 2] = "[ ]";
                     board.field[toY][toX] = board.field[fromY][fromX];
                     board.field[fromY][fromX] = "[ ]";
+                    isQeen(whoesIsTurn,new int[]{toY, toX});
                 }
 
                 if(whoesIsTurn.equals("[w]")) {
