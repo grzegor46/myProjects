@@ -181,7 +181,7 @@ public class Game {
             return true;
         }else if (((Math.abs(fromX - toX) == 2)  && board.field[toY][toX].equals("[ ]")) && board.field[(fromY+toY)/2][(fromX+toX)/2].equals("[b]") && whoesIsTurn.equals("[w]")) {
             return true;
-        }else if (((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[B]") && board.field[toY][toX].equals("[ ]")) && (board.field[((fromY+toY)/2)][(fromX+toX)/2].equals("[w]") || board.field[(fromY+toY)/2][(fromX+toX)/2].equals("[W]")) && whoesIsTurn.equals("[b]")) {   // move for crown --> attack?
+        }else if (((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[B]") && board.field[toY][toX].equals("[ ]")) && (board.field[((fromY+toY)/2)][(fromX+toX)/2].equals("[ ]") || board.field[(fromY+toY)/2][(fromX+toX)/2].equals("[W]")) && whoesIsTurn.equals("[b]")) {   // move for crown --> attack?
             return true;
         }else if (((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[B]") && board.field[toY][toX].equals("[ ]")) && whoesIsTurn.equals("[b]")) {   // move for crown?
             return true;
@@ -190,7 +190,7 @@ public class Game {
         }
             return false;
         }
-//TODO jump crown over opponent
+//TODO jump crown over opponent, how to aim coordinate piece before destination coordinate board.field[((fromY+toY)/2)][(fromX+toX)/2].equals("[ ]") --> should be empty with crown move
 
         public void executeMove(int [] selectedField, int [] fieldToMove){
 
