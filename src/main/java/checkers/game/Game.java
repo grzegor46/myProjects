@@ -190,7 +190,7 @@ public class Game {
         }
             return false;
         }
-
+//TODO jump crown over opponent
 
         public void executeMove(int [] selectedField, int [] fieldToMove){
 
