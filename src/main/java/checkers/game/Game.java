@@ -51,10 +51,10 @@ public class Game {
                                                   // 0,5
     private void isQeen (String whoesIsTurn, int [] coordinate) {
 //        coordinate[y][x]
-        if (whoesIsTurn.equals("[w]") && coordinate[0]==7) {
+        if (whoesIsTurn.equals("[w]") && coordinate[0]==7 && Objects.equals(board.field[coordinate[0]][coordinate[1]], "[w]")) {
             board.field[coordinate[0]][coordinate[1]] = "[W]";
         }
-        if (whoesIsTurn.equals("[b]") && coordinate[0]==0) {
+        if (whoesIsTurn.equals("[b]") && coordinate[0]==0 && Objects.equals(board.field[coordinate[0]][coordinate[1]], "[b]")) {
 //                   [ ] [ ] [ ] [ ] [ ] [ ] [ ] [B]
             board.field[coordinate[0]][coordinate[1]] = "[B]";
         }
@@ -167,29 +167,35 @@ public class Game {
     }
 
     public boolean validMove(int[] selectedField, int[] fieldToMove) {
+        try {
+            int fromX = (selectedField[0]);
+            int fromY = (selectedField[1]);
+            int toX = (fieldToMove[0]);
+            int toY = (fieldToMove[1]);
 
-        int fromX = (selectedField[0]);
-        int fromY = (selectedField[1]);
-        int toX = (fieldToMove[0]);
-        int toY = (fieldToMove[1]);
-
-        if ((fromX < 0 && fromY < 0) || (fromX > 7 && fromY > 7) || (toX < 0 && toY < 0) || (toX > 7 && toY > 7)) {
-            return false;
-        } else if ((Math.abs(fromX - toX) == 1) && board.field[toY][toX].equals("[ ]") && ((whoesIsTurn.equals("[b]") && board.field[fromY][fromX].equals("[b]")) && fromY-toY == 1 || (whoesIsTurn.equals("[w]") && board.field[fromY][fromX].equals("[w]")) && fromY-toY == -1)) {
-            return true;
-        } else if (((Math.abs(fromX - toX) == 2)  && board.field[toY][toX].equals("[ ]")) && board.field[(fromY+toY)/2][(fromX+toX)/2].equals("[w]") && whoesIsTurn.equals("[b]")) {
-            return true;
-        }else if (((Math.abs(fromX - toX) == 2)  && board.field[toY][toX].equals("[ ]")) && board.field[(fromY+toY)/2][(fromX+toX)/2].equals("[b]") && whoesIsTurn.equals("[w]")) {
-            return true;
-        }else if (((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[B]") && board.field[toY][toX].equals("[ ]")) && (board.field[((fromY+toY)/2)][(fromX+toX)/2].equals("[ ]") || board.field[(fromY+toY)/2][(fromX+toX)/2].equals("[W]")) && whoesIsTurn.equals("[b]")) {   // move for crown --> attack?
-            return true;
-        }else if (((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[B]") && board.field[toY][toX].equals("[ ]")) && whoesIsTurn.equals("[b]")) {   // move for crown?
-            return true;
-        }else {
+            if ((fromX < 0 && fromY < 0) || (fromX > 7 && fromY > 7) || (toX < 0 && toY < 0) || (toX > 7 && toY > 7)) {
+                return false;
+            } else if ((Math.abs(fromX - toX) == 1) && board.field[toY][toX].equals("[ ]") && ((whoesIsTurn.equals("[b]") && board.field[fromY][fromX].equals("[b]")) && fromY - toY == 1 || (whoesIsTurn.equals("[w]") && board.field[fromY][fromX].equals("[w]")) && fromY - toY == -1)) {
+                return true;
+            } else if (((Math.abs(fromX - toX) == 2) && board.field[toY][toX].equals("[ ]")) && board.field[(fromY + toY) / 2][(fromX + toX) / 2].equals("[w]") && whoesIsTurn.equals("[b]")) {
+                return true;
+            } else if (((Math.abs(fromX - toX) == 2) && board.field[toY][toX].equals("[ ]")) && board.field[(fromY + toY) / 2][(fromX + toX) / 2].equals("[b]") && whoesIsTurn.equals("[w]")) {
+                return true;
+            } else if (((Math.abs(fromX - toX) == 2) && board.field[fromY][fromX].equals("[B]") && board.field[toY][toX].equals("[ ]")) && (board.field[(fromY + toY) / 2][(fromX + toX) / 2].equals("[w]") || board.field[(fromY + toY) / 2][(fromX + toX) / 2].equals("[W]")) && whoesIsTurn.equals("[b]")) {
+                return true;
+            } else if (((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[B]") && board.field[toY][toX].equals("[ ]")) && ((board.field[((fromY + toY) / 2)][(fromX + toX) / 2].equals("[ ]"))) && (board.field[((((fromY + toY)) / 2) + toY) / 2][(((((fromX + toX)) / 2) + toX) / 2)].equals("[w]") || board.field[((((fromY + toY)) / 2) + toY) / 2][(((((fromX + toX)) / 2) + toX) / 2)].equals("[W]")) && whoesIsTurn.equals("[b]")) {   // move for crown --> attack?
+                return true;
+            } else if (((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[B]") && board.field[toY][toX].equals("[ ]") && board.field[toY][toX].equals("[ ]")) && whoesIsTurn.equals("[b]")) {   // move for crown?
+                return true;
+            } else {
 //            System.out.println("invalid move");
+            }
+
+        }catch(Exception e) {
+            System.out.println("invalid coordinate");
         }
-            return false;
-        }
+        return false;
+    }
 //TODO jump crown over opponent, how to aim coordinate piece before destination coordinate board.field[((fromY+toY)/2)][(fromX+toX)/2].equals("[ ]") --> should be empty with crown move
 
         public void executeMove(int [] selectedField, int [] fieldToMove){
@@ -210,7 +216,37 @@ public class Game {
                 }
             }
 // TODO: think about movement with crown piece
-            if ((Math.abs(fromX - toX) < 8) && Objects.equals(board.field[toY][toX], "[ ]") && (board.field[fromY][fromX].equals("[B]") || board.field[fromY][fromX].equals("[W]")) ) {
+            if(((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[B]") && board.field[toY][toX].equals("[ ]")) && ((board.field[((fromY+toY)/2)][(fromX+toX)/2].equals("[ ]"))) && ( board.field[((((fromY+toY))/2)+toY)/2][((((fromX+toX))/2)+toX)/2].equals("[w]") || board.field[((((fromY+toY))/2)+toY)/2][(((((fromX+toX))/2)+toX)/2)].equals("[W]")) && whoesIsTurn.equals("[b]")) {
+                board.field[((((fromY+toY))/2)+toY)/2][((((fromX+toX))/2)+toX)/2] = "[ ]";
+                board.field[toY][toX] = board.field[fromY][fromX];
+                isQeen(whoesIsTurn,new int[]{toY, toX});
+                board.field[fromY][fromX] = "[ ]";
+
+                if(whoesIsTurn.equals("[w]")) {
+                    checker_b--;
+                    whoesIsTurn = "[b]";
+                } else {
+                    checker_w--;
+                    whoesIsTurn = "[w]";
+
+                }
+            }
+            if(((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[B]") && board.field[toY][toX].equals("[ ]")) && (board.field[(fromY+toY)/2][(fromX+toX)/2].equals("[w]") || board.field[(fromY+toY)/2][(fromX+toX)/2].equals("[W]")) && whoesIsTurn.equals("[b]")) {
+                board.field[(fromY + toY) / 2][(fromX + toX) / 2] = "[ ]";
+                board.field[toY][toX] = board.field[fromY][fromX];
+                isQeen(whoesIsTurn,new int[]{toY, toX});
+                board.field[fromY][fromX] = "[ ]";
+
+                if(whoesIsTurn.equals("[w]")) {
+                    checker_b--;
+                    whoesIsTurn = "[b]";
+                } else {
+                    checker_w--;
+                    whoesIsTurn = "[w]";
+
+                }
+            }
+            if ((Math.abs(fromX - toX) < 7) && Objects.equals(board.field[toY][toX], "[ ]") && (board.field[fromY][fromX].equals("[B]") || board.field[fromY][fromX].equals("[W]")) ) {
                 board.field[toY][toX] = board.field[fromY][fromX];
                 isQeen(whoesIsTurn,new int[]{toY, toX});
                 board.field[fromY][fromX] = "[ ]";
@@ -227,7 +263,7 @@ public class Game {
                     board.field[toY][toX] = board.field[fromY][fromX];
                     isQeen(whoesIsTurn,new int[]{toY, toX});
                     board.field[fromY][fromX] = "[ ]";
-              }
+                }
 
                 if(whoesIsTurn.equals("[b]") && board.field[(fromY+toY)/2][(fromX+toX)/2].equals("[w]")) {
                     board.field[(fromY + toY) / 2][(fromX + toX) / 2] = "[ ]";
@@ -246,6 +282,8 @@ public class Game {
                 }
             }
 
+
+// ((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[B]") && board.field[toY][toX].equals("[ ]")) && ((board.field[((fromY+toY)/2)][(fromX+toX)/2].equals("[ ]"))) && ( board.field[((((fromY+toY))/2)+toY)/2][(((((fromX+toX))/2)+toX)/2)].equals("[w]") || board.field[((((fromY+toY))/2)+toY)/2][(((((fromX+toX))/2)+toX)/2)].equals("[W]")) && whoesIsTurn.equals("[b]"))
         }
 
     public int evaluate() {
