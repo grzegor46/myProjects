@@ -172,7 +172,7 @@ public class Game {
             int fromY = (selectedField[1]);
             int toX = (fieldToMove[0]);
             int toY = (fieldToMove[1]);
-
+// TODO implement jumping over opponent with crown movement
             if ((fromX < 0 && fromY < 0) || (fromX > 7 && fromY > 7) || (toX < 0 && toY < 0) || (toX > 7 && toY > 7)) {
                 return false;
             } else if ((Math.abs(fromX - toX) == 1) && board.field[toY][toX].equals("[ ]") && ((whoesIsTurn.equals("[b]") && board.field[fromY][fromX].equals("[b]")) && fromY - toY == 1 || (whoesIsTurn.equals("[w]") && board.field[fromY][fromX].equals("[w]")) && fromY - toY == -1)) {
@@ -202,7 +202,6 @@ public class Game {
         }
         return false;
     }
-//TODO jump crown over opponent, how to aim coordinate piece before destination coordinate board.field[((fromY+toY)/2)][(fromX+toX)/2].equals("[ ]") --> should be empty with crown move
 
         public void executeMove(int [] selectedField, int [] fieldToMove){
 
