@@ -1,13 +1,10 @@
 zaimplementować:
  - zakaz cofania się pionkiem do tyłu - DONE
+ - stworzenie damki po dotarciu do "bazy" przeciwnika - DONE
+ - poruszanie się damką przez wiele pól przy jednym ruchu - DONE
+ - bicie damką oraz sprawdzenie czy nie ma dodatkowego pionka na polu przed biciem zamierzonego pionka - DONE
  - wielokrotne bicie
- - stworzenie damki po dotarciu do "bazy" przeciwnika
- - poruszanie się damką przez wiele pól przy jednym ruchu
-
 
       y-1, x-1
  {[w]=[3, 6]}
 
-
-ISSUE:
-po dotarciu przez pionek przeciwnika do końca planszy, nie zmienia się w damkę, gra wpada w niekończącą się pętle
