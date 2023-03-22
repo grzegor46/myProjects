@@ -2,8 +2,11 @@ zaimplementować:
  - zakaz cofania się pionkiem do tyłu - DONE
  - stworzenie damki po dotarciu do "bazy" przeciwnika - DONE
  - poruszanie się damką przez wiele pól przy jednym ruchu - DONE
- - bicie damką oraz sprawdzenie czy nie ma dodatkowego pionka na polu przed biciem zamierzonego pionka - DONE
+ - bicie damką DLA [b] oraz sprawdzenie czy nie ma dodatkowego pionka na polu przed biciem zamierzonego pionka - DONE
+ - bicie damką DLA [w] oraz sprawdzenie czy nie ma dodatkowego pionka na polu przed biciem zamierzonego pionka
  - wielokrotne bicie
+ - popraw poprawne wyświetlanie się tablicy po odpowiednich ruchach aby nie pokazywało 2x tę samą tablicę
+ - przy biciu damką odejhmuje po 1 pionku z b i w
 
       y-1, x-1
  {[w]=[3, 6]}

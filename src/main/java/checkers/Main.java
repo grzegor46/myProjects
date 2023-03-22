@@ -14,6 +14,7 @@ public class Main {
 
 		game.board.initialBoardWithRedAndBlackChecker();
 		game.board.printBoard();
+		game.selectGameType();
 
 		// Loop until game is over.
 	while (!game.gameOver()) {
