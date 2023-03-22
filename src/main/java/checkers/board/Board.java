@@ -1,7 +1,6 @@
 package checkers.board;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Board {
     public String[][] field;
@@ -55,7 +54,24 @@ public class Board {
         System.out.print("Y");
         System.out.println("");
     }
-
+    public ArrayList<String> getAllPieces(String whoesIsTurn) {
+        ArrayList<String> coordinationForAllPieces = new ArrayList<>();
+        int row;
+        int piece;
+        for(row=0; row < field.length; row++) {
+            for(piece=0; piece < field.length; piece++) {
+                if(!field[piece][row].equals("[ ]") && field[piece][row].equals(whoesIsTurn)) {
+                    String rowStr = Integer.toString(row);
+                    String pieceStr = Integer.toString(piece);
+                    ArrayList<String> coordinate = new ArrayList<>();
+                    coordinate.add(pieceStr);
+                    coordinate.add(rowStr);
+                    coordinationForAllPieces.add(String.valueOf(coordinate));
+                }
+            }
+        }
+        return coordinationForAllPieces;
+    }
 
 
 
