@@ -146,8 +146,10 @@ public class Game {
             }else if (((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[B]") && board.field[toY][toX].equals("[ ]")) && whoesIsTurn.equals("[b]")) {   // move for crown?
                 return true;
             } else {
-                System.out.println("invalid move");
-                board.printBoard();
+                if (!isAi) {
+                    System.out.println("invalid move");
+                    board.printBoard();
+                }
             }
 
         }catch(Exception e) {
