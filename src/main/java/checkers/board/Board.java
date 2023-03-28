@@ -25,7 +25,7 @@ public class Board {
         for( int i = 0; i < 8; i += 1) {
             for (int j = 1; j < 8; j += 2 ){
                 if(i==0 || i==2 ) {
-                    field[i][j] = "[w]";
+                    field[i][j] = "[W]";
                 }
                 if(i==6) {
                     field[i][j] = "[b]";
@@ -33,7 +33,7 @@ public class Board {
             }
             for (int j = 0; j < 8; j += 2 ){
                 if(i==1) {
-                    field[i][j] = "[w]";
+                    field[i][j] = "[W]";
                 }
                 if(i==7 || i==5) {
                     field[i][j] = "[b]";
@@ -60,7 +60,15 @@ public class Board {
         int piece;
         for(row=0; row < field.length; row++) {
             for(piece=0; piece < field.length; piece++) {
-                if(!field[piece][row].equals("[ ]") && field[piece][row].equals(whoesIsTurn)) {
+                if(!field[piece][row].equals("[ ]") && (field[piece][row].equals(whoesIsTurn) || field[piece][row].equals("[W]"))) {
+                    String rowStr = Integer.toString(row);
+                    String pieceStr = Integer.toString(piece);
+                    ArrayList<String> coordinate = new ArrayList<>();
+                    coordinate.add(pieceStr);
+                    coordinate.add(rowStr);
+                    coordinationForAllPieces.add(String.valueOf(coordinate));
+                }
+                if(!field[piece][row].equals("[ ]") && (field[piece][row].equals(whoesIsTurn) || field[piece][row].equals("[B]"))) {
                     String rowStr = Integer.toString(row);
                     String pieceStr = Integer.toString(piece);
                     ArrayList<String> coordinate = new ArrayList<>();
