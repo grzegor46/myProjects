@@ -1,7 +1,7 @@
 package checkers.game;
 
 import checkers.board.Board;
-import checkers.exception.IncorrectInputFormatException;
+
 
 import java.util.*;
 
@@ -103,11 +103,11 @@ public class Game {
                         break;
                     }
 //                    System.out.println("tempIntRandom" + Arrays.toString(tempIntRandom));
-                    if(validMoveP) {
+                    if(validMoveP && validCrownMove(tempInt, tempIntRandom)) {
                         executeMove(tempInt, tempIntRandom);
                         isQueen(whoesIsTurn,tempIntRandom);
                         board.printBoard();
-//                        break;
+                        break;
                     }
                 }
 //                System.out.println(allPieces.get(i));
@@ -119,13 +119,30 @@ public class Game {
     private int[] selectField(int val1, int val2) {
         return new int[]{val1-1, val2-1};
     }
-//TODO crown valid move
-//    private boolean validCrownMove(int[] selectedField, int[] fieldToMove) {
-//        for (int i = selectedField[0]; i < fieldToMove[0]; i++) {
-//            if ((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[B]") && board.field[toY-i][toX-i].equals("[ ]") && board.field[toY][toX].equals("[ ]")) && whoesIsTurn.equals("[b]")
-//        }
-//        return false;
-//    }
+//TODO crown valid move, zamiast od pkt docelowego odejmowac, to od pkt poczatkowego dodawac tak dlugo az osiagnie sie pkt docelowy
+    public boolean validCrownMove(int[] selectedField, int[] fieldToMove) {
+
+        int fromX = (selectedField[0]);
+        int fromY = (selectedField[1]);
+        int toX = (fieldToMove[0]);
+        int toY = (fieldToMove[1]);
+        int counterLoop = Math.abs(fromX-toX);
+
+        if (((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[W]") && whoesIsTurn.equals("[w]")) && ((fromX > toX) && (fromY < toY)) && (board.field[toY-1][toX+1].equals("[ ]") && board.field[toY-2][toX+2].equals("[ ]"))) {
+            for (int i = 0; i < counterLoop; i++) {
+                boolean isEmpty = board.field[toY][toX].equals("[ ]");
+                if(!isEmpty) {
+                    return false;
+                }
+                return true;
+            }
+        }
+         else if (((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[W]") && whoesIsTurn.equals("[w]")) && ((fromX < toX) && (fromY > toY)) && (board.field[toY+1][toX-1].equals("[ ]") && board.field[toY+2][toX-2].equals("[ ]"))) {return true;}
+        else if (((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[W]") && whoesIsTurn.equals("[w]")) && ((fromX < toX) && (fromY < toY)) && (board.field[toY-1][toX-1].equals("[ ]")  && board.field[toY-2][toX-2].equals("[ ]"))) {return true;}
+        else if (((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[W]") && whoesIsTurn.equals("[w]")) && ((fromX > toX) && (fromY > toY)) && (board.field[toY+1][toX+1].equals("[ ]")  && board.field[toY+2][toX+2].equals("[ ]"))) {return true;}
+
+        return false;
+    }
 
     public boolean validMove(int[] selectedField, int[] fieldToMove) {
         try {
