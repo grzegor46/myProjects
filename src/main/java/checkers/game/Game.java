@@ -128,7 +128,7 @@ public class Game {
         int toY = (fieldToMove[1]);
         int counterLoop = Math.abs(fromX-toX);
 
-        if (((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[W]") && whoesIsTurn.equals("[w]")) && ((fromX > toX) && (fromY < toY)) && (board.field[toY-1][toX+1].equals("[ ]") && board.field[toY-2][toX+2].equals("[ ]"))) {
+        if (((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[W]") && whoesIsTurn.equals("[w]")) && ((fromX > toX) && (fromY < toY)) && (board.field[toY][toX].equals("[ ]"))) {
             for (int i = 0; i < counterLoop; i++) {
                 boolean isEmpty = board.field[fromY+i][fromX-i].equals("[ ]");
                 System.out.println("fromY+i:" +(fromY+i) );
@@ -139,7 +139,7 @@ public class Game {
                 return true;
             }
         }
-         else if (((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[W]") && whoesIsTurn.equals("[w]")) && ((fromX < toX) && (fromY > toY)) && (board.field[toY+1][toX-1].equals("[ ]") && board.field[toY+2][toX-2].equals("[ ]"))) {
+         else if (((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[W]") && whoesIsTurn.equals("[w]")) && ((fromX < toX) && (fromY > toY)) && (board.field[toY][toX].equals("[ ]"))) {
             for (int i = 0; i < counterLoop; i++) {
                 boolean isEmpty = board.field[fromY-i][fromX+i].equals("[ ]");
                 System.out.println("fromY-i:" +(fromY-i) );
@@ -150,7 +150,7 @@ public class Game {
                 return true;
             }}
 
-        else if (((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[W]") && whoesIsTurn.equals("[w]")) && ((fromX < toX) && (fromY < toY)) && (board.field[toY-1][toX-1].equals("[ ]")  && board.field[toY-2][toX-2].equals("[ ]"))) {
+        else if (((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[W]") && whoesIsTurn.equals("[w]")) && ((fromX < toX) && (fromY < toY)) && (board.field[toY][toX].equals("[ ]"))) {
             for (int i = 0; i < counterLoop; i++) {
                 boolean isEmpty = board.field[fromY+i][fromX+i].equals("[ ]");
                 System.out.println("fromY+i:" +(fromY+i) );
@@ -160,7 +160,7 @@ public class Game {
                 }
                 return true;
             }}
-        else if (((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[W]") && whoesIsTurn.equals("[w]")) && ((fromX > toX) && (fromY > toY)) && (board.field[toY+1][toX+1].equals("[ ]")  && board.field[toY+2][toX+2].equals("[ ]"))) {
+        else if (((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[W]") && whoesIsTurn.equals("[w]")) && ((fromX > toX) && (fromY > toY)) && (board.field[toY][toX].equals("[ ]"))) {
             for (int i = 0; i < counterLoop; i++) {
                 boolean isEmpty = board.field[fromY-i][fromX-i].equals("[ ]");
                 System.out.println("fromY-i:" +(fromY-i) );
