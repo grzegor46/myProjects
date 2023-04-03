@@ -130,16 +130,46 @@ public class Game {
 
         if (((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[W]") && whoesIsTurn.equals("[w]")) && ((fromX > toX) && (fromY < toY)) && (board.field[toY-1][toX+1].equals("[ ]") && board.field[toY-2][toX+2].equals("[ ]"))) {
             for (int i = 0; i < counterLoop; i++) {
-                boolean isEmpty = board.field[toY][toX].equals("[ ]");
+                boolean isEmpty = board.field[fromY+i][fromX-i].equals("[ ]");
+                System.out.println("fromY+i:" +(fromY+i) );
+                System.out.println("fromX-i:" +(fromX-i) );
                 if(!isEmpty) {
                     return false;
                 }
                 return true;
             }
         }
-         else if (((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[W]") && whoesIsTurn.equals("[w]")) && ((fromX < toX) && (fromY > toY)) && (board.field[toY+1][toX-1].equals("[ ]") && board.field[toY+2][toX-2].equals("[ ]"))) {return true;}
-        else if (((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[W]") && whoesIsTurn.equals("[w]")) && ((fromX < toX) && (fromY < toY)) && (board.field[toY-1][toX-1].equals("[ ]")  && board.field[toY-2][toX-2].equals("[ ]"))) {return true;}
-        else if (((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[W]") && whoesIsTurn.equals("[w]")) && ((fromX > toX) && (fromY > toY)) && (board.field[toY+1][toX+1].equals("[ ]")  && board.field[toY+2][toX+2].equals("[ ]"))) {return true;}
+         else if (((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[W]") && whoesIsTurn.equals("[w]")) && ((fromX < toX) && (fromY > toY)) && (board.field[toY+1][toX-1].equals("[ ]") && board.field[toY+2][toX-2].equals("[ ]"))) {
+            for (int i = 0; i < counterLoop; i++) {
+                boolean isEmpty = board.field[fromY-i][fromX+i].equals("[ ]");
+                System.out.println("fromY-i:" +(fromY-i) );
+                System.out.println("fromX+i:" +(fromX+i) );
+                if(!isEmpty) {
+                    return false;
+                }
+                return true;
+            }}
+
+        else if (((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[W]") && whoesIsTurn.equals("[w]")) && ((fromX < toX) && (fromY < toY)) && (board.field[toY-1][toX-1].equals("[ ]")  && board.field[toY-2][toX-2].equals("[ ]"))) {
+            for (int i = 0; i < counterLoop; i++) {
+                boolean isEmpty = board.field[fromY+i][fromX+i].equals("[ ]");
+                System.out.println("fromY+i:" +(fromY+i) );
+                System.out.println("fromX+i:" +(fromX+i) );
+                if(!isEmpty) {
+                    return false;
+                }
+                return true;
+            }}
+        else if (((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[W]") && whoesIsTurn.equals("[w]")) && ((fromX > toX) && (fromY > toY)) && (board.field[toY+1][toX+1].equals("[ ]")  && board.field[toY+2][toX+2].equals("[ ]"))) {
+            for (int i = 0; i < counterLoop; i++) {
+                boolean isEmpty = board.field[fromY-i][fromX-i].equals("[ ]");
+                System.out.println("fromY-i:" +(fromY-i) );
+                System.out.println("fromX-i:" +(fromX-i) );
+                if(!isEmpty) {
+                    return false;
+                }
+                return true;
+            }}
 
         return false;
     }
