@@ -79,6 +79,11 @@ public class Game {
         }
     }
 
+    private boolean isQueenSelected(String whoesIsTurn, int [] coordinate) {
+//                             Y                 X
+        return board.field[coordinate[0]][coordinate[1]].equals("[W]") && whoesIsTurn.equals("[w]");
+    }
+
     public void makeComputerMove(String whoesIsTurn) {
         boolean validMoveP = false;
         ArrayList<String> allPieces = board.getAllPieces(whoesIsTurn);
@@ -102,18 +107,32 @@ public class Game {
                     if(counterValidMove==50) {
                         break;
                     }
-//                    System.out.println("tempIntRandom" + Arrays.toString(tempIntRandom));
-                    if(validMoveP && validCrownMove(tempInt, tempIntRandom)) {
+                    if(validMoveP && !isQueenSelected(whoesIsTurn,tempInt)) {
+
+
                         executeMove(tempInt, tempIntRandom);
                         isQueen(whoesIsTurn,tempIntRandom);
                         board.printBoard();
                         break;
+                    } else {
+                        executeCrownMove(whoesIsTurn,tempInt, tempIntRandom);
+                    }
+
                     }
                 }
-//                System.out.println(allPieces.get(i));
             }
         }
-        //        should return array with possible moves
+
+    private void executeCrownMove( String whoesIsTurn, int[] selectedFieldWithCrown, int[] generatedRandomFieldByComputer) {
+        int fromX = (selectedFieldWithCrown[0]);
+        int fromY = (selectedFieldWithCrown[1]);
+        int toX = (generatedRandomFieldByComputer[0]);
+        int toY;
+        if(fromX > toX) {
+            int rowNumberY = 8 - toX;
+            toY = rowNumberY;
+        }
+
     }
 
     private int[] selectField(int val1, int val2) {
@@ -121,6 +140,8 @@ public class Game {
     }
 //TODO crown valid move, zamiast od pkt docelowego odejmowac, to od pkt poczatkowego dodawac tak dlugo az osiagnie sie pkt docelowy
     public boolean validCrownMove(int[] selectedField, int[] fieldToMove) {
+
+
 
         int fromX = (selectedField[0]);
         int fromY = (selectedField[1]);
@@ -136,8 +157,8 @@ public class Game {
                 if(!isEmpty) {
                     return false;
                 }
-                return true;
             }
+            return true;
         }
          else if (((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[W]") && whoesIsTurn.equals("[w]")) && ((fromX < toX) && (fromY > toY)) && (board.field[toY][toX].equals("[ ]"))) {
             for (int i = 0; i < counterLoop; i++) {
@@ -147,8 +168,9 @@ public class Game {
                 if(!isEmpty) {
                     return false;
                 }
-                return true;
-            }}
+            }
+            return true;
+        }
 
         else if (((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[W]") && whoesIsTurn.equals("[w]")) && ((fromX < toX) && (fromY < toY)) && (board.field[toY][toX].equals("[ ]"))) {
             for (int i = 0; i < counterLoop; i++) {
@@ -158,8 +180,9 @@ public class Game {
                 if(!isEmpty) {
                     return false;
                 }
-                return true;
-            }}
+            }
+            return true;
+        }
         else if (((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[W]") && whoesIsTurn.equals("[w]")) && ((fromX > toX) && (fromY > toY)) && (board.field[toY][toX].equals("[ ]"))) {
             for (int i = 0; i < counterLoop; i++) {
                 boolean isEmpty = board.field[fromY-i][fromX-i].equals("[ ]");
@@ -168,8 +191,9 @@ public class Game {
                 if(!isEmpty) {
                     return false;
                 }
-                return true;
-            }}
+            }
+            return true;
+        }
 
         return false;
     }
