@@ -84,45 +84,48 @@ public class Game {
         return board.field[coordinate[1]][coordinate[0]].equals("[W]") && whoesIsTurn.equals("[w]");
     }
 
+    private int [] generateRandomCoordinate() {
+        return new int[]{(int) (Math.random() * (8)), (int) (Math.random() * (8))};
+    }
+
     public void makeComputerMove(String whoesIsTurn) {
         boolean validMoveP = false;
         ArrayList<String> allPieces = board.getAllPieces(whoesIsTurn);
         if(whoesIsTurn.equals("[w]")) {
-            for(int i=allPieces.size()-1; i >= 0;i--) {
-                int selectRandomPieceOnBoard = (int)(Math.random() *(allPieces.size()));
+            boolean moved = false;
 
-                String temp = allPieces.get(selectRandomPieceOnBoard);
-                temp = temp.replaceAll("[/[\\[\\]']+/g]", "");
-                String subStr1 = temp.substring(0,1);
-                String subStr2 = temp.substring(3,4);
+                for (int i = allPieces.size() - 1; i >= 0; i--) {
+                  if(!moved) {
+                    int selectRandomPieceOnBoard = (int) (Math.random() * (allPieces.size()));
 
-                int tempInt1 = Integer.parseInt(subStr1);
-                int tempInt2 = Integer.parseInt(subStr2);
-                int [] tempInt = {tempInt2, tempInt1};
+                    String temp = allPieces.get(selectRandomPieceOnBoard);
+                    temp = temp.replaceAll("[/[\\[\\]']+/g]", "");
+                    String subStr1 = temp.substring(0, 1);
+                    String subStr2 = temp.substring(3, 4);
+                    int tempInt1 = Integer.parseInt(subStr1);
+                    int tempInt2 = Integer.parseInt(subStr2);
+                    int[] tempInt = {tempInt2, tempInt1};
 //                int [] tempInt = {1,2}; //TODO: change position : 5 is x, 2 is y in validMove method
-                int counterValidMove = 0; // zmienna powodująca że po 50 nieudanych wylosowanych validMoves, przeskoczy do nastepnego pionka
 
-                while(!validMoveP) {
-                    int [] tempIntRandom = {(int)(Math.random() *(8)),(int)(Math.random() *(8))};
+                    int[] tempIntRandom = generateRandomCoordinate();
                     validMoveP = validMove(tempInt, tempIntRandom);
-                    counterValidMove++;
-                    if(counterValidMove==50) {
-                        break;
-                    }
-                    if(validMoveP && !isQueenSelected(whoesIsTurn,tempInt)) {
+
+                    if (validMoveP && !isQueenSelected(whoesIsTurn, tempInt)) {
                         executeMove(tempInt, tempIntRandom);
-                        isQueen(whoesIsTurn,tempIntRandom);
+                        isQueen(whoesIsTurn, tempIntRandom);
                         board.printBoard();
-                        break;
-                    } else {
-                        executeCrownMove(whoesIsTurn,tempInt, tempIntRandom);
-                        break;
+                        moved = true;
+                    }
+                    if(isQueenSelected(whoesIsTurn, tempInt)) {
+                        executeCrownMove(whoesIsTurn, tempInt, tempIntRandom);
+                        moved = true;
                     }
 
-                    }
-                }
+
+                  }
             }
         }
+    }
 //
     private void executeCrownMove( String whoesIsTurn, int[] selectedFieldWithCrown, int[] generatedRandomFieldByComputer) {
         int fromX = (selectedFieldWithCrown[0]); // x=4
@@ -134,11 +137,17 @@ public class Game {
         if(fromX > toX || fromX < toX) {
             toYDown =(Math.abs(fromX - toX) + fromY);
             toYUp = (Math.abs(fromX - toX) - fromY);
-            if(toYUp < 0) {
-                toY = toYDown;
-            } else {
+//            TODO dopracuj logikę
+            if(toYDown > 7) {
                 toY = toYUp;
+            } else {
+                toY = toYDown;
             }
+
+            if(fromY - toYUp < 0) {
+                toY = toYDown;
+            }
+
             int [] generatedValidMoveForCrown = {toX, toY};
             if(validMove(selectedFieldWithCrown,generatedValidMoveForCrown)) {
                 executeMove(selectedFieldWithCrown,generatedValidMoveForCrown);
