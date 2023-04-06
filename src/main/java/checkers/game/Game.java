@@ -81,7 +81,7 @@ public class Game {
 
     private boolean isQueenSelected(String whoesIsTurn, int [] coordinate) {
 //                             Y                 X
-        return board.field[coordinate[0]][coordinate[1]].equals("[W]") && whoesIsTurn.equals("[w]");
+        return board.field[coordinate[1]][coordinate[0]].equals("[W]") && whoesIsTurn.equals("[w]");
     }
 
     public void makeComputerMove(String whoesIsTurn) {
@@ -90,10 +90,12 @@ public class Game {
         if(whoesIsTurn.equals("[w]")) {
             for(int i=allPieces.size()-1; i >= 0;i--) {
                 int selectRandomPieceOnBoard = (int)(Math.random() *(allPieces.size()));
+
                 String temp = allPieces.get(selectRandomPieceOnBoard);
                 temp = temp.replaceAll("[/[\\[\\]']+/g]", "");
                 String subStr1 = temp.substring(0,1);
                 String subStr2 = temp.substring(3,4);
+
                 int tempInt1 = Integer.parseInt(subStr1);
                 int tempInt2 = Integer.parseInt(subStr2);
                 int [] tempInt = {tempInt2, tempInt1};
@@ -108,30 +110,44 @@ public class Game {
                         break;
                     }
                     if(validMoveP && !isQueenSelected(whoesIsTurn,tempInt)) {
-
-
                         executeMove(tempInt, tempIntRandom);
                         isQueen(whoesIsTurn,tempIntRandom);
                         board.printBoard();
                         break;
                     } else {
                         executeCrownMove(whoesIsTurn,tempInt, tempIntRandom);
+                        break;
                     }
 
                     }
                 }
             }
         }
-
+//
     private void executeCrownMove( String whoesIsTurn, int[] selectedFieldWithCrown, int[] generatedRandomFieldByComputer) {
-        int fromX = (selectedFieldWithCrown[0]);
-        int fromY = (selectedFieldWithCrown[1]);
-        int toX = (generatedRandomFieldByComputer[0]);
+        int fromX = (selectedFieldWithCrown[0]); // x=4
+        int fromY = (selectedFieldWithCrown[1]); // y=3
+        int toX = (generatedRandomFieldByComputer[0]); // x=2
         int toY;
-        if(fromX > toX) {
-            int rowNumberY = 8 - toX;
-            toY = rowNumberY;
+        int toYDown;
+        int toYUp;
+        if(fromX > toX || fromX < toX) {
+            toYDown =(Math.abs(fromX - toX) + fromY);
+            toYUp = (Math.abs(fromX - toX) - fromY);
+            if(toYUp < 0) {
+                toY = toYDown;
+            } else {
+                toY = toYUp;
+            }
+            int [] generatedValidMoveForCrown = {toX, toY};
+            if(validMove(selectedFieldWithCrown,generatedValidMoveForCrown)) {
+                executeMove(selectedFieldWithCrown,generatedValidMoveForCrown);
+            } else {
+                System.out.println("executeCrownMove: invalidMove!");
+            }
+            board.printBoard();
         }
+
 
     }
 
