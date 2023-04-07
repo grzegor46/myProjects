@@ -151,8 +151,8 @@ public class Game {
 
             }
             int [] generatedValidMoveForCrown = {toX, toY};
-//            if(validMove(selectedFieldWithCrown,generatedValidMoveForCrown) && validCrownMove(selectedFieldWithCrown, generatedValidMoveForCrown)) {
-            if(validCrownMove(selectedFieldWithCrown, generatedValidMoveForCrown)) {
+            if(validMove(selectedFieldWithCrown,generatedValidMoveForCrown)) {
+//            if(validCrownMove(selectedFieldWithCrown, generatedValidMoveForCrown)) {
                 executeMove(selectedFieldWithCrown,generatedValidMoveForCrown);
 
             } else {
@@ -168,8 +168,6 @@ public class Game {
     }
 //TODO crown valid move, zamiast od pkt docelowego odejmowac, to od pkt poczatkowego dodawac tak dlugo az osiagnie sie pkt docelowy
     public boolean validCrownMove(int[] selectedField, int[] fieldToMove) {
-
-
 
         int fromX = (selectedField[0]);
         int fromY = (selectedField[1]);
@@ -263,7 +261,7 @@ public class Game {
                 return true;
             }else if (((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[W]") && board.field[toY][toX].equals("[ ]") && whoesIsTurn.equals("[w]")) && ((fromX > toX) && (fromY > toY)) && (board.field[toY+1][toX+1].equals("[b]") || board.field[toY+1][toX+1].equals("[B]")) && board.field[toY+2][toX+2].equals("[ ]")) {
                 return true;
-            }else if (((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[W]") && board.field[toY][toX].equals("[ ]")) && whoesIsTurn.equals("[w]")) {   // move for crown?
+            }else if (((Math.abs(fromX - toX) < 7) && validCrownMove(selectedField,fieldToMove))) {   // move for crown?
                 return true;
             }else {
                 if (!isAi) {
