@@ -333,27 +333,27 @@ public class Game {
                     changePlayerAndRemovePiece();
                 }
             }
-//          [W] piece
+//          [W] piece TODO dodaj bicie z daleka --> przenieś logikę z valid move z funkcją crownValidMove do logiki poniżej
             if (((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[W]") && board.field[toY][toX].equals("[ ]") && whoesIsTurn.equals("[w]"))) {
-                if ((fromX > toX) && (fromY < toY) && (board.field[toY-1][toX+1].equals("[b]") || board.field[toY-1][toX+1].equals("[B]")) && board.field[toY-2][toX+2].equals("[ ]")) {
+                if ((fromX > toX) && (fromY < toY) && (board.field[toY-1][toX+1].equals("[b]") || board.field[toY-1][toX+1].equals("[B]")) && validCrownMove(selectedField,new int[]{toY - 2, toX + 2})) {
                     board.field[toY][toX] = board.field[fromY][fromX];
                     isQueen(whoesIsTurn,new int[]{toY, toX});
                     board.field[toY-1][toX+1] = "[ ]";
                     board.field[fromY][fromX] = "[ ]";
                     changePlayerAndRemovePiece();
-                }else if ((fromX < toX) && (fromY > toY) && (board.field[toY+1][toX-1].equals("[b]") || board.field[toY+1][toX-1].equals("[B]")) && board.field[toY+2][toX-2].equals("[ ]")) {
+                }else if ((fromX < toX) && (fromY > toY) && (board.field[toY+1][toX-1].equals("[b]") || board.field[toY+1][toX-1].equals("[B]")) && validCrownMove(selectedField,new int[]{toY + 2, toX - 2})) {
                     board.field[toY][toX] = board.field[fromY][fromX];
                     isQueen(whoesIsTurn,new int[]{toY, toX});
                     board.field[toY+1][toX-1] = "[ ]";
                     board.field[fromY][fromX] = "[ ]";
                     changePlayerAndRemovePiece();
-                }else if ((fromX < toX) && (fromY < toY) && (board.field[toY-1][toX-1].equals("[b]") || board.field[toY-1][toX-1].equals("[B]")) && board.field[toY-2][toX-2].equals("[ ]")) {
+                }else if ((fromX < toX) && (fromY < toY) && (board.field[toY-1][toX-1].equals("[b]") || board.field[toY-1][toX-1].equals("[B]")) && validCrownMove(selectedField,new int[]{toY - 2, toX - 2})) {
                     board.field[toY][toX] = board.field[fromY][fromX];
                     isQueen(whoesIsTurn,new int[]{toY, toX});
                     board.field[toY-1][toX-1] = "[ ]";
                     board.field[fromY][fromX] = "[ ]";
                     changePlayerAndRemovePiece();
-                }else if ((fromX > toX) && (fromY > toY) && (board.field[toY+1][toX+1].equals("[b]") || board.field[toY+1][toX+1].equals("[B]")) && board.field[toY+2][toX+2].equals("[ ]")) {
+                }else if ((fromX > toX) && (fromY > toY) && (board.field[toY+1][toX+1].equals("[b]") || board.field[toY+1][toX+1].equals("[B]")) && validCrownMove(selectedField,new int[]{toY + 2, toX + 2})) {
                     board.field[toY][toX] = board.field[fromY][fromX];
                     isQueen(whoesIsTurn, new int[]{toY, toX});
                     board.field[toY + 1][toX + 1] = "[ ]";
