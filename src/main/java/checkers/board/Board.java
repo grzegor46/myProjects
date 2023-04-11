@@ -24,19 +24,25 @@ public class Board {
 
         for( int i = 0; i < 8; i += 1) {
             for (int j = 1; j < 8; j += 2 ){
-                if(i==0 || i==2 ) {
-                    field[i][j] = "[W]";
-                }
-                if(i==6) {
+//                if(i==0 || i==2 ) {
+//                    field[i][j] = "[W]";
+//                }
+//                if(i==6) {
+//                    field[i][j] = "[b]";
+//                }
+                if(i==2 ) {
                     field[i][j] = "[b]";
                 }
             }
             for (int j = 0; j < 8; j += 2 ){
-                if(i==1) {
+//                if(i==1) {
+//                    field[i][j] = "[W]";
+//                }
+//                if(i==7 || i==5) {
+//                    field[i][j] = "[b]";
+//                }
+                if(i==7) {
                     field[i][j] = "[W]";
-                }
-                if(i==7 || i==5) {
-                    field[i][j] = "[b]";
                 }
             }
             System.out.println();

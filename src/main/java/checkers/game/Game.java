@@ -179,7 +179,59 @@ public class Game {
         int toY = (generatedRandomFieldByComputer[1]);
         int toYDown;
         int toYUp;
-        if(fromX > toX || fromX < toX) {
+        if(fromX > toX) {
+            toYDown = (Math.abs(fromX - toX) + fromY);
+            toYUp = (Math.abs(fromX - toX - fromY));
+
+            if((toYDown > 7)) {
+                toY = toYUp;
+            }
+            if(toYUp < 0) {
+                toY = toYDown;
+            }
+            if((toYDown <= 7) && (toYUp >= 0)) {
+                int randomGeneratedIndex = (int) (Math.random() * (2));
+                int [] tempInt = new int[]{toYDown, toYUp};
+                toY = tempInt[randomGeneratedIndex];
+
+            }
+            int [] generatedValidMoveForCrown = {toX, toY};
+            if(validMove(selectedFieldWithCrown,generatedValidMoveForCrown)) {
+//            if(validCrownMove(selectedFieldWithCrown, generatedValidMoveForCrown)) {
+                executeMove(selectedFieldWithCrown,generatedValidMoveForCrown);
+
+            } else {
+                System.out.println("executeCrownMove: invalidMove!");
+            }
+
+        }
+        if(fromX < toX) {
+            toYDown =(Math.abs(fromX - toX) + fromY);
+            toYUp = (Math.abs(fromX - toX) - fromY);
+
+            if((toYDown > 7)) {
+                toY = toYUp;
+            }
+            if(toYUp < 0) {
+                toY = toYDown;
+            }
+            if((toYDown <= 7) && (toYUp >= 0)) {
+                int randomGeneratedIndex = (int) (Math.random() * (2));
+                int [] tempInt = new int[]{toYDown, toYUp};
+                toY = tempInt[randomGeneratedIndex];
+
+            }
+            int [] generatedValidMoveForCrown = {toX, toY};
+            if(validMove(selectedFieldWithCrown,generatedValidMoveForCrown)) {
+//            if(validCrownMove(selectedFieldWithCrown, generatedValidMoveForCrown)) {
+                executeMove(selectedFieldWithCrown,generatedValidMoveForCrown);
+
+            } else {
+                System.out.println("executeCrownMove: invalidMove!");
+            }
+
+        }
+        if(fromX > toX) {
             toYDown =(Math.abs(fromX - toX) + fromY);
             toYUp = (Math.abs(fromX - toX) - fromY);
 
