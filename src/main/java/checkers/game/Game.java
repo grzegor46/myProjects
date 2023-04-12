@@ -51,11 +51,10 @@ public class Game {
     public void getNextMove() throws InterruptedException {
 
         if (whoesIsTurn.equals("[w]")) {
-            System.out.println("It is your turn, white.");
-            System.out.println(board.getAllPieces(whoesIsTurn));
             if(isAi){
                 makeComputerMove(whoesIsTurn);
             } else {
+                System.out.println("It is your turn, white.");
                 humanDecision();
             }
         } else if(whoesIsTurn.equals("[b]")) {
