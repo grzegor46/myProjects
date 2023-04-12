@@ -25,7 +25,7 @@ public class Board {
         for( int i = 0; i < 8; i += 1) {
             for (int j = 1; j < 8; j += 2 ){
                 if(i==0 || i==2 ) {
-                    field[i][j] = "[W]";
+                    field[i][j] = "[w]";
                 }
                 if(i==6) {
                     field[i][j] = "[b]";
@@ -33,7 +33,7 @@ public class Board {
             }
             for (int j = 0; j < 8; j += 2 ){
                 if(i==1) {
-                    field[i][j] = "[W]";
+                    field[i][j] = "[w]";
                 }
                 if(i==7 || i==5) {
                     field[i][j] = "[b]";

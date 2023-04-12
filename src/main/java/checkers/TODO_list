@@ -4,7 +4,7 @@ zaimplementować:
  - popraw poprawne wyświetlanie się tablicy po odpowiednich ruchach aby nie pokazywało 2x tę samą tablicę
  - przy biciu damką odejhmuje po 1 pionku z b i w
  - obsłuż wyjtek w gdy koordynatach wpisze sięzamiast liczby string
-
+ - ENUM BLACK/WHITE?
 
 
 DONE:
