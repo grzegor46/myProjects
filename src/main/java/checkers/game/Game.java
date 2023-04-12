@@ -117,8 +117,6 @@ public class Game {
                         executeCrownMove(whoesIsTurn, tempInt, tempIntRandom);
                         moved = true;
                     }
-
-
                   }
             }
         }
@@ -193,17 +191,14 @@ public class Game {
                 int randomGeneratedIndex = (int) (Math.random() * (2));
                 int [] tempInt = new int[]{toYDown, toYUp};
                 toY = tempInt[randomGeneratedIndex];
-
             }
             int [] generatedValidMoveForCrown = {toX, toY};
             if(validMove(selectedFieldWithCrown,generatedValidMoveForCrown)) {
-//            if(validCrownMove(selectedFieldWithCrown, generatedValidMoveForCrown)) {
                 executeMove(selectedFieldWithCrown,generatedValidMoveForCrown);
 
             } else {
                 System.out.println("executeCrownMove: invalidMove!");
             }
-
         }
         if(fromX < toX) {
             toYDown =(Math.abs(fromX - toX) + fromY);
@@ -219,17 +214,13 @@ public class Game {
                 int randomGeneratedIndex = (int) (Math.random() * (2));
                 int [] tempInt = new int[]{toYDown, toYUp};
                 toY = tempInt[randomGeneratedIndex];
-
             }
             int [] generatedValidMoveForCrown = {toX, toY};
             if(validMove(selectedFieldWithCrown,generatedValidMoveForCrown)) {
-//            if(validCrownMove(selectedFieldWithCrown, generatedValidMoveForCrown)) {
                 executeMove(selectedFieldWithCrown,generatedValidMoveForCrown);
-
             } else {
                 System.out.println("executeCrownMove: invalidMove!");
             }
-
         }
         if(fromX > toX) {
             toYDown =(Math.abs(fromX - toX) + fromY);
@@ -245,13 +236,10 @@ public class Game {
                 int randomGeneratedIndex = (int) (Math.random() * (2));
                 int [] tempInt = new int[]{toYDown, toYUp};
                 toY = tempInt[randomGeneratedIndex];
-
             }
             int [] generatedValidMoveForCrown = {toX, toY};
             if(validMove(selectedFieldWithCrown,generatedValidMoveForCrown)) {
-//            if(validCrownMove(selectedFieldWithCrown, generatedValidMoveForCrown)) {
                 executeMove(selectedFieldWithCrown,generatedValidMoveForCrown);
-
             } else {
                 System.out.println("executeCrownMove: invalidMove!");
             }
@@ -294,7 +282,6 @@ public class Game {
             }
             return true;
         }
-
         else if (((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[W]") && whoesIsTurn.equals("[w]")) && ((fromX <= toX) && (fromY <= toY)) && (board.field[toY][toX].equals("[ ]"))) {
             for (int i = 1; i < counterLoop; i++) {
                 boolean isEmpty = board.field[fromY+i][fromX+i].equals("[ ]");
@@ -317,7 +304,6 @@ public class Game {
             }
             return true;
         }
-
         return false;
     }
 
@@ -430,7 +416,7 @@ public class Game {
                     changePlayerAndRemovePiece();
                 }
             }
-//          [W] piece TODO dodaj bicie z daleka --> przenieś logikę z valid move z funkcją crownValidMove do logiki poniżej
+//          [W] piece
             if (((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[W]") && board.field[toY][toX].equals("[ ]") && whoesIsTurn.equals("[w]"))) {
                 if ((fromX > toX) && (fromY < toY) && (board.field[toY-1][toX+1].equals("[b]") || board.field[toY-1][toX+1].equals("[B]")) && validCrownMove(selectedField,new int[]{toX + 2, toY - 2})) {
                     board.field[toY][toX] = board.field[fromY][fromX];
