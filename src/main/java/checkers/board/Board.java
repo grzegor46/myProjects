@@ -28,7 +28,7 @@ public class Board {
                     field[i][j] = "[w]";
                 }
                 if(i==6) {
-                    field[i][j] = "[b]";
+                    field[i][j] = "[B]";
                 }
             }
             for (int j = 0; j < 8; j += 2 ){
@@ -36,12 +36,13 @@ public class Board {
                     field[i][j] = "[w]";
                 }
                 if(i==7 || i==5) {
-                    field[i][j] = "[b]";
+                    field[i][j] = "[B]";
                 }
             }
             System.out.println();
         }
     }
+
     public void printBoard() {
         System.out.println("   1   2   3   4   5   6   7   8  X");
         for( int i = 0; i < 8; i += 1) {
@@ -54,6 +55,7 @@ public class Board {
         System.out.print("Y");
         System.out.println("");
     }
+
     public ArrayList<String> getAllPieces(String whoesIsTurn) {
         ArrayList<String> coordinationForAllPieces = new ArrayList<>();
         int row;
@@ -80,10 +82,4 @@ public class Board {
         }
         return coordinationForAllPieces;
     }
-
-
-
-
-
-
-    }
+}

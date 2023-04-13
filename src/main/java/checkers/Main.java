@@ -1,5 +1,6 @@
 package checkers;
 
+import checkers.board.Board;
 import checkers.game.Game;
 
 public class Main {
