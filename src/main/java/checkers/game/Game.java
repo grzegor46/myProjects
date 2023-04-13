@@ -12,7 +12,6 @@ public class Game {
     private int checker_w = 12;
     private String whoesIsTurn = "[w]";
     private boolean isAi = true;
-    private boolean moved;
 
     public int getChecker_b() {
         return checker_b;
@@ -67,18 +66,15 @@ public class Game {
     }
 
     private void isQueen (String whoesIsTurn, int [] coordinate) {
-//        coordinate[y][x]
         if (whoesIsTurn.equals("[w]") && coordinate[0]==7 && Objects.equals(board.field[coordinate[0]][coordinate[1]], "[w]")) {
             board.field[coordinate[0]][coordinate[1]] = "[W]";
         }
         if (whoesIsTurn.equals("[b]") && coordinate[0]==0 && Objects.equals(board.field[coordinate[0]][coordinate[1]], "[b]")) {
-//                   [ ] [ ] [ ] [ ] [ ] [ ] [ ] [B]
             board.field[coordinate[0]][coordinate[1]] = "[B]";
         }
     }
 
     private boolean isQueenSelected(String whoesIsTurn, int [] coordinate) {
-//                             Y                 X
         return board.field[coordinate[1]][coordinate[0]].equals("[W]") && whoesIsTurn.equals("[w]");
     }
 
@@ -91,18 +87,15 @@ public class Game {
         ArrayList<String> allPieces = board.getAllPieces(whoesIsTurn);
         if(whoesIsTurn.equals("[w]")) {
             boolean moved = false;
-
                 for (int i = allPieces.size() - 1; i >= 0; i--) {
                   if(!moved) {
-                    int selectRandomPieceOnBoard = (int) (Math.random() * (allPieces.size()));
 
+                    int selectRandomPieceOnBoard = (int) (Math.random() * (allPieces.size()));
                     String temp = allPieces.get(selectRandomPieceOnBoard);
                     temp = temp.replaceAll("[/[\\[\\]']+/g]", "");
-                    String subStr1 = temp.substring(0, 1);
-                    String subStr2 = temp.substring(3, 4);
-                    int tempInt1 = Integer.parseInt(subStr1);
-                    int tempInt2 = Integer.parseInt(subStr2);
-//                int [] tempInt = {1,2}; //TODO: change position : 5 is x, 2 is y in validMove method
+                    int tempInt1 = Integer.parseInt(temp.substring(0, 1));
+                    int tempInt2 = Integer.parseInt(temp.substring(3, 4));
+
                     int[] tempInt = {tempInt2, tempInt1};
                     int[] tempIntRandom = generateRandomCoordinate();
 
@@ -122,7 +115,7 @@ public class Game {
             }
         }
     }
-//
+
     private void executeCrownMove( int[] selectedFieldWithCrown, int[] generatedRandomFieldByComputer) {
         int fromX = (selectedFieldWithCrown[0]); // x=4
         int fromY = (selectedFieldWithCrown[1]); // y=3
@@ -190,7 +183,6 @@ public class Game {
             if(validMove(selectedFieldWithCrown,generatedValidMoveForCrown)) {
                 executeMove(selectedFieldWithCrown,generatedValidMoveForCrown);
             }
-
         }
         System.out.println("executeCrownMove: invalidMove!");
         board.printBoard();
@@ -248,54 +240,51 @@ public class Game {
     }
 
     public boolean validMove(int[] selectedField, int[] fieldToMove) {
-        try {
-            int fromX = (selectedField[0]);
-            int fromY = (selectedField[1]);
-            int toX = (fieldToMove[0]);
-            int toY = (fieldToMove[1]);
 
-            if ((fromX < 0 && fromY < 0) || (fromX > 7 && fromY > 7) || (toX < 0 && toY < 0) || (toX > 7 && toY > 7)) {
-                return false;
-            } else if ((Math.abs(fromX - toX) == 1) && board.field[toY][toX].equals("[ ]") && ((whoesIsTurn.equals("[b]") && board.field[fromY][fromX].equals("[b]")) && fromY - toY == 1 || (whoesIsTurn.equals("[w]") && board.field[fromY][fromX].equals("[w]")) && fromY - toY == -1)) {
-                return true;
-            } else if (((Math.abs(fromX - toX) == 2) && board.field[toY][toX].equals("[ ]")) && (board.field[(fromY + toY) / 2][(fromX + toX) / 2].equals("[w]") || board.field[(fromY + toY) / 2][(fromX + toX) / 2].equals("[W]")) && whoesIsTurn.equals("[b]")) {
-                return true;
-            } else if (((Math.abs(fromX - toX) == 2) && board.field[toY][toX].equals("[ ]")) && (board.field[(fromY + toY) / 2][(fromX + toX) / 2].equals("[b]") || board.field[(fromY + toY) / 2][(fromX + toX) / 2].equals("[B]")) && whoesIsTurn.equals("[w]")) {
-                return true;
-            } else if (((Math.abs(fromX - toX) == 2) && board.field[fromY][fromX].equals("[B]") && board.field[toY][toX].equals("[ ]")) && (board.field[(fromY + toY) / 2][(fromX + toX) / 2].equals("[w]") || board.field[(fromY + toY) / 2][(fromX + toX) / 2].equals("[W]")) && whoesIsTurn.equals("[b]")) {
-                return true;
-            } else if (((Math.abs(fromX - toX) <= 7) && board.field[fromY][fromX].equals("[B]") && board.field[toY][toX].equals("[ ]") && whoesIsTurn.equals("[b]")) && ((fromX > toX) && (fromY < toY)) && (board.field[toY-1][toX+1].equals("[w]") || board.field[toY-1][toX+1].equals("[W]")) && board.field[toY-2][toX+2].equals("[ ]")) {
-                return true;
-            }else if (((Math.abs(fromX - toX) <= 7) && board.field[fromY][fromX].equals("[B]") && board.field[toY][toX].equals("[ ]") && whoesIsTurn.equals("[b]")) && ((fromX < toX) && (fromY > toY)) && (board.field[toY+1][toX-1].equals("[w]") || board.field[toY+1][toX-1].equals("[W]")) && board.field[toY+2][toX-2].equals("[ ]")) {
-                return true;
-            }else if (((Math.abs(fromX - toX) <= 7) && board.field[fromY][fromX].equals("[B]") && board.field[toY][toX].equals("[ ]") && whoesIsTurn.equals("[b]")) && ((fromX < toX) && (fromY < toY)) && (board.field[toY-1][toX-1].equals("[w]") || board.field[toY-1][toX-1].equals("[W]")) && board.field[toY-2][toX-2].equals("[ ]")) {
-                return true;
-            }else if (((Math.abs(fromX - toX) <= 7) && board.field[fromY][fromX].equals("[B]") && board.field[toY][toX].equals("[ ]") && whoesIsTurn.equals("[b]")) && ((fromX > toX) && (fromY > toY)) && (board.field[toY+1][toX+1].equals("[w]") || board.field[toY+1][toX+1].equals("[W]")) && board.field[toY+2][toX+2].equals("[ ]")) {
-                return true;
-            }else if (((Math.abs(fromX - toX) <= 7) && board.field[fromY][fromX].equals("[B]") && board.field[toY][toX].equals("[ ]")) && whoesIsTurn.equals("[b]")) {
-                return true;
-            }else if (((Math.abs(fromX - toX) == 2) && board.field[fromY][fromX].equals("[W]") && board.field[toY][toX].equals("[ ]")) && whoesIsTurn.equals("[w]") && (board.field[(fromY + toY) / 2][(fromX + toX) / 2].equals("[b]") || board.field[(fromY + toY) / 2][(fromX + toX) / 2].equals("[B]"))) {
-                return true;
-            } else if (((Math.abs(fromX - toX) <= 7) && board.field[fromY][fromX].equals("[W]") && board.field[toY][toX].equals("[ ]") && whoesIsTurn.equals("[w]")) && ((fromX > toX) && (fromY < toY)) && (board.field[toY-1][toX+1].equals("[b]") || board.field[toY-1][toX+1].equals("[B]")) && validCrownMove(selectedField,new int[]{toX + 2, toY - 2})) {
-                return true;
-            }else if (((Math.abs(fromX - toX) <= 7) && board.field[fromY][fromX].equals("[W]") && board.field[toY][toX].equals("[ ]") && whoesIsTurn.equals("[w]")) && ((fromX < toX) && (fromY > toY)) && (board.field[toY+1][toX-1].equals("[b]") || board.field[toY+1][toX-1].equals("[B]")) && validCrownMove(selectedField,new int[]{toX - 2, toY + 2})) {
-                return true;
-            }else if (((Math.abs(fromX - toX) <= 7) && board.field[fromY][fromX].equals("[W]") && board.field[toY][toX].equals("[ ]") && whoesIsTurn.equals("[w]")) && ((fromX < toX) && (fromY < toY)) && (board.field[toY-1][toX-1].equals("[b]") || board.field[toY-1][toX-1].equals("[B]")) && validCrownMove(selectedField,new int[]{toX - 2, toY - 2}) ) {
-                return true;
-            }else if (((Math.abs(fromX - toX) <= 7) && board.field[fromY][fromX].equals("[W]") && board.field[toY][toX].equals("[ ]") && whoesIsTurn.equals("[w]")) && ((fromX > toX) && (fromY > toY)) && (board.field[toY+1][toX+1].equals("[b]") || board.field[toY+1][toX+1].equals("[B]")) && validCrownMove(selectedField,new int[]{toX + 2, toY + 2})) {
-                return true;
-            }else if (((Math.abs(fromX - toX) <= 7) && validCrownMove(selectedField,fieldToMove))) {   // move for crown?
-                return true;
-            }else {
-                if (!isAi) {
-                    System.out.println("INVALID MOVE OR IT'S NOT YOUR TURN - TRY AGAIN");
-                }
+        int fromX = (selectedField[0]);
+        int fromY = (selectedField[1]);
+        int toX = (fieldToMove[0]);
+        int toY = (fieldToMove[1]);
+
+        if ((fromX < 0 && fromY < 0) || (fromX > 7 && fromY > 7) || (toX < 0 && toY < 0) || (toX > 7 && toY > 7)) {
+            return false;
+        } else if ((Math.abs(fromX - toX) == 1) && board.field[toY][toX].equals("[ ]") && ((whoesIsTurn.equals("[b]") && board.field[fromY][fromX].equals("[b]")) && fromY - toY == 1 || (whoesIsTurn.equals("[w]") && board.field[fromY][fromX].equals("[w]")) && fromY - toY == -1)) {
+            return true;
+        } else if (((Math.abs(fromX - toX) == 2) && board.field[toY][toX].equals("[ ]")) && (board.field[(fromY + toY) / 2][(fromX + toX) / 2].equals("[w]") || board.field[(fromY + toY) / 2][(fromX + toX) / 2].equals("[W]")) && whoesIsTurn.equals("[b]")) {
+            return true;
+        } else if (((Math.abs(fromX - toX) == 2) && board.field[toY][toX].equals("[ ]")) && (board.field[(fromY + toY) / 2][(fromX + toX) / 2].equals("[b]") || board.field[(fromY + toY) / 2][(fromX + toX) / 2].equals("[B]")) && whoesIsTurn.equals("[w]")) {
+            return true;
+        } else if (((Math.abs(fromX - toX) == 2) && board.field[fromY][fromX].equals("[B]") && board.field[toY][toX].equals("[ ]")) && (board.field[(fromY + toY) / 2][(fromX + toX) / 2].equals("[w]") || board.field[(fromY + toY) / 2][(fromX + toX) / 2].equals("[W]")) && whoesIsTurn.equals("[b]")) {
+            return true;
+        } else if (((Math.abs(fromX - toX) <= 7) && board.field[fromY][fromX].equals("[B]") && board.field[toY][toX].equals("[ ]") && whoesIsTurn.equals("[b]")) && ((fromX > toX) && (fromY < toY)) && (board.field[toY-1][toX+1].equals("[w]") || board.field[toY-1][toX+1].equals("[W]")) && board.field[toY-2][toX+2].equals("[ ]")) {
+            return true;
+        }else if (((Math.abs(fromX - toX) <= 7) && board.field[fromY][fromX].equals("[B]") && board.field[toY][toX].equals("[ ]") && whoesIsTurn.equals("[b]")) && ((fromX < toX) && (fromY > toY)) && (board.field[toY+1][toX-1].equals("[w]") || board.field[toY+1][toX-1].equals("[W]")) && board.field[toY+2][toX-2].equals("[ ]")) {
+            return true;
+        }else if (((Math.abs(fromX - toX) <= 7) && board.field[fromY][fromX].equals("[B]") && board.field[toY][toX].equals("[ ]") && whoesIsTurn.equals("[b]")) && ((fromX < toX) && (fromY < toY)) && (board.field[toY-1][toX-1].equals("[w]") || board.field[toY-1][toX-1].equals("[W]")) && board.field[toY-2][toX-2].equals("[ ]")) {
+            return true;
+        }else if (((Math.abs(fromX - toX) <= 7) && board.field[fromY][fromX].equals("[B]") && board.field[toY][toX].equals("[ ]") && whoesIsTurn.equals("[b]")) && ((fromX > toX) && (fromY > toY)) && (board.field[toY+1][toX+1].equals("[w]") || board.field[toY+1][toX+1].equals("[W]")) && board.field[toY+2][toX+2].equals("[ ]")) {
+            return true;
+        }else if (((Math.abs(fromX - toX) <= 7) && board.field[fromY][fromX].equals("[B]") && board.field[toY][toX].equals("[ ]")) && whoesIsTurn.equals("[b]")) {
+            return true;
+        }else if (((Math.abs(fromX - toX) == 2) && board.field[fromY][fromX].equals("[W]") && board.field[toY][toX].equals("[ ]")) && whoesIsTurn.equals("[w]") && (board.field[(fromY + toY) / 2][(fromX + toX) / 2].equals("[b]") || board.field[(fromY + toY) / 2][(fromX + toX) / 2].equals("[B]"))) {
+            return true;
+        } else if (((Math.abs(fromX - toX) <= 7) && board.field[fromY][fromX].equals("[W]") && board.field[toY][toX].equals("[ ]") && whoesIsTurn.equals("[w]")) && ((fromX > toX) && (fromY < toY)) && (board.field[toY-1][toX+1].equals("[b]") || board.field[toY-1][toX+1].equals("[B]")) && validCrownMove(selectedField,new int[]{toX + 2, toY - 2})) {
+            return true;
+        }else if (((Math.abs(fromX - toX) <= 7) && board.field[fromY][fromX].equals("[W]") && board.field[toY][toX].equals("[ ]") && whoesIsTurn.equals("[w]")) && ((fromX < toX) && (fromY > toY)) && (board.field[toY+1][toX-1].equals("[b]") || board.field[toY+1][toX-1].equals("[B]")) && validCrownMove(selectedField,new int[]{toX - 2, toY + 2})) {
+            return true;
+        }else if (((Math.abs(fromX - toX) <= 7) && board.field[fromY][fromX].equals("[W]") && board.field[toY][toX].equals("[ ]") && whoesIsTurn.equals("[w]")) && ((fromX < toX) && (fromY < toY)) && (board.field[toY-1][toX-1].equals("[b]") || board.field[toY-1][toX-1].equals("[B]")) && validCrownMove(selectedField,new int[]{toX - 2, toY - 2}) ) {
+            return true;
+        }else if (((Math.abs(fromX - toX) <= 7) && board.field[fromY][fromX].equals("[W]") && board.field[toY][toX].equals("[ ]") && whoesIsTurn.equals("[w]")) && ((fromX > toX) && (fromY > toY)) && (board.field[toY+1][toX+1].equals("[b]") || board.field[toY+1][toX+1].equals("[B]")) && validCrownMove(selectedField,new int[]{toX + 2, toY + 2})) {
+            return true;
+        }else if (((Math.abs(fromX - toX) <= 7) && validCrownMove(selectedField,fieldToMove))) {   // move for crown?
+            return true;
+        }else {
+            if (!isAi) {
+                System.out.println("INVALID MOVE OR IT'S NOT YOUR TURN - TRY AGAIN");
             }
-
-        }catch(InputMismatchException e) {
-            System.out.println("invalid input format");
-            board.printBoard();
         }
+        System.out.println("invalid input format");
+        board.printBoard();
         return false;
     }
 
@@ -426,9 +415,6 @@ public class Game {
         }
     }
 
-    public int evaluate() {
-        return checker_w - checker_b;
-    }
     // Checks to see if game is over based on number of checkers left.
     public boolean gameOver() {
         return (checker_w == 0 || checker_b == 0);
