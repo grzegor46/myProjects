@@ -1,10 +1,11 @@
 zaimplementować:
  - wielokrotne bicie
- - obsłuż wyjtek w gdy koordynatach wpisze się zamiast liczby string
  - ENUM BLACK/WHITE?
+ - REFACTOR
 
 
 DONE:
+ - obsłuż wyjtek w gdy koordynatach wpisze się zamiast liczby string - DONE
  - zakaz cofania się pionkiem do tyłu - DONE
  - stworzenie damki po dotarciu do "bazy" przeciwnika - DONE
  - poruszanie się damką przez wiele pól przy jednym ruchu - HUMAN - DONE
