@@ -1,9 +1,6 @@
 zaimplementować:
- - bicie damką DLA [w] oraz sprawdzenie czy nie ma dodatkowego pionka na polu przed biciem zamierzonego pionka:
  - wielokrotne bicie
- - popraw poprawne wyświetlanie się tablicy po odpowiednich ruchach aby nie pokazywało 2x tę samą tablicę
- - przy biciu damką odejhmuje po 1 pionku z b i w
- - obsłuż wyjtek w gdy koordynatach wpisze sięzamiast liczby string
+ - obsłuż wyjtek w gdy koordynatach wpisze się zamiast liczby string
  - ENUM BLACK/WHITE?
 
 
@@ -13,6 +10,9 @@ DONE:
  - poruszanie się damką przez wiele pól przy jednym ruchu - HUMAN - DONE
  - poruszanie się damką przez wiele pól przy jednym ruchu - COMPUTER - DONE
  - bicie damką DLA [b] oraz sprawdzenie czy nie ma dodatkowego pionka na polu przed biciem zamierzonego pionka - DONE
+ - bicie damką DLA [w] oraz sprawdzenie czy nie ma dodatkowego pionka na polu przed biciem zamierzonego pionka - DONE
+ - popraw poprawne wyświetlanie się tablicy po odpowiednich ruchach aby nie pokazywało 2x tę samą tablicę - DONE
+ - przy biciu damką odejhmuje po 1 pionku z [b] i [w] ---> POPRAW - DONE
 
 
 
