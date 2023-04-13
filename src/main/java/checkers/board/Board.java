@@ -80,10 +80,4 @@ public class Board {
         }
         return coordinationForAllPieces;
     }
-
-
-
-
-
-
-    }
+}

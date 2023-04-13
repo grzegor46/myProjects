@@ -12,7 +12,6 @@ public class Game {
     private int checker_w = 12;
     private String whoesIsTurn = "[w]";
     private boolean isAi = true;
-    private boolean moved;
 
     public int getChecker_b() {
         return checker_b;
@@ -33,22 +32,25 @@ public class Game {
     }
 
     private void humanDecision (){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Please type position FROM which square would you like to move");
-        System.out.println("enter 2 digits, example first is '1'  on 'x' axis and next enter '2' is on 'y' axis");
+        try {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Please type position FROM which square would you like to move");
+            System.out.println("enter 2 digits, example first is '1'  on 'x' axis and next enter '2' is on 'y' axis");
 
-        int[] selectedField = selectField(scanner.nextInt(), scanner.nextInt());
-        System.out.println("Please type position TO which square would you like to move");
-        int[] fieldToMove = selectField(scanner.nextInt(), scanner.nextInt());
-
-        if (validMove(selectedField, fieldToMove)) {
-            executeMove(selectedField, fieldToMove);
-            // TODO add here second move if is a chance to hit another checker during same turn
+            int[] selectedField = selectField(scanner.nextInt(), scanner.nextInt());
+            System.out.println("Please type position TO which square would you like to move");
+            int[] fieldToMove = selectField(scanner.nextInt(), scanner.nextInt());
+            if (validMove(selectedField, fieldToMove)) {
+                executeMove(selectedField, fieldToMove);
+                // TODO add here second move if is a chance to hit another checker during same turn
+            }
+            board.printBoard();
+        } catch (InputMismatchException e) {
+            System.out.println("INVALID INPUT FORMAT");
         }
-        board.printBoard();
     }
 
-    public void getNextMove() throws InterruptedException {
+    public void getNextMove(){
 
         if (whoesIsTurn.equals("[w]")) {
             if(isAi){
@@ -64,18 +66,15 @@ public class Game {
     }
 
     private void isQueen (String whoesIsTurn, int [] coordinate) {
-//        coordinate[y][x]
         if (whoesIsTurn.equals("[w]") && coordinate[0]==7 && Objects.equals(board.field[coordinate[0]][coordinate[1]], "[w]")) {
             board.field[coordinate[0]][coordinate[1]] = "[W]";
         }
         if (whoesIsTurn.equals("[b]") && coordinate[0]==0 && Objects.equals(board.field[coordinate[0]][coordinate[1]], "[b]")) {
-//                   [ ] [ ] [ ] [ ] [ ] [ ] [ ] [B]
             board.field[coordinate[0]][coordinate[1]] = "[B]";
         }
     }
 
     private boolean isQueenSelected(String whoesIsTurn, int [] coordinate) {
-//                             Y                 X
         return board.field[coordinate[1]][coordinate[0]].equals("[W]") && whoesIsTurn.equals("[w]");
     }
 
@@ -88,18 +87,16 @@ public class Game {
         ArrayList<String> allPieces = board.getAllPieces(whoesIsTurn);
         if(whoesIsTurn.equals("[w]")) {
             boolean moved = false;
-
                 for (int i = allPieces.size() - 1; i >= 0; i--) {
                   if(!moved) {
-                    int selectRandomPieceOnBoard = (int) (Math.random() * (allPieces.size()));
 
+                    int selectRandomPieceOnBoard = (int) (Math.random() * (allPieces.size()));
                     String temp = allPieces.get(selectRandomPieceOnBoard);
                     temp = temp.replaceAll("[/[\\[\\]']+/g]", "");
                     String subStr1 = temp.substring(0, 1);
                     String subStr2 = temp.substring(3, 4);
                     int tempInt1 = Integer.parseInt(subStr1);
                     int tempInt2 = Integer.parseInt(subStr2);
-//                int [] tempInt = {1,2}; //TODO: change position : 5 is x, 2 is y in validMove method
                     int[] tempInt = {tempInt2, tempInt1};
                     int[] tempIntRandom = generateRandomCoordinate();
 
@@ -112,15 +109,15 @@ public class Game {
                         moved = true;
                     }
                     if(isQueenSelected(whoesIsTurn, tempInt)) {
-                        executeCrownMove(whoesIsTurn, tempInt, tempIntRandom);
+                        executeCrownMove(tempInt, tempIntRandom);
                         moved = true;
                     }
                   }
             }
         }
     }
-//
-    private void executeCrownMove( String whoesIsTurn, int[] selectedFieldWithCrown, int[] generatedRandomFieldByComputer) {
+
+    private void executeCrownMove( int[] selectedFieldWithCrown, int[] generatedRandomFieldByComputer) {
         int fromX = (selectedFieldWithCrown[0]); // x=4
         int fromY = (selectedFieldWithCrown[1]); // y=3
         int toX = (generatedRandomFieldByComputer[0]); // x=2
@@ -145,9 +142,6 @@ public class Game {
             int [] generatedValidMoveForCrown = {toX, toY};
             if(validMove(selectedFieldWithCrown,generatedValidMoveForCrown)) {
                 executeMove(selectedFieldWithCrown,generatedValidMoveForCrown);
-
-            } else {
-                System.out.println("executeCrownMove: invalidMove!");
             }
         }
         if(fromX < toX) {
@@ -168,8 +162,6 @@ public class Game {
             int [] generatedValidMoveForCrown = {toX, toY};
             if(validMove(selectedFieldWithCrown,generatedValidMoveForCrown)) {
                 executeMove(selectedFieldWithCrown,generatedValidMoveForCrown);
-            } else {
-                System.out.println("executeCrownMove: invalidMove!");
             }
         }
         if(fromX > toX) {
@@ -190,18 +182,16 @@ public class Game {
             int [] generatedValidMoveForCrown = {toX, toY};
             if(validMove(selectedFieldWithCrown,generatedValidMoveForCrown)) {
                 executeMove(selectedFieldWithCrown,generatedValidMoveForCrown);
-            } else {
-                System.out.println("executeCrownMove: invalidMove!");
             }
-
         }
+        System.out.println("executeCrownMove: invalidMove!");
         board.printBoard();
     }
 
     private int[] selectField(int val1, int val2) {
         return new int[]{val1-1, val2-1};
     }
-//TODO crown valid move, zamiast od pkt docelowego odejmowac, to od pkt poczatkowego dodawac tak dlugo az osiagnie sie pkt docelowy
+
     public boolean validCrownMove(int[] selectedField, int[] fieldToMove) {
 
         int fromX = (selectedField[0]);
@@ -213,8 +203,6 @@ public class Game {
         if (((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[W]") && whoesIsTurn.equals("[w]")) && ((fromX >= toX) && (fromY <= toY)) && (board.field[toY][toX].equals("[ ]"))) {
             for (int i = 1; i < counterLoop; i++) {
                 boolean isEmpty = board.field[fromY+i][fromX-i].equals("[ ]");
-                System.out.println("fromY+i:" +(fromY+i) );
-                System.out.println("fromX-i:" +(fromX-i) );
                 if(!isEmpty) {
                     return false;
                 }
@@ -224,8 +212,6 @@ public class Game {
          else if (((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[W]") && whoesIsTurn.equals("[w]")) && ((fromX <= toX) && (fromY >= toY)) && (board.field[toY][toX].equals("[ ]"))) {
             for (int i = 1; i < counterLoop; i++) {
                 boolean isEmpty = board.field[fromY-i][fromX+i].equals("[ ]");
-                System.out.println("fromY-i:" +(fromY-i) );
-                System.out.println("fromX+i:" +(fromX+i) );
                 if(!isEmpty) {
                     return false;
                 }
@@ -235,8 +221,6 @@ public class Game {
         else if (((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[W]") && whoesIsTurn.equals("[w]")) && ((fromX <= toX) && (fromY <= toY)) && (board.field[toY][toX].equals("[ ]"))) {
             for (int i = 1; i < counterLoop; i++) {
                 boolean isEmpty = board.field[fromY+i][fromX+i].equals("[ ]");
-                System.out.println("fromY+i:" +(fromY+i) );
-                System.out.println("fromX+i:" +(fromX+i) );
                 if(!isEmpty) {
                     return false;
                 }
@@ -246,8 +230,6 @@ public class Game {
         else if (((Math.abs(fromX - toX) < 7) && board.field[fromY][fromX].equals("[W]") && whoesIsTurn.equals("[w]")) && ((fromX >= toX) && (fromY >= toY)) && (board.field[toY][toX].equals("[ ]"))) {
             for (int i = 1; i < counterLoop; i++) {
                 boolean isEmpty = board.field[fromY-i][fromX-i].equals("[ ]");
-                System.out.println("fromY-i:" +(fromY-i) );
-                System.out.println("fromX-i:" +(fromX-i) );
                 if(!isEmpty) {
                     return false;
                 }
@@ -299,7 +281,6 @@ public class Game {
             }else {
                 if (!isAi) {
                     System.out.println("INVALID MOVE - TRY AGAIN");
-//                    board.printBoard();
                 }
             }
 
@@ -437,9 +418,6 @@ public class Game {
         }
     }
 
-    public int evaluate() {
-        return checker_w - checker_b;
-    }
     // Checks to see if game is over based on number of checkers left.
     public boolean gameOver() {
         return (checker_w == 0 || checker_b == 0);
