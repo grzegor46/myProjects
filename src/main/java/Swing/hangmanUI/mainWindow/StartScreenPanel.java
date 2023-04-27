@@ -10,7 +10,7 @@ public class StartScreenPanel extends JPanel implements ActionListener {
     private Button playButton;
     private Button exitButton;
 
-    public StartScreenPanel(int WIDTH, int HEIGHT, ImageIcon backgroundImg) {
+    public StartScreenPanel(ImageIcon backgroundImg) {
         JLabel startScreenBg = new JLabel(backgroundImg);
         this.add(startScreenBg);
 
@@ -20,10 +20,10 @@ public class StartScreenPanel extends JPanel implements ActionListener {
         this.add(playButton);
         this.add(exitButton);
 
-        this.playButton.addActionListener(this);
-        this.exitButton.addActionListener(this);
+        playButton.addActionListener(this);
+        exitButton.addActionListener(this);
 
-//    TODO utwoprzyc dwie klasy z dwoma przyciskamio play i exit wewnatrz
+
     }
 
 

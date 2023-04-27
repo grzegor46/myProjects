@@ -10,7 +10,7 @@ public class MainWindow {
 
         final int WIDTH = 800;
         final int HEIGHT = 600;
-        final String TITLE = "Hangman (Java Edition)";
+        final String TITLE = "Hangman";
         final ImageIcon backgroundImg = new ImageIcon("src/main/java/Swing/hangmanUI/welcomeImage.png");
 
 
@@ -26,7 +26,7 @@ public class MainWindow {
         container.setLayout(cardLayout);
         screen.add(container);
 
-        StartScreenPanel startScreenPanel = new StartScreenPanel(WIDTH, HEIGHT, backgroundImg);
+        StartScreenPanel startScreenPanel = new StartScreenPanel(backgroundImg);
 
         container.add(startScreenPanel);
         screen.setVisible(true);
