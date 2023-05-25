@@ -24,11 +24,16 @@ public class MainWindow {
 
         JPanel container = new JPanel();
         container.setLayout(cardLayout);
+
+        StartScreenPanel startScreenPanel = new StartScreenPanel(WIDTH, HEIGHT, backgroundImg, container, cardLayout);
+        Game game = new Game();
+        TestClass testClass = new TestClass(container, cardLayout);
+        container.add(startScreenPanel, "1");
+        container.add(game, "2");
+        container.add(testClass, "3");
         screen.add(container);
 
-        StartScreenPanel startScreenPanel = new StartScreenPanel(backgroundImg);
 
-        container.add(startScreenPanel);
         screen.setVisible(true);
     }
 }
