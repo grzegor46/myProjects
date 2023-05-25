@@ -7,9 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class StartScreenPanel extends JPanel implements ActionListener {
+
     private Button playButton;
     private Button exitButton;
-
 
     public StartScreenPanel(int WIDTH, int HEIGHT, ImageIcon backgroundImg, JPanel container, CardLayout cardLayout) {
 
@@ -25,7 +25,7 @@ public class StartScreenPanel extends JPanel implements ActionListener {
         int playButtonX = (WIDTH / 2) - (buttonWidth + 20);
         this.playButton.setBounds(playButtonX,buttonY,buttonWidth,buttonHeight);
 
-        int exitButtonX = (WIDTH / 2) + 20;
+        int exitButtonX = (WIDTH / 2) + 10;
         this.exitButton.setBounds(exitButtonX,buttonY,buttonWidth,buttonHeight);
 
         playButton.addActionListener(this);
