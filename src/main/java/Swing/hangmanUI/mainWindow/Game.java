@@ -22,6 +22,7 @@ public class Game extends JPanel implements ActionListener {
     private ArrayList<String> hiddenWordArray;
     private ArrayList<String> storedWord;
     private ArrayList<String> listOfWrongChar;
+    private JPanel gameOverScreen;
     JLabel startScreenBg;
 
     public Game() {
@@ -85,9 +86,23 @@ public class Game extends JPanel implements ActionListener {
 
         hiddenWordString = hiddenWordArray.toString(); // userChoice
         listOfWrongCharString = listOfWrongChar.toString();
-        g.drawString(hiddenWordString, 450, 175);
-        g.drawString("Typed wrong char:", 450, 275);
-        g.drawString(listOfWrongCharString, 450, 305 );
+        g.drawString(hiddenWordString, 350, 400);
+        g.drawString("Typed wrong char:", 500, 275);
+        g.drawString(listOfWrongCharString, 500, 305 );
+
+        if(this.isGameOver && numOfGuesses ==7) {
+            g.setFont(new Font("Arial",1,50));
+            g.setColor(Color.BLUE);
+            g.drawString("YOU LOSE!",200,200);
+            keyboard.setVisible(false);
+        }
+        if(this.isGameOver) {
+            g.setFont(new Font("Arial",1,50));
+            g.setColor(Color.green);
+            g.drawString("YOU WIN!",200,200);
+            keyboard.setVisible(false);
+        }
+
 
     }
 
@@ -134,12 +149,10 @@ public class Game extends JPanel implements ActionListener {
 
         ArrayList<String> temp = userChoice(command, this.storedWord, this.hiddenWordArray);
         hiddenWordString = temp.toString();
-        if(numOfGuesses < 8) {
-            this.startScreenBg.setIcon(new ImageIcon("src/main/java/Swing/hangmanUI/images/h"+numOfGuesses+".png"));
 
-        }
-        if (isGameOver) {
-            System.exit(0);
+        if(numOfGuesses <= 7 && !isGameOver) {
+            this.startScreenBg.setIcon(new ImageIcon("src/main/java/Swing/hangmanUI/images/h"+numOfGuesses+".png"));
+            isGameOver = isWon(storedWord);
         }
         repaint();
 
