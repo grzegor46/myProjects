@@ -13,7 +13,7 @@ import java.util.Arrays;
 
 public class Game extends JPanel implements ActionListener {
 
-    final ImageIcon backgroundImg1 = new ImageIcon("src/main/java/Swing/hangmanUI/images/h1.png");
+    final ImageIcon backgroundImg1 = new ImageIcon("src/main/java/Swing/hangmanUI/images/h0.png");
     private JPanel keyboard;
     private int numOfGuesses;
     private boolean isGameOver;
@@ -88,6 +88,7 @@ public class Game extends JPanel implements ActionListener {
         g.drawString(hiddenWordString, 450, 175);
         g.drawString("Typed wrong char:", 450, 275);
         g.drawString(listOfWrongCharString, 450, 305 );
+
     }
 
     private ArrayList<String> userChoice(String command, ArrayList<String> storedWord, ArrayList<String> hiddenWordArray) {
@@ -103,6 +104,11 @@ public class Game extends JPanel implements ActionListener {
         } else {
             numOfGuesses++;
             listOfWrongChar.add(command);
+
+            if (numOfGuesses == 8) {
+                isGameOver = true;
+            }
+
             // shows wrong selected letter
         }
         return hiddenWordArray;
@@ -128,13 +134,15 @@ public class Game extends JPanel implements ActionListener {
 
         ArrayList<String> temp = userChoice(command, this.storedWord, this.hiddenWordArray);
         hiddenWordString = temp.toString();
-        if(numOfGuesses < 6) {
-            startScreenBg = new JLabel(new ImageIcon("src/main/java/Swing/hangmanUI/images/h"+numOfGuesses+".png"));
+        if(numOfGuesses < 8) {
+            this.startScreenBg.setIcon(new ImageIcon("src/main/java/Swing/hangmanUI/images/h"+numOfGuesses+".png"));
+
         }
-        repaint();
         if (isGameOver) {
             System.exit(0);
         }
+        repaint();
+
     }
 
 }
