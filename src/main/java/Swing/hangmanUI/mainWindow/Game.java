@@ -13,17 +13,20 @@ import java.util.Arrays;
 
 public class Game extends JPanel implements ActionListener {
 
-    final ImageIcon backgroundImg1 = new ImageIcon("src/main/java/Swing/hangmanUI/images/h0.png");
+    final ImageIcon backgroundImg1 = new ImageIcon("src/main/java/Swing/hangmanUI/images/h1.png");
     private JPanel keyboard;
     private int numOfGuesses;
     private boolean isGameOver;
     private String hiddenWordString;
+    private String listOfWrongCharString;
     private ArrayList<String> hiddenWordArray;
     private ArrayList<String> storedWord;
+    private ArrayList<String> listOfWrongChar;
+    JLabel startScreenBg;
 
     public Game() {
 
-        JLabel startScreenBg = new JLabel(backgroundImg1);
+        this.startScreenBg = new JLabel(backgroundImg1);
         this.add(startScreenBg);
 
         keyboard = new JPanel();
@@ -32,7 +35,8 @@ public class Game extends JPanel implements ActionListener {
         createButtons(keyboard);
         this.add(keyboard, BorderLayout.SOUTH);
 
-        numOfGuesses = 6;
+        numOfGuesses = 0;
+        this.listOfWrongChar = new ArrayList<>();
         this.storedWord = generateWord();
         this.hiddenWordArray = hideWord(storedWord);
     }
@@ -80,9 +84,10 @@ public class Game extends JPanel implements ActionListener {
         g.drawString("Let's Play Hang Man!!!", 150, 25);
 
         hiddenWordString = hiddenWordArray.toString(); // userChoice
+        listOfWrongCharString = listOfWrongChar.toString();
         g.drawString(hiddenWordString, 450, 175);
         g.drawString("Typed wrong char:", 450, 275);
-//        g.drawString(listOfWrongChar, 450, 275 );
+        g.drawString(listOfWrongCharString, 450, 305 );
     }
 
     private ArrayList<String> userChoice(String command, ArrayList<String> storedWord, ArrayList<String> hiddenWordArray) {
@@ -97,9 +102,10 @@ public class Game extends JPanel implements ActionListener {
 
         } else {
             numOfGuesses++;
+            listOfWrongChar.add(command);
             // shows wrong selected letter
         }
-        return null;
+        return hiddenWordArray;
     }
 
 
@@ -122,6 +128,9 @@ public class Game extends JPanel implements ActionListener {
 
         ArrayList<String> temp = userChoice(command, this.storedWord, this.hiddenWordArray);
         hiddenWordString = temp.toString();
+        if(numOfGuesses < 6) {
+            startScreenBg = new JLabel(new ImageIcon("src/main/java/Swing/hangmanUI/images/h"+numOfGuesses+".png"));
+        }
         repaint();
         if (isGameOver) {
             System.exit(0);
