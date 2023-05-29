@@ -23,10 +23,10 @@ public class StartScreenPanel extends JPanel implements ActionListener {
         this.exitButton = new Button("EXIT");
 
         int playButtonX = (WIDTH / 2) - (buttonWidth + 20);
-        this.playButton.setBounds(playButtonX,buttonY,buttonWidth,buttonHeight);
+        this.playButton.setBounds(playButtonX, buttonY, buttonWidth, buttonHeight);
 
         int exitButtonX = (WIDTH / 2) + 10;
-        this.exitButton.setBounds(exitButtonX,buttonY,buttonWidth,buttonHeight);
+        this.exitButton.setBounds(exitButtonX, buttonY, buttonWidth, buttonHeight);
 
         playButton.addActionListener(this);
         exitButton.addActionListener(this);
