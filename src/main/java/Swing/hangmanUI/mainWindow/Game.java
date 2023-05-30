@@ -4,9 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.text.AttributedCharacterIterator;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -22,19 +19,31 @@ public class Game extends JPanel implements ActionListener {
     private ArrayList<String> hiddenWordArray;
     private ArrayList<String> storedWord;
     private ArrayList<String> listOfWrongChar;
-    private JPanel gameOverScreen;
+    private Button newGameButton;
+    private Button exitButton;
     JLabel startScreenBg;
 
-    public Game() {
+    public Game(JPanel container, CardLayout cardLayout) {
 
         this.startScreenBg = new JLabel(backgroundImg1);
         this.add(startScreenBg);
+
 
         keyboard = new JPanel();
         keyboard.setLayout(new GridLayout(4, 0));
         keyboard.setBackground(Color.GRAY);
         createButtons(keyboard);
         this.add(keyboard, BorderLayout.SOUTH);
+
+        this.newGameButton = new NewGameButton("New Game", container, cardLayout);
+        this.newGameButton.setBounds(400, 50, 100, 50);
+        newGameButton.addActionListener(this);
+        this.add(newGameButton);
+
+        this.exitButton = new Button("Exit");
+        this.exitButton.setBounds(500,150,30,20);
+        exitButton.addActionListener(this);
+        this.add(exitButton);
 
         numOfGuesses = 0;
         this.listOfWrongChar = new ArrayList<>();
@@ -86,7 +95,9 @@ public class Game extends JPanel implements ActionListener {
 
         hiddenWordString = hiddenWordArray.toString(); // userChoice
         listOfWrongCharString = listOfWrongChar.toString();
+        g.setFont(new Font("Arial",0,25));
         g.drawString(hiddenWordString, 350, 400);
+        g.setFont(new Font("Arial",0,15));
         g.drawString("Typed wrong char:", 500, 275);
         g.drawString(listOfWrongCharString, 500, 305 );
 
@@ -143,22 +154,44 @@ public class Game extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println(e.getActionCommand()); // it gets string from button
-        System.out.println(this.storedWord);
-        String command = e.getActionCommand();
+        if (e.getSource() == this.newGameButton) {
+            this.resetGame(e);
+            repaint();
+        }else {
+            System.out.println(e.getActionCommand()); // it gets string from button
+            System.out.println(this.storedWord);
+            String command = e.getActionCommand();
 
-        ArrayList<String> temp = userChoice(command, this.storedWord, this.hiddenWordArray);
-        hiddenWordString = temp.toString();
+            ArrayList<String> temp = userChoice(command, this.storedWord, this.hiddenWordArray);
+            hiddenWordString = temp.toString();
 
-        if(numOfGuesses <= 7 && !isGameOver) {
-            this.startScreenBg.setIcon(new ImageIcon("src/main/java/Swing/hangmanUI/images/h"+numOfGuesses+".png"));
-            isGameOver = isWon(storedWord);
+            if (numOfGuesses <= 7 && !isGameOver) {
+                this.startScreenBg.setIcon(new ImageIcon("src/main/java/Swing/hangmanUI/images/h" + numOfGuesses + ".png"));
+                isGameOver = isWon(storedWord);
+            }
+            repaint();
         }
-        repaint();
+        if (e.getSource() == this.exitButton) {
+            System.exit(0);
+        }
 
     }
 
-}
+    private void resetGame(ActionEvent e) {
+
+        if (e.getSource() == this.newGameButton) {
+            int result = JOptionPane.showConfirmDialog(this, "Are you sure you want to go back?");
+            if (result == 0) {
+                this.numOfGuesses = 0;
+                this.startScreenBg.setIcon(new ImageIcon("src/main/java/Swing/hangmanUI/images/h" + numOfGuesses + ".png"));
+                this.listOfWrongChar = new ArrayList<>();
+                this.storedWord = generateWord();
+                this.hiddenWordArray = hideWord(storedWord);
+                this.newGameButton.swapCard("2");
+            }
+        }
+
+}}
 
 
 

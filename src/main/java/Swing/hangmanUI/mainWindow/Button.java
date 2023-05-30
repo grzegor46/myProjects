@@ -33,4 +33,19 @@ class PlayButton extends Button {
         this.cardLayout.show(this.container, cardNum);
     }
 }
+class NewGameButton extends Button {
+
+    private JPanel container;
+    private CardLayout cardLayout;
+
+    public NewGameButton(String text, JPanel container, CardLayout cardLayout) {
+        super(text);
+        this.container = container;
+        this.cardLayout = cardLayout;
+    }
+
+    public void swapCard(String cardNum) {
+        this.cardLayout.show(this.container, cardNum);
+    }
+}
 
