@@ -16,7 +16,7 @@ public class Hangman {
 
         String choice = scanner.nextLine();
 
-        while(true) {
+        while (true) {
             if (choice.equals("y")) {
 
                 ArrayList<String> storedGeneratedWord = generateWord();
@@ -25,7 +25,7 @@ public class Hangman {
                 System.out.println("hidden word is: " + hidedList);
                 Game(hidedList, wordAsArray);
 
-            }else if (choice.equals("n")){
+            } else if (choice.equals("n")) {
                 System.out.println("See you soon... I hope.. :) ");
                 break;
             }
@@ -46,24 +46,24 @@ public class Hangman {
             String typedCharacter = scanner.nextLine();
             int positionTypedChar = storedGeneratedWord.indexOf(typedCharacter);
 
-            if(positionTypedChar >= 0) {
+            if (positionTypedChar >= 0) {
                 String charList = storedGeneratedWord.get(positionTypedChar);
                 hidedStoredGeneratedWord.set(positionTypedChar, charList);
                 storedGeneratedWord.set(positionTypedChar, "$");
                 isWon = checkIfWon(storedGeneratedWord);
 
-                if(isWon) {
+                if (isWon) {
                     System.out.println("the hidden word: " + hidedStoredGeneratedWord);
                     System.out.println("congratulation " + playerName + ", you won!" + "\n");
                     break;
                 }
                 System.out.println(hidedStoredGeneratedWord);
 
-            } else{
+            } else {
                 countWrongChoices++;
                 System.out.println("amount of wrong char: " + countWrongChoices + " of 12");
                 drawHangman(countWrongChoices);
-                if(countWrongChoices == 12){
+                if (countWrongChoices == 12) {
                     System.out.println("sorry, you lose...");
                 }
             }
@@ -78,17 +78,17 @@ public class Hangman {
         System.out.println("Welcome " + playerName + " !");
     }
 
-    private ArrayList<String> generateWord(){
+    private ArrayList<String> generateWord() {
         // TODO  add function to seek word from file.txt
         String[] listOfWords = {"car", "school", "alcohol", "music", "cookies"};
-        int numberOfword = (int)(Math.random() * listOfWords.length);
+        int numberOfword = (int) (Math.random() * listOfWords.length);
         String choosedWord = listOfWords[numberOfword];
         String[] array = choosedWord.split("");
 
         return new ArrayList<>(Arrays.asList(array));
     }
 
-    private ArrayList<String> hideWord(ArrayList<String> generatedWord){
+    private ArrayList<String> hideWord(ArrayList<String> generatedWord) {
         generatedWord.replaceAll(e -> e.replaceAll("[a-z]", "_"));
         return generatedWord;
     }
@@ -106,8 +106,7 @@ public class Hangman {
 
     private void drawHangman(int countWrongChoices) {
 
-        switch (countWrongChoices)
-        {
+        switch (countWrongChoices) {
             case 0:
                 System.out.println("            ");
                 System.out.println("            ");

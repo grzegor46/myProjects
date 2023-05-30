@@ -82,7 +82,7 @@ public class Game extends JPanel implements ActionListener {
 
     public void paint(Graphics g) {
         super.paint(g);
-        g.drawString("Let's Play Hang Man!!!", 150, 25);
+        g.drawString("Let's Play the game", 150, 25);
 
         hiddenWordString = hiddenWordArray.toString(); // userChoice
         listOfWrongCharString = listOfWrongChar.toString();
@@ -90,16 +90,16 @@ public class Game extends JPanel implements ActionListener {
         g.drawString("Typed wrong char:", 500, 275);
         g.drawString(listOfWrongCharString, 500, 305 );
 
-        if(this.isGameOver && numOfGuesses ==7) {
+        if(this.numOfGuesses ==7) {
             g.setFont(new Font("Arial",1,50));
             g.setColor(Color.BLUE);
-            g.drawString("YOU LOSE!",200,200);
+            g.drawString("YOU LOSE!",250,200);
             keyboard.setVisible(false);
         }
         if(this.isGameOver) {
             g.setFont(new Font("Arial",1,50));
             g.setColor(Color.green);
-            g.drawString("YOU WIN!",200,200);
+            g.drawString("YOU WIN!",250,200);
             keyboard.setVisible(false);
         }
 
