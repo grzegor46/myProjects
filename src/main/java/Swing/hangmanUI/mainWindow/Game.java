@@ -4,8 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
 
 public class Game extends JPanel implements ActionListener {
@@ -15,15 +18,15 @@ public class Game extends JPanel implements ActionListener {
     private int numOfGuesses;
     private boolean isGameOver;
     private String hiddenWordString;
-    private String listOfWrongCharString;
     private ArrayList<String> hiddenWordArray;
     private ArrayList<String> storedWord;
+    private String choosedWord;
     private ArrayList<String> listOfWrongChar;
+    private ArrayList<String> listOfWords;
     private Button newGameButton;
     private Button exitButton;
-    JButton[] buttons;
-
-    JLabel startScreenBg;
+    private JButton[] buttons;
+    private JLabel startScreenBg;
 
     public Game(JPanel container, CardLayout cardLayout) {
 
@@ -46,6 +49,7 @@ public class Game extends JPanel implements ActionListener {
         exitButton.addActionListener(this);
         this.add(this.exitButton);
 
+        this.listOfWords = new ArrayList<>();
         this.numOfGuesses = 0;
         this.listOfWrongChar = new ArrayList<>();
         this.storedWord = generateWord();
@@ -67,29 +71,24 @@ public class Game extends JPanel implements ActionListener {
 
             this.keyboard.add(buttons[i]);
         }
-
     }
 
     public void disableKeyboard() {
-
-        for (int i=0; i<this.buttons.length; i++) {
+        for (int i = 0; i < this.buttons.length; i++) {
             this.buttons[i].setEnabled(false);
         }
     }
 
     public void enableKeyboard() {
-
-        for (int i=0; i<this.buttons.length; i++) {
+        for (int i = 0; i < this.buttons.length; i++) {
             this.buttons[i].setEnabled(true);
         }
     }
 
     private ArrayList<String> generateWord() {
-        // TODO  add function to seek word from file.txt
-//        String[] listOfWords = {"car", "school", "alcohol", "music", "cookies"};
-        String[] listOfWords = {"mom", "school"};
-        int numberOfword = (int) (Math.random() * listOfWords.length);
-        String choosedWord = listOfWords[numberOfword];
+        ReadFile();
+        int numberOfword = (int) (Math.random() * listOfWords.size());
+        this.choosedWord = listOfWords.get(numberOfword);
         String[] array = choosedWord.split("");
 
         return new ArrayList<>(Arrays.asList(array));
@@ -100,7 +99,6 @@ public class Game extends JPanel implements ActionListener {
         for (int i = 0; i < generatedWord.size(); i++) {
             hiddenWord.set(i, "_");
         }
-
         return hiddenWord;
     }
 
@@ -109,13 +107,13 @@ public class Game extends JPanel implements ActionListener {
         g.drawString("Let's Play the game", 150, 25);
 
         this.hiddenWordString = this.hiddenWordArray.toString(); // userChoice
-        this.listOfWrongCharString = this.listOfWrongChar.toString();
+
 
         g.setFont(new Font("Arial", 0, 25));
         g.drawString(this.hiddenWordString, 350, 400);
         g.setFont(new Font("Arial", 0, 15));
         g.drawString("Typed wrong char:", 500, 275);
-        g.drawString(this.listOfWrongCharString, 500, 305);
+        g.drawString(this.listOfWrongChar.toString(), 500, 305);
 
         if (this.numOfGuesses == 7) {
             g.setFont(new Font("Arial", 1, 50));
@@ -125,7 +123,7 @@ public class Game extends JPanel implements ActionListener {
             disableKeyboard();
             repaint();
             g.setFont(new Font("Arial", 0, 25));
-            g.drawString(this.storedWord.toString(), 350, 350);
+            g.drawString(this.choosedWord, 350, 350);
         }
         if (this.isGameOver) {
             g.setFont(new Font("Arial", 1, 50));
@@ -178,7 +176,7 @@ public class Game extends JPanel implements ActionListener {
             repaint();
         } else {
             System.out.println(e.getActionCommand()); // it gets string from button
-            System.out.println(this.storedWord);
+            System.out.println(this.storedWord); //--> shows in command line generated word
             String command = e.getActionCommand();
 
             ArrayList<String> temp = userChoice(command, this.storedWord, this.hiddenWordArray);
@@ -186,7 +184,7 @@ public class Game extends JPanel implements ActionListener {
 
             if (this.numOfGuesses <= 7 && !this.isGameOver) {
                 this.startScreenBg.setIcon(new ImageIcon("src/main/java/Swing/hangmanUI/images/h" + this.numOfGuesses + ".png"));
-                this.isGameOver = isWon(this.storedWord);
+                this.isGameOver = isWon(storedWord);
             }
             repaint();
         }
@@ -216,6 +214,23 @@ public class Game extends JPanel implements ActionListener {
             }
         }
 
+    }
+
+    private void ReadFile() {
+
+        try {
+            File myObj = new File("src/main/java/Swing/hangmanUI/wordList.txt");
+            Scanner myReader = new Scanner(myObj);
+            while (myReader.hasNextLine()) {
+
+                String data = myReader.nextLine();
+                this.listOfWords.add(data);
+            }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File doesnt exist.");
+
+        }
     }
 
 }

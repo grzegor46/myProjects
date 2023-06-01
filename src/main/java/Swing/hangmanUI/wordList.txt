@@ -1,0 +1,8 @@
+mother
+father
+car
+shop
+computer
+git
+java
+python
