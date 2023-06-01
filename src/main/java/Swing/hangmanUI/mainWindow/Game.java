@@ -21,6 +21,8 @@ public class Game extends JPanel implements ActionListener {
     private ArrayList<String> listOfWrongChar;
     private Button newGameButton;
     private Button exitButton;
+    JButton[] buttons;
+
     JLabel startScreenBg;
 
     public Game(JPanel container, CardLayout cardLayout) {
@@ -28,32 +30,31 @@ public class Game extends JPanel implements ActionListener {
         this.startScreenBg = new JLabel(backgroundImg1);
         this.add(startScreenBg);
 
-
-        keyboard = new JPanel();
-        keyboard.setLayout(new GridLayout(4, 0));
-        keyboard.setBackground(Color.GRAY);
-        createButtons(keyboard);
-        this.add(keyboard, BorderLayout.SOUTH);
+        this.keyboard = new JPanel();
+        this.keyboard.setLayout(new GridLayout(4, 0));
+        this.keyboard.setBackground(Color.GRAY);
+        createButtons();
+        this.add(this.keyboard, BorderLayout.SOUTH);
 
         this.newGameButton = new NewGameButton("New Game", container, cardLayout);
         this.newGameButton.setBounds(400, 50, 100, 50);
         newGameButton.addActionListener(this);
-        this.add(newGameButton);
+        this.add(this.newGameButton);
 
         this.exitButton = new Button("Exit");
-        this.exitButton.setBounds(500,150,30,20);
+        this.exitButton.setBounds(500, 150, 30, 20);
         exitButton.addActionListener(this);
-        this.add(exitButton);
+        this.add(this.exitButton);
 
-        numOfGuesses = 0;
+        this.numOfGuesses = 0;
         this.listOfWrongChar = new ArrayList<>();
         this.storedWord = generateWord();
         this.hiddenWordArray = hideWord(storedWord);
     }
 
-    public void createButtons(JPanel keyboard) {
+    public void createButtons() {
 
-        JButton[] buttons = new JButton[26];
+        this.buttons = new JButton[26];
         String[] letters = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
                 "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V",
                 "W", "X", "Y", "Z"};
@@ -64,9 +65,23 @@ public class Game extends JPanel implements ActionListener {
             buttons[i].setActionCommand(letters[i]);
             buttons[i].addActionListener(this);
 
-            keyboard.add(buttons[i]);
+            this.keyboard.add(buttons[i]);
         }
 
+    }
+
+    public void disableKeyboard() {
+
+        for (int i=0; i<this.buttons.length; i++) {
+            this.buttons[i].setEnabled(false);
+        }
+    }
+
+    public void enableKeyboard() {
+
+        for (int i=0; i<this.buttons.length; i++) {
+            this.buttons[i].setEnabled(true);
+        }
     }
 
     private ArrayList<String> generateWord() {
@@ -93,25 +108,31 @@ public class Game extends JPanel implements ActionListener {
         super.paint(g);
         g.drawString("Let's Play the game", 150, 25);
 
-        hiddenWordString = hiddenWordArray.toString(); // userChoice
-        listOfWrongCharString = listOfWrongChar.toString();
-        g.setFont(new Font("Arial",0,25));
-        g.drawString(hiddenWordString, 350, 400);
-        g.setFont(new Font("Arial",0,15));
-        g.drawString("Typed wrong char:", 500, 275);
-        g.drawString(listOfWrongCharString, 500, 305 );
+        this.hiddenWordString = this.hiddenWordArray.toString(); // userChoice
+        this.listOfWrongCharString = this.listOfWrongChar.toString();
 
-        if(this.numOfGuesses ==7) {
-            g.setFont(new Font("Arial",1,50));
+        g.setFont(new Font("Arial", 0, 25));
+        g.drawString(this.hiddenWordString, 350, 400);
+        g.setFont(new Font("Arial", 0, 15));
+        g.drawString("Typed wrong char:", 500, 275);
+        g.drawString(this.listOfWrongCharString, 500, 305);
+
+        if (this.numOfGuesses == 7) {
+            g.setFont(new Font("Arial", 1, 50));
             g.setColor(Color.BLUE);
-            g.drawString("YOU LOSE!",250,200);
-            keyboard.setVisible(false);
+            g.drawString("YOU LOSE!", 250, 200);
+            this.keyboard.setVisible(true);
+            disableKeyboard();
+            repaint();
+            g.setFont(new Font("Arial", 0, 25));
+            g.drawString(this.storedWord.toString(), 350, 350);
         }
-        if(this.isGameOver) {
-            g.setFont(new Font("Arial",1,50));
+        if (this.isGameOver) {
+            g.setFont(new Font("Arial", 1, 50));
             g.setColor(Color.green);
-            g.drawString("YOU WIN!",250,200);
-            keyboard.setVisible(false);
+            g.drawString("YOU WIN!", 250, 200);
+            this.keyboard.setVisible(true);
+            disableKeyboard();
         }
 
 
@@ -128,14 +149,12 @@ public class Game extends JPanel implements ActionListener {
             return hiddenWordArray;
 
         } else {
-            numOfGuesses++;
-            listOfWrongChar.add(command);
+            this.numOfGuesses++;
+            this.listOfWrongChar.add(command);
 
-            if (numOfGuesses == 8) {
-                isGameOver = true;
+            if (this.numOfGuesses == 8) {
+                this.isGameOver = true;
             }
-
-            // shows wrong selected letter
         }
         return hiddenWordArray;
     }
@@ -157,17 +176,17 @@ public class Game extends JPanel implements ActionListener {
         if (e.getSource() == this.newGameButton) {
             this.resetGame(e);
             repaint();
-        }else {
+        } else {
             System.out.println(e.getActionCommand()); // it gets string from button
             System.out.println(this.storedWord);
             String command = e.getActionCommand();
 
             ArrayList<String> temp = userChoice(command, this.storedWord, this.hiddenWordArray);
-            hiddenWordString = temp.toString();
+            this.hiddenWordString = temp.toString();
 
-            if (numOfGuesses <= 7 && !isGameOver) {
-                this.startScreenBg.setIcon(new ImageIcon("src/main/java/Swing/hangmanUI/images/h" + numOfGuesses + ".png"));
-                isGameOver = isWon(storedWord);
+            if (this.numOfGuesses <= 7 && !this.isGameOver) {
+                this.startScreenBg.setIcon(new ImageIcon("src/main/java/Swing/hangmanUI/images/h" + this.numOfGuesses + ".png"));
+                this.isGameOver = isWon(this.storedWord);
             }
             repaint();
         }
@@ -182,16 +201,24 @@ public class Game extends JPanel implements ActionListener {
         if (e.getSource() == this.newGameButton) {
             int result = JOptionPane.showConfirmDialog(this, "Are you sure you want to go back?");
             if (result == 0) {
+
                 this.numOfGuesses = 0;
-                this.startScreenBg.setIcon(new ImageIcon("src/main/java/Swing/hangmanUI/images/h" + numOfGuesses + ".png"));
+                this.startScreenBg.setIcon(new ImageIcon("src/main/java/Swing/hangmanUI/images/h" + this.numOfGuesses + ".png"));
                 this.listOfWrongChar = new ArrayList<>();
                 this.storedWord = generateWord();
-                this.hiddenWordArray = hideWord(storedWord);
+                this.hiddenWordArray = hideWord(this.storedWord);
+                this.isGameOver = false;
                 this.newGameButton.swapCard("2");
+                this.keyboard.setVisible(true);
+                enableKeyboard();
+                repaint();
+
             }
         }
 
-}}
+    }
+
+}
 
 
 
