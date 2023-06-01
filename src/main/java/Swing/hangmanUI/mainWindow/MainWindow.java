@@ -27,10 +27,8 @@ public class MainWindow {
 
         StartScreenPanel startScreenPanel = new StartScreenPanel(WIDTH, HEIGHT, backgroundImg, container, cardLayout);
         Game game = new Game(container, cardLayout);
-        TestClass testClass = new TestClass(container, cardLayout);
         container.add(startScreenPanel, "1");
         container.add(game, "2");
-        container.add(testClass, "3");
         screen.add(container);
 
 
